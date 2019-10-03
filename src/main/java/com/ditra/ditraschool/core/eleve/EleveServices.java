@@ -44,7 +44,8 @@ public class EleveServices {
 
     eleve = eleveRepository.save(eleve);
 
-    return new ResponseEntity<>(eleve , HttpStatus.OK );
+    EleveList eleveList = new EleveList(eleve);
+    return new ResponseEntity<>(eleveList ,HttpStatus.OK);
   }
 
   public ResponseEntity<?> update(Long id, Eleve eleve) {
