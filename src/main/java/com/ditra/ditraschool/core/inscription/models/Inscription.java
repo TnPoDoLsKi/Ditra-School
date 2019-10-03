@@ -23,13 +23,12 @@ public class Inscription {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  private Date date;
 
-  private boolean deleted;
+  private boolean deleted = false;
 
   private String reglement;
 
- @ManyToOne
+  @ManyToOne
   private Classe classe;
 
   @ManyToOne

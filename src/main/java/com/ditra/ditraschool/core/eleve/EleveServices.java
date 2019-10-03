@@ -35,11 +35,11 @@ public class EleveServices {
     if(!eleveOptional.isPresent())
       return Utils.badRequestResponse(600, "");
 
-    return new ResponseEntity<>(HttpStatus.OK);
+    EleveList eleveList = new EleveList(eleveOptional.get());
+    return new ResponseEntity<>(eleveList ,HttpStatus.OK);
   }
 
   public ResponseEntity<?> create (Eleve eleve) {
-
 
 
     eleve = eleveRepository.save(eleve);
@@ -73,5 +73,15 @@ public class EleveServices {
     eleveRepository.delete(eleveOptional.get());
 
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  public ResponseEntity<?> getAllNotInscripted() {
+    ArrayList<Eleve> eleveArrayList = (ArrayList<Eleve>) eleveRepository.findAllByInscriptionsEmpty();
+    ArrayList<EleveList> eleves = new ArrayList<>();
+
+    for (Eleve eleve : eleveArrayList)
+      eleves.add(new EleveList(eleve));
+
+    return new ResponseEntity<>(eleves, HttpStatus.OK);
   }
 }

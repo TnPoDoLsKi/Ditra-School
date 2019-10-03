@@ -15,6 +15,9 @@ public class EleveController {
   @GetMapping("/eleves")
   public ResponseEntity<?> getAll() { return eleveServices.getAll();  }
 
+  @GetMapping("/eleves/notInscripted")
+  public ResponseEntity<?> getAllNotInscripted() { return eleveServices.getAllNotInscripted();  }
+
   @GetMapping("/eleve/{id}")
   public ResponseEntity<?> getOne(@PathVariable Long id) { return eleveServices.getOne(id); }
 
