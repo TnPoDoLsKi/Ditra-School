@@ -1,7 +1,5 @@
 package com.ditra.ditraschool.core.inscription;
 
-import com.ditra.ditraschool.core.eleve.EleveServices;
-import com.ditra.ditraschool.core.eleve.Models.Eleve;
 import com.ditra.ditraschool.core.inscription.models.InscriptionSave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

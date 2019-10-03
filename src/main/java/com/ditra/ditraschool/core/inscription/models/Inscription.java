@@ -2,7 +2,7 @@ package com.ditra.ditraschool.core.inscription.models;
 
 
 import com.ditra.ditraschool.core.classe.models.Classe;
-import com.ditra.ditraschool.core.eleve.Models.Eleve;
+import com.ditra.ditraschool.core.eleve.models.Eleve;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +10,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Setter
 @Getter
