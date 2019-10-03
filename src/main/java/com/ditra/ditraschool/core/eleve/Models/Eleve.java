@@ -9,6 +9,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Getter
@@ -50,5 +51,5 @@ public class Eleve {
   private String lienDeRelation;
 
   @OneToMany (mappedBy = "eleve" , cascade = CascadeType.ALL)
-  private ArrayList<Inscription> inscriptions = new ArrayList<>();
+  private Collection<Inscription> inscriptions = new ArrayList<>();
 }

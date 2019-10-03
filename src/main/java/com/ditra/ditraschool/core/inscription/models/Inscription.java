@@ -6,6 +6,8 @@ import com.ditra.ditraschool.core.eleve.Models.Eleve;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,6 +16,8 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @Entity
+@Where(clause = "deleted = false")
+@SQLDelete(sql=" UPDATE inscription SET deleted = true WHERE id = ?")
 public class Inscription {
 
   @Id
@@ -21,9 +25,11 @@ public class Inscription {
   private long id;
   private Date date;
 
+  private boolean deleted;
+
   private String reglement;
 
-  @ManyToOne
+ @ManyToOne
   private Classe classe;
 
   @ManyToOne
