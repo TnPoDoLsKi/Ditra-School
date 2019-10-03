@@ -1,15 +1,13 @@
 package com.ditra.ditraschool.core.paiement.models;
 
+import com.ditra.ditraschool.core.inscription.models.Inscription;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Getter
@@ -29,4 +27,7 @@ public class Paiement {
   private Date date;
   private Double montant;
   private Date echeance;
+
+  @ManyToOne
+  private Inscription inscription;
 }

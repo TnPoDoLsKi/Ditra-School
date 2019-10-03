@@ -1,15 +1,16 @@
 package com.ditra.ditraschool.core.facture.models;
 
+import com.ditra.ditraschool.core.article.models.Article;
+import com.ditra.ditraschool.core.inscription.models.Inscription;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Getter
@@ -27,6 +28,15 @@ public class Facture {
   private String code;
   private Date date;
   private Double tva;
-  private Boolean avecTimbre;
+  private Double timbreFiscale;
   private Double totalTTC;
+
+  @ManyToOne
+  private Inscription inscription;
+
+  @ManyToMany
+  @JoinTable(name = "facture_article",
+      joinColumns = { @JoinColumn(name = "factureId") },
+      inverseJoinColumns = { @JoinColumn(name = "articleId") })
+  private Collection<Article> articles = new ArrayList<>();
 }
