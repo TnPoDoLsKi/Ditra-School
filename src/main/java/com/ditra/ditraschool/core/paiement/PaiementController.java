@@ -1,9 +1,9 @@
-package com.ditra.ditraschool.core.facture;
+package com.ditra.ditraschool.core.paiement;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1")
-public class FactureController {
+public class PaiementController {
 }

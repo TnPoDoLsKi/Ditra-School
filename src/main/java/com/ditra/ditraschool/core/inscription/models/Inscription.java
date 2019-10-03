@@ -2,7 +2,9 @@ package com.ditra.ditraschool.core.inscription.models;
 
 
 import com.ditra.ditraschool.core.classe.models.Classe;
-import com.ditra.ditraschool.core.eleve.Models.Eleve;
+import com.ditra.ditraschool.core.eleve.models.Eleve;
+import com.ditra.ditraschool.core.facture.models.Facture;
+import com.ditra.ditraschool.core.paiement.models.Paiement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +12,8 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Setter
 @Getter
@@ -34,6 +37,9 @@ public class Inscription {
   @ManyToOne
   private Eleve eleve;
 
+  @OneToMany (mappedBy = "inscription" , cascade = CascadeType.ALL)
+  private Collection<Facture> factures = new ArrayList<>();
 
-
+  @OneToMany (mappedBy = "inscription" , cascade = CascadeType.ALL)
+  private Collection<Paiement> paiements = new ArrayList<>();
 }

@@ -1,4 +1,4 @@
-package com.ditra.ditraschool.core.eleve.Models;
+package com.ditra.ditraschool.core.eleve.models;
 
 import com.ditra.ditraschool.core.inscription.models.Inscription;
 import lombok.Getter;

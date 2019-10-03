@@ -1,8 +1,7 @@
 package com.ditra.ditraschool.core.eleve;
 
-import com.ditra.ditraschool.core.eleve.Models.Eleve;
-import com.ditra.ditraschool.core.eleve.Models.EleveList;
-import com.ditra.ditraschool.utils.ErrorResponseModel;
+import com.ditra.ditraschool.core.eleve.models.Eleve;
+import com.ditra.ditraschool.core.eleve.models.EleveList;
 import com.ditra.ditraschool.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

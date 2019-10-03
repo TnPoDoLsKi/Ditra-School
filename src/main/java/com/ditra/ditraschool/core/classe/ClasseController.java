@@ -1,7 +1,6 @@
 package com.ditra.ditraschool.core.classe;
 
 import com.ditra.ditraschool.core.classe.models.Classe;
-import com.ditra.ditraschool.core.eleve.Models.Eleve;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

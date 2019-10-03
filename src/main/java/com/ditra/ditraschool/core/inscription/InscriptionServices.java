@@ -1,12 +1,9 @@
 package com.ditra.ditraschool.core.inscription;
 
 import com.ditra.ditraschool.core.classe.ClasseRepository;
-import com.ditra.ditraschool.core.classe.ClasseServcies;
 import com.ditra.ditraschool.core.classe.models.Classe;
 import com.ditra.ditraschool.core.eleve.EleveRepository;
-import com.ditra.ditraschool.core.eleve.EleveServices;
-import com.ditra.ditraschool.core.eleve.Models.Eleve;
-import com.ditra.ditraschool.core.eleve.Models.EleveList;
+import com.ditra.ditraschool.core.eleve.models.Eleve;
 import com.ditra.ditraschool.core.inscription.models.Inscription;
 import com.ditra.ditraschool.core.inscription.models.InscriptionList;
 import com.ditra.ditraschool.core.inscription.models.InscriptionSave;
