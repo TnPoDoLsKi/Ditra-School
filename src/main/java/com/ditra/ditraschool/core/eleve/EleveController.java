@@ -22,7 +22,7 @@ public class EleveController {
   public ResponseEntity<?> create(@RequestBody Eleve eleve) { return eleveServices.create(eleve); }
 
   @PutMapping("/eleve/{id}")
-  public ResponseEntity<?> update(@PathVariable Long id) { return eleveServices.update(id); }
+  public ResponseEntity<?> update(@PathVariable Long id , @RequestBody Eleve eleve) { return eleveServices.update(id , eleve); }
 
   @DeleteMapping("/eleve/{id}")
   public ResponseEntity<?> delete(@PathVariable Long id) { return eleveServices.delete(id); }

@@ -1,18 +1,20 @@
 package com.ditra.ditraschool.core.eleve.Models;
 
+import com.ditra.ditraschool.core.inscription.models.Inscription;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Where(clause = "deleted = false")
 @SQLDelete(sql=" UPDATE eleve SET deleted = true WHERE id = ?")
@@ -47,4 +49,7 @@ public class Eleve {
   private String telephoneAutre;
 
   private String lienDeRelation;
+
+  @OneToMany (mappedBy = "eleve" , cascade = CascadeType.ALL)
+  private Collection<Inscription> inscriptions = new ArrayList<>();
 }

@@ -41,15 +41,36 @@ public class EleveServices {
   public ResponseEntity<?> create (Eleve eleve) {
 
 
-    return new ResponseEntity<>(HttpStatus.OK);
+
+    eleve = eleveRepository.save(eleve);
+
+    return new ResponseEntity<>(eleve , HttpStatus.OK );
   }
 
-  public ResponseEntity<?> update (Long id) {
+  public ResponseEntity<?> update(Long id, Eleve eleve) {
+
+    Optional<Eleve> eleveOptional = eleveRepository.findById(id);
+
+    if(!eleveOptional.isPresent())
+      return Utils.badRequestResponse(600, "");
+
+
+    eleve = Utils.merge(eleveOptional.get(),eleve);
+
+    eleveRepository.save(eleve);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
   public ResponseEntity<?> delete (Long id) {
+
+    Optional<Eleve> eleveOptional = eleveRepository.findById(id);
+
+    if(!eleveOptional.isPresent())
+      return Utils.badRequestResponse(600, "");
+
+
+    eleveRepository.delete(eleveOptional.get());
 
     return new ResponseEntity<>(HttpStatus.OK);
   }
