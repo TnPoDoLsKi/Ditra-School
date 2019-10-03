@@ -10,6 +10,6 @@ import lombok.Setter;
 public class InscriptionSave {
 
   private String reglement;
-  private long classeId;
-  private long eleveId;
+  private Long classeId;
+  private Long eleveId;
 }

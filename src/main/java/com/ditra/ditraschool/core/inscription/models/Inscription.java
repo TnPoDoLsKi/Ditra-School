@@ -5,6 +5,7 @@ import com.ditra.ditraschool.core.classe.models.Classe;
 import com.ditra.ditraschool.core.eleve.models.Eleve;
 import com.ditra.ditraschool.core.facture.models.Facture;
 import com.ditra.ditraschool.core.paiement.models.Paiement;
+import com.ditra.ditraschool.utils.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,13 +22,13 @@ import java.util.Collection;
 @Entity
 @Where(clause = "deleted = false")
 @SQLDelete(sql=" UPDATE inscription SET deleted = true WHERE id = ?")
-public class Inscription {
+public class Inscription extends Auditable<String>  {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
-  private boolean deleted = false;
+  private Boolean deleted = false;
 
   private String reglement;
 

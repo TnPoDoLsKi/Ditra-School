@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class InscriptionList {
 
-  long id;
+  Long id;
   String matriculeEleve;
   String nomEleve;
   String anneeScolaire;

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/v1")
 public class ClasseController {
 
   @Autowired
@@ -15,7 +16,7 @@ public class ClasseController {
   @GetMapping("/classes")
   public ResponseEntity<?> getAll() { return classeServcies.getAll();  }
 
-  @GetMapping("/classes/{id}")
+  @GetMapping("/classe/{id}")
   public ResponseEntity<?> getOne(@PathVariable Long id) { return classeServcies.getOne(id); }
 
   @PostMapping("/classe")

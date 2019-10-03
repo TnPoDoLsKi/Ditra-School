@@ -1,6 +1,7 @@
 package com.ditra.ditraschool.core.article.models;
 
 import com.ditra.ditraschool.core.facture.models.Facture;
+import com.ditra.ditraschool.utils.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import java.util.Collection;
 @Entity
 @Where(clause = "deleted = false")
 @SQLDelete(sql=" UPDATE article SET deleted = true WHERE id = ?")
-public class Article {
+public class Article extends Auditable<String> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

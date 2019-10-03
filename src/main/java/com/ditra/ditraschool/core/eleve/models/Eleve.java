@@ -1,6 +1,7 @@
 package com.ditra.ditraschool.core.eleve.models;
 
 import com.ditra.ditraschool.core.inscription.models.Inscription;
+import com.ditra.ditraschool.utils.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +19,7 @@ import java.util.Date;
 @Entity
 @Where(clause = "deleted = false")
 @SQLDelete(sql=" UPDATE eleve SET deleted = true WHERE id = ?")
-public class Eleve {
+public class Eleve extends Auditable<String>  {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

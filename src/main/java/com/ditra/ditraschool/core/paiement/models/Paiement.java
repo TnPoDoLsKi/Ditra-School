@@ -1,6 +1,7 @@
 package com.ditra.ditraschool.core.paiement.models;
 
 import com.ditra.ditraschool.core.inscription.models.Inscription;
+import com.ditra.ditraschool.utils.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,16 +17,18 @@ import java.util.Date;
 @Entity
 @Where(clause = "deleted = false")
 @SQLDelete(sql=" UPDATE paiement SET deleted = true WHERE id = ?")
-public class Paiement {
+public class Paiement extends Auditable<String>  {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private Long code;
+
   private String mode;
-  private Date date;
+
   private Double montant;
+
   private Date echeance;
 
   @ManyToOne
