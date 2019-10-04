@@ -3,6 +3,7 @@ package com.ditra.ditraschool.core.facture.models;
 import com.ditra.ditraschool.core.article.models.Article;
 import com.ditra.ditraschool.core.inscription.models.Inscription;
 import com.ditra.ditraschool.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,6 +39,7 @@ public class Facture extends Auditable<String>  {
   private boolean deleted = false;
 
   @ManyToOne
+  @JsonIgnore
   private Inscription inscription;
 
   @ManyToMany

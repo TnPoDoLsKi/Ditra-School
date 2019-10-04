@@ -67,7 +67,7 @@ public class InscriptionServices {
 
     inscription.setClasse(classe.get());
     inscription.setEleve(eleveOptional.get());
-    inscription.setReglement(inscriptionSave.getReglement());
+    inscription.setReglement("NR");
 
     inscription = inscriptionRepository.save(inscription);
 

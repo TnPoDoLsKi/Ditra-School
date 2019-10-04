@@ -103,6 +103,7 @@ public class FactureServices {
       facture.addArticle(article.get());
     }
 
+
     facture.setCode(factureUpdate.getCode());
     facture.setTimbreFiscale(factureUpdate.getTimbreFiscale());
     facture.setTotalTTC(factureUpdate.getTotalTTC());
