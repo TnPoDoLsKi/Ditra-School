@@ -42,12 +42,12 @@ public class Eleve extends Auditable<String>  {
 
   private String nomMere;
   private String numCinMere;
-  private String delivreCinMere;
+  private Date delivreCinMere;
   private String telephoneMere;
 
   private String nomAutre;
   private String numCinAutre;
-  private String delivreCinAutre;
+  private Date delivreCinAutre;
   private String telephoneAutre;
 
   private String lienDeRelation;
