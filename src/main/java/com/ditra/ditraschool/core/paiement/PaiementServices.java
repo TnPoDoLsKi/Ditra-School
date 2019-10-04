@@ -87,9 +87,12 @@ public class PaiementServices {
       return Utils.badRequestResponse(602, "");
 
 
-    paiement.setInscription(inscription.get());
-
+    inscription.get().setMontantRestant(inscription.get().getMontantTotal() - paiementModel.getMontant());
     paiement = Utils.merge(paiementLocal.get() , paiement);
+
+    inscriptionRepository.save(inscription.get());
+    
+    paiementRepository.save(paiement);
 
     return new ResponseEntity<>(paiement , HttpStatus.OK);
 

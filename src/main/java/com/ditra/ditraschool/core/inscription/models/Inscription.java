@@ -30,7 +30,7 @@ public class Inscription extends Auditable<String>  {
   private Long id;
 
   private String matricule ;
-  
+
   private Boolean deleted = false;
 
   private String reglement;
