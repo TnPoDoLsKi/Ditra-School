@@ -1,21 +1,30 @@
 package com.ditra.ditraschool.seeds;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.ditra.ditraschool.core.article.ArticleRepository;
+import com.ditra.ditraschool.core.article.models.Article;
 import com.ditra.ditraschool.core.classe.ClasseRepository;
 import com.ditra.ditraschool.core.classe.models.Classe;
 import com.ditra.ditraschool.core.eleve.EleveRepository;
 import com.ditra.ditraschool.core.eleve.models.Eleve;
+import com.ditra.ditraschool.core.facture.FactureRepository;
+import com.ditra.ditraschool.core.facture.models.Facture;
+import com.ditra.ditraschool.core.global.GlobalRepository;
 import com.ditra.ditraschool.core.inscription.InscriptionRepository;
 import com.ditra.ditraschool.core.inscription.models.Inscription;
+import com.ditra.ditraschool.core.paiement.PaiementRepository;
+import com.ditra.ditraschool.core.paiement.models.Paiement;
 import com.ditra.ditraschool.core.user.User;
 import com.ditra.ditraschool.core.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Component
 public class Seeder {
@@ -28,6 +37,14 @@ public class Seeder {
     ClasseRepository classeRepository;
     @Autowired
     InscriptionRepository inscriptionRepository;
+    @Autowired
+    ArticleRepository articleRepository;
+    @Autowired
+    FactureRepository factureRepository;
+    @Autowired
+    PaiementRepository paiementRepository;
+    @Autowired
+    GlobalRepository globalRepository;
 
 
 
@@ -37,6 +54,9 @@ public class Seeder {
         ArrayList<Classe> classes = classeSeed();
         ArrayList<Eleve> eleves = eleveSeed();
         ArrayList<Inscription> inscriptions= inscriptionSeed(classes,eleves);
+       ArrayList<Article> articles = articleSeed();
+        ArrayList<Facture> factures= factureSeed(articles,inscriptions);
+        ArrayList<Paiement> paiements = paiementSeed(inscriptions);
     }
 
     public ArrayList<User> seedUser(){
@@ -269,6 +289,143 @@ public class Seeder {
         return inscriptions;
 
     }
+
+    public ArrayList<Article> articleSeed(){
+
+        ArrayList<Article> articles =new ArrayList<>();
+
+        Article article = new Article();
+        article.setDesignation("transport");
+        article.setMontantHT(Double.valueOf(200));
+
+        articles.add(articleRepository.save(article));
+
+        article = new Article();
+        article.setDesignation("accomodation");
+        article.setMontantHT(Double.valueOf(500));
+
+        articles.add(articleRepository.save(article));
+
+        article = new Article();
+        article.setDesignation("diner");
+        article.setMontantHT(Double.valueOf(100));
+
+        articles.add(articleRepository.save(article));
+
+        article = new Article();
+        article.setDesignation("dejeuner");
+        article.setMontantHT(Double.valueOf(100));
+
+        articles.add(articleRepository.save(article));
+
+        return articles;
+    }
+
+    public ArrayList<Facture> factureSeed(ArrayList<Article> articles, ArrayList<Inscription> inscriptions ){
+
+        ArrayList<Facture> factures = new ArrayList<>();
+
+        Facture facture = new Facture();
+        facture.setTva(Double.valueOf(19));
+        facture.setCode("1");
+        facture.setTimbreFiscale(Double.valueOf(6));
+        facture.setTotalTTC(articles.get(0).getMontantHT()+inscriptions.get(0).getClasse().getFrais());
+        facture.setInscription(inscriptions.get(0));
+        facture.addArticle(articles.get(0));
+
+        factures.add(factureRepository.save(facture));
+
+        facture = new Facture();
+        facture.setTva(Double.valueOf(19));
+        facture.setCode("1");
+        facture.setTimbreFiscale(Double.valueOf(6));
+        facture.setTotalTTC(articles.get(1).getMontantHT()+inscriptions.get(1).getClasse().getFrais());
+        facture.setInscription(inscriptions.get(1));
+        facture.addArticle(articles.get(1));
+
+        factures.add(factureRepository.save(facture));
+
+        facture = new Facture();
+        facture.setTva(Double.valueOf(19));
+        facture.setCode("1");
+        facture.setTimbreFiscale(Double.valueOf(6));
+        facture.setTotalTTC(articles.get(2).getMontantHT()+inscriptions.get(2).getClasse().getFrais());
+        facture.setInscription(inscriptions.get(2));
+        facture.addArticle(articles.get(2));
+
+        factures.add(factureRepository.save(facture));
+
+
+        facture = new Facture();
+        facture.setTva(Double.valueOf(19));
+        facture.setCode("1");
+        facture.setTimbreFiscale(Double.valueOf(6));
+        facture.setTotalTTC(articles.get(3).getMontantHT()+inscriptions.get(3).getClasse().getFrais());
+        facture.setInscription(inscriptions.get(3));
+        facture.addArticle(articles.get(3));
+
+        factures.add(factureRepository.save(facture));
+
+
+
+        facture = new Facture();
+        facture.setTva(Double.valueOf(19));
+        facture.setCode("1");
+        facture.setTimbreFiscale(Double.valueOf(6));
+        facture.setTotalTTC(articles.get(2).getMontantHT()+inscriptions.get(4).getClasse().getFrais());
+        facture.setInscription(inscriptions.get(4));
+        facture.addArticle(articles.get(2));
+
+        factures.add(factureRepository.save(facture));
+
+
+
+
+      return factures;
+    }
+
+    ArrayList<Paiement> paiementSeed(ArrayList<Inscription> inscriptions){
+
+        ArrayList<Paiement> paiements = new ArrayList<>();
+
+        Paiement paiement = new Paiement();
+        paiement.setInscription(inscriptions.get(0));
+        paiement.setMode("cheque");
+        paiement.setEcheance(new Date());
+        paiement.setCode(Long.valueOf(1));
+
+        paiements.add(paiementRepository.save(paiement));
+
+        paiement = new Paiement();
+        paiement.setInscription(inscriptions.get(1));
+        paiement.setMode("especes");
+        paiement.setEcheance(new Date());
+        paiement.setCode(Long.valueOf(2));
+
+        paiements.add(paiementRepository.save(paiement));
+
+
+        paiement = new Paiement();
+        paiement.setInscription(inscriptions.get(2));
+        paiement.setMode("cheque");
+        paiement.setEcheance(new Date());
+        paiement.setCode(Long.valueOf(3));
+
+        paiements.add(paiementRepository.save(paiement));
+
+
+        paiement = new Paiement();
+        paiement.setInscription(inscriptions.get(3));
+        paiement.setMode("especes");
+        paiement.setEcheance(new Date());
+        paiement.setCode(Long.valueOf(4));
+
+        paiements.add(paiementRepository.save(paiement));
+
+        return paiements;
+    }
+
+
 
 
 }
