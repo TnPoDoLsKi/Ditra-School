@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @RestController
+@RequestMapping("/api/v1")
 public class UserController {
 
     @Autowired
@@ -31,7 +32,7 @@ public class UserController {
         return userService.verifyAccess();
     }
 
-    @PostMapping("/api/v1/logout")
+    @PostMapping("/logout")
     public ResponseEntity<?> logout(Principal principal){
         return userService.logout(principal);
     }
