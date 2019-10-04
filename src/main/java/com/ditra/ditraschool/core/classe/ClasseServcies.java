@@ -52,7 +52,8 @@ public class ClasseServcies {
 
     classe = Utils.merge(classeLocal.get(),classe);
 
-    return new ResponseEntity<>(HttpStatus.OK);
+    classe = classeRepository.save(classe);
+    return new ResponseEntity<>(classe ,HttpStatus.OK);
   }
 
   public ResponseEntity<?> delete(Long id) {
