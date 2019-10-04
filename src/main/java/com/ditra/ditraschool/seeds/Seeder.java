@@ -101,6 +101,7 @@ public class Seeder {
         eleve.setNom("ousema");
         eleve.setMatricule("a1");
         eleve.setAdresse("sfax");
+        eleve.setTuteur("pere");
 
         eleves.add(eleveRepository.save(eleve));
 
@@ -108,6 +109,7 @@ public class Seeder {
         eleve.setNom("bassem");
         eleve.setMatricule("a2");
         eleve.setAdresse("werdenin");
+        eleve.setTuteur("pere");
 
         eleves.add(eleveRepository.save(eleve));
 
@@ -115,6 +117,7 @@ public class Seeder {
         eleve.setNom("sofien");
         eleve.setMatricule("a3");
         eleve.setAdresse("medenin");
+        eleve.setTuteur("pere");
 
         eleves.add(eleveRepository.save(eleve));
 
@@ -122,6 +125,7 @@ public class Seeder {
         eleve.setNom("wael");
         eleve.setMatricule("a4");
         eleve.setAdresse("maloul");
+        eleve.setTuteur("pere");
 
         eleves.add(eleveRepository.save(eleve));
 
@@ -129,6 +133,7 @@ public class Seeder {
         eleve.setNom("aziz");
         eleve.setMatricule("a5");
         eleve.setAdresse("manzel bourgiba");
+        eleve.setTuteur("pere");
 
         eleves.add(eleveRepository.save(eleve));
 
