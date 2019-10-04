@@ -54,7 +54,7 @@ public class Seeder {
         ArrayList<Classe> classes = classeSeed();
         ArrayList<Eleve> eleves = eleveSeed();
         ArrayList<Inscription> inscriptions= inscriptionSeed(classes,eleves);
-       ArrayList<Article> articles = articleSeed();
+        ArrayList<Article> articles = articleSeed();
         ArrayList<Facture> factures= factureSeed(articles,inscriptions);
         ArrayList<Paiement> paiements = paiementSeed(inscriptions);
     }

@@ -2,6 +2,7 @@ package com.ditra.ditraschool.core.classe.models;
 
 import com.ditra.ditraschool.core.inscription.models.Inscription;
 import com.ditra.ditraschool.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,5 +33,6 @@ public class Classe extends Auditable<String>  {
   private boolean deleted = false;
 
   @OneToMany(mappedBy = "classe" , cascade = CascadeType.ALL)
+  @JsonIgnore
   private Collection<Inscription> inscriptions = new ArrayList<>();
 }

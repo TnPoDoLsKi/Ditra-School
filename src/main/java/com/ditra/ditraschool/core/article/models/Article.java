@@ -2,6 +2,7 @@ package com.ditra.ditraschool.core.article.models;
 
 import com.ditra.ditraschool.core.facture.models.Facture;
 import com.ditra.ditraschool.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,5 +31,6 @@ public class Article extends Auditable<String> {
 
 
   @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "articles")
+  @JsonIgnore
   private Collection<Facture> factures = new ArrayList<>();
 }

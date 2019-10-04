@@ -2,6 +2,7 @@ package com.ditra.ditraschool.core.paiement.models;
 
 import com.ditra.ditraschool.core.inscription.models.Inscription;
 import com.ditra.ditraschool.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,5 +36,6 @@ public class Paiement extends Auditable<String>  {
 
 
   @ManyToOne
+  @JsonIgnore
   private Inscription inscription;
 }

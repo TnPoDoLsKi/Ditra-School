@@ -6,6 +6,7 @@ import com.ditra.ditraschool.core.eleve.models.Eleve;
 import com.ditra.ditraschool.core.facture.models.Facture;
 import com.ditra.ditraschool.core.paiement.models.Paiement;
 import com.ditra.ditraschool.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,6 +32,10 @@ public class Inscription extends Auditable<String>  {
   private Boolean deleted = false;
 
   private String reglement;
+
+  private Double montantTotal;
+
+  private Double montantRestant;
 
   @ManyToOne
   private Classe classe;
