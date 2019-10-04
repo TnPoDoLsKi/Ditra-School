@@ -26,4 +26,6 @@ public class Global {
   private String matriculeFiscale;
   private Double tva;
   private Double timbreFiscale;
+  private boolean deleted = false;
+
 }

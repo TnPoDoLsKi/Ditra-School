@@ -50,6 +50,7 @@ public class Eleve extends Auditable<String>  {
   private String telephoneAutre;
 
   private String lienDeRelation;
+  private boolean deleted = false;
 
   @OneToMany (mappedBy = "eleve" , cascade = CascadeType.ALL)
   private Collection<Inscription> inscriptions = new ArrayList<>();

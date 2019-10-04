@@ -31,6 +31,9 @@ public class Paiement extends Auditable<String>  {
 
   private Date echeance;
 
+  private boolean deleted = false;
+
+
   @ManyToOne
   private Inscription inscription;
 }

@@ -26,6 +26,7 @@ public class Article extends Auditable<String> {
 
   private String designation;
   private Double montantHT;
+  private boolean deleted = false;
 
 
   @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "articles")
