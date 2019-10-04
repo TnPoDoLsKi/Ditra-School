@@ -29,6 +29,8 @@ public class Inscription extends Auditable<String>  {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  private String matricule ;
+  
   private Boolean deleted = false;
 
   private String reglement;

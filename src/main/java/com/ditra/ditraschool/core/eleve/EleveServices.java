@@ -34,8 +34,7 @@ public class EleveServices {
     if(!eleveOptional.isPresent())
       return Utils.badRequestResponse(600, "");
 
-    EleveList eleveList = new EleveList(eleveOptional.get());
-    return new ResponseEntity<>(eleveList ,HttpStatus.OK);
+    return new ResponseEntity<>(eleveOptional ,HttpStatus.OK);
   }
 
   public ResponseEntity<?> create (Eleve eleve) {
