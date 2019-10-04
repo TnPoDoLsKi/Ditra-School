@@ -1,6 +1,6 @@
 package com.ditra.ditraschool.core.eleve;
 
-import com.ditra.ditraschool.core.eleve.Models.Eleve;
+import com.ditra.ditraschool.core.eleve.models.Eleve;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +14,9 @@ public class EleveController {
 
   @GetMapping("/eleves")
   public ResponseEntity<?> getAll() { return eleveServices.getAll();  }
+
+  @GetMapping("/eleves/notInscripted")
+  public ResponseEntity<?> getAllNotInscripted() { return eleveServices.getAllNotInscripted();  }
 
   @GetMapping("/eleve/{id}")
   public ResponseEntity<?> getOne(@PathVariable Long id) { return eleveServices.getOne(id); }

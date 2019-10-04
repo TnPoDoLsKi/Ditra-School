@@ -1,12 +1,12 @@
 package com.ditra.ditraschool.core.classe;
 
 import com.ditra.ditraschool.core.classe.models.Classe;
-import com.ditra.ditraschool.core.eleve.Models.Eleve;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/v1")
 public class ClasseController {
 
   @Autowired
@@ -16,7 +16,7 @@ public class ClasseController {
   @GetMapping("/classes")
   public ResponseEntity<?> getAll() { return classeServcies.getAll();  }
 
-  @GetMapping("/classes/{id}")
+  @GetMapping("/classe/{id}")
   public ResponseEntity<?> getOne(@PathVariable Long id) { return classeServcies.getOne(id); }
 
   @PostMapping("/classe")

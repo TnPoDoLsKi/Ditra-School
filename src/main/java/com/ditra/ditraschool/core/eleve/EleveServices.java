@@ -1,8 +1,7 @@
 package com.ditra.ditraschool.core.eleve;
 
-import com.ditra.ditraschool.core.eleve.Models.Eleve;
-import com.ditra.ditraschool.core.eleve.Models.EleveList;
-import com.ditra.ditraschool.utils.ErrorResponseModel;
+import com.ditra.ditraschool.core.eleve.models.Eleve;
+import com.ditra.ditraschool.core.eleve.models.EleveList;
 import com.ditra.ditraschool.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,16 +34,17 @@ public class EleveServices {
     if(!eleveOptional.isPresent())
       return Utils.badRequestResponse(600, "");
 
-    return new ResponseEntity<>(HttpStatus.OK);
+    EleveList eleveList = new EleveList(eleveOptional.get());
+    return new ResponseEntity<>(eleveList ,HttpStatus.OK);
   }
 
   public ResponseEntity<?> create (Eleve eleve) {
 
 
-
     eleve = eleveRepository.save(eleve);
 
-    return new ResponseEntity<>(eleve , HttpStatus.OK );
+    EleveList eleveList = new EleveList(eleve);
+    return new ResponseEntity<>(eleveList ,HttpStatus.OK);
   }
 
   public ResponseEntity<?> update(Long id, Eleve eleve) {
@@ -73,5 +73,15 @@ public class EleveServices {
     eleveRepository.delete(eleveOptional.get());
 
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  public ResponseEntity<?> getAllNotInscripted() {
+    ArrayList<Eleve> eleveArrayList = (ArrayList<Eleve>) eleveRepository.findAllByInscriptionsEmpty();
+    ArrayList<EleveList> eleves = new ArrayList<>();
+
+    for (Eleve eleve : eleveArrayList)
+      eleves.add(new EleveList(eleve));
+
+    return new ResponseEntity<>(eleves, HttpStatus.OK);
   }
 }
