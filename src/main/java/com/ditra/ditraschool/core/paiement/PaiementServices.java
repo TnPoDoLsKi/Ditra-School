@@ -91,7 +91,7 @@ public class PaiementServices {
     paiement = Utils.merge(paiementLocal.get() , paiement);
 
     inscriptionRepository.save(inscription.get());
-    
+
     paiementRepository.save(paiement);
 
     return new ResponseEntity<>(paiement , HttpStatus.OK);
