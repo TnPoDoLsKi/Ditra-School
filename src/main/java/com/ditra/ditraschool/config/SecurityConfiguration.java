@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     AuthenticationFilter authenticationFilter() throws Exception {
-        AuthenticationFilter filter = new AuthenticationFilter(new AntPathRequestMatcher("/api/v1/**"));
+        AuthenticationFilter filter = new AuthenticationFilter(SecureURLs.getProtectedUrls());
         filter.setAuthenticationManager(authenticationManager());
         return filter;
     }

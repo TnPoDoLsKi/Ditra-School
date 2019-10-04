@@ -22,7 +22,8 @@ public class GlobalController {
   public ResponseEntity<?> getOne(@PathVariable Long id) { return globalServices.getOne(id); }
 
   @PostMapping("/global")
-  public ResponseEntity<?> create(@RequestBody Global global) { return globalServices.create(global); }
+  public ResponseEntity<?> create(@RequestBody Global global) { return globalServices.create(global);
+  }
 
   @PutMapping("/global/{id}")
   public ResponseEntity<?> update(@PathVariable Long id , @RequestBody Global global) { return globalServices.update(id , global); }
