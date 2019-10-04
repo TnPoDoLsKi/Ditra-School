@@ -13,11 +13,7 @@ public class FactureUpdate {
 
   private String code;
 
-  private Double tva;
-
-  private Double timbreFiscale;
-
-  private Double totalTTC;
+  private Boolean avecTimbre;
 
   private Long inscriptionId;
 

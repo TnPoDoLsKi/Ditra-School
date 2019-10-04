@@ -55,6 +55,9 @@ public class ArticleServices {
 
   public ResponseEntity<?> delete(Long id) {
 
+    if (id.equals(Long.valueOf(1)))
+      return Utils.badRequestResponse(606,"");
+
     Optional<Article> articleLocal = articleRepository.findById(id);
 
     if (!articleLocal.isPresent())

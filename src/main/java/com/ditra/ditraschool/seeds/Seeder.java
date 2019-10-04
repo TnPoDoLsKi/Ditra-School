@@ -10,6 +10,7 @@ import com.ditra.ditraschool.core.eleve.models.Eleve;
 import com.ditra.ditraschool.core.facture.FactureRepository;
 import com.ditra.ditraschool.core.facture.models.Facture;
 import com.ditra.ditraschool.core.global.GlobalRepository;
+import com.ditra.ditraschool.core.global.models.Global;
 import com.ditra.ditraschool.core.inscription.InscriptionRepository;
 import com.ditra.ditraschool.core.inscription.models.Inscription;
 import com.ditra.ditraschool.core.paiement.PaiementRepository;
@@ -50,6 +51,7 @@ public class Seeder {
 
     @EventListener
     public void seed(ContextRefreshedEvent event) throws ParseException {
+        globalSeed();
         seedUser();
         ArrayList<Classe> classes = classeSeed();
         ArrayList<Eleve> eleves = eleveSeed();
@@ -57,6 +59,16 @@ public class Seeder {
         ArrayList<Article> articles = articleSeed();
         ArrayList<Facture> factures= factureSeed(articles,inscriptions);
         ArrayList<Paiement> paiements = paiementSeed(inscriptions);
+    }
+
+    public  void globalSeed(){
+
+        Global global = new Global();
+        global.setTimbreFiscale(0.600);
+        global.setTva(19.0);
+
+        globalRepository.save(global);
+
     }
 
     public ArrayList<User> seedUser(){

@@ -56,6 +56,11 @@ public class PaiementServices {
 
     paiement.setInscription(inscription.get());
 
+    Double montantRestant =  inscription.get().getMontantTotal() - paiement.getMontant();
+
+    inscription.get().setMontantRestant(montantRestant);
+
+    inscriptionRepository.save(inscription.get());
     paiementRepository.save(paiement);
 
     return new ResponseEntity<>(paiement , HttpStatus.OK);
