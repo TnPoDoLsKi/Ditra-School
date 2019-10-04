@@ -9,6 +9,7 @@ public class SecureURLs {
 
         //UserController
         new AntPathRequestMatcher("/api/v1/logout"),
+        new AntPathRequestMatcher("/api/v1/verifyAccess"),
         new AntPathRequestMatcher("/api/v1/article/**"),
         new AntPathRequestMatcher("/api/v1/classe/**"),
         new AntPathRequestMatcher("/api/v1/eleve/**"),
