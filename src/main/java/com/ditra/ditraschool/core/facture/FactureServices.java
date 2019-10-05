@@ -70,6 +70,10 @@ public class FactureServices {
     if(!inscription.isPresent())
       return Utils.badRequestResponse(611, "inscription introuvable");
 
+    Optional<Facture> factureOptional = factureRepository.findFactureByCode(factureUpdate.getCode());
+
+    if (!factureOptional.isPresent())
+      return Utils.badRequestResponse(611, "code deja utilise");
     Facture facture = new Facture();
 
     facture.setInscription(inscription.get());

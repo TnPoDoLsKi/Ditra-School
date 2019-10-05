@@ -1,6 +1,7 @@
 package com.ditra.ditraschool.core.article;
 
 import com.ditra.ditraschool.core.article.models.Article;
+import com.ditra.ditraschool.core.facture.models.Facture;
 import com.ditra.ditraschool.core.paiement.models.Paiement;
 import com.ditra.ditraschool.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,29 @@ public class ArticleServices {
     Optional<Article> article = articleRepository.findById(id);
 
     if (!article.isPresent())
-      return Utils.badRequestResponse(605,"");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
     return new ResponseEntity<>(article , HttpStatus.OK);
 
   }
 
   public ResponseEntity<?> create(Article article) {
+
+    if(article.getCode() == null)
+      return Utils.badRequestResponse(606, "code requis");
+
+    if(article.getDesignation() == null)
+      return Utils.badRequestResponse(617, "designation requis");
+
+    if(article.getCode() == null)
+      return Utils.badRequestResponse(618, "monatant requis");
+
+
+    Optional<Article> article1 = articleRepository.findArticleByCode(article.getCode());
+
+    if (!article1.isPresent())
+      return Utils.badRequestResponse(611, "code deja utilise");
+
 
     article = articleRepository.save(article);
 
@@ -46,7 +63,16 @@ public class ArticleServices {
     Optional<Article> articleLocal = articleRepository.findById(id);
 
     if (!articleLocal.isPresent())
-      return Utils.badRequestResponse(605,"");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
+
+
+    if (article.getCode() != null) {
+      Optional<Article> article1 = articleRepository.findArticleByCode(article.getCode());
+
+      if (!article1.isPresent())
+        return Utils.badRequestResponse(611, "code deja utilise");
+    }
+
 
     article = Utils.merge(articleLocal.get() , article);
 
