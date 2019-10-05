@@ -12,6 +12,7 @@ import java.util.Date;
 public class InscriptionList {
 
   Long id;
+  String code;
   String matriculeEleve;
   String nomEleve;
   String anneeScolaire;
@@ -21,6 +22,7 @@ public class InscriptionList {
 
   public  InscriptionList(Inscription inscription){
     id = inscription.getId();
+    code = inscription.getCode();
     nomEleve = inscription.getEleve().getNom();
     anneeScolaire = inscription.getClasse().getAnneeScolaire();
     nomClasse = inscription.getClasse().getClasse();

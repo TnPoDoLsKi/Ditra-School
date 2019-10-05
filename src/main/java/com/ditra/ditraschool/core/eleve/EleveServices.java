@@ -32,18 +32,35 @@ public class EleveServices {
     Optional<Eleve> eleveOptional = eleveRepository.findById(id);
 
     if(!eleveOptional.isPresent())
-      return Utils.badRequestResponse(600, "");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
     return new ResponseEntity<>(eleveOptional ,HttpStatus.OK);
   }
 
   public ResponseEntity<?> create (Eleve eleve) {
 
+    if(eleve.getMatricule() == null)
+      return Utils.badRequestResponse(601, "matricule requis");
+
+    Optional<Eleve> eleveOptional = eleveRepository.findEleveByMatricule(eleve.getMatricule());
+
+    if(eleveOptional.isPresent())
+      return Utils.badRequestResponse(620, "Matricule deja utilise");
+
+    if(eleve.getNom() == null)
+      return Utils.badRequestResponse(602, "nom requis");
+
+    if(eleve.getPrenom() == null)
+      return Utils.badRequestResponse(603, "prenom requis");
+
+
+    if(eleve.getTuteur() == null)
+      return Utils.badRequestResponse(601, "tuteur requis");
+
 
     eleve = eleveRepository.save(eleve);
 
-    EleveList eleveList = new EleveList(eleve);
-    return new ResponseEntity<>(eleveList ,HttpStatus.OK);
+    return new ResponseEntity<>(eleve ,HttpStatus.OK);
   }
 
   public ResponseEntity<?> update(Long id, Eleve eleve) {
@@ -51,7 +68,7 @@ public class EleveServices {
     Optional<Eleve> eleveOptional = eleveRepository.findById(id);
 
     if(!eleveOptional.isPresent())
-      return Utils.badRequestResponse(600, "");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
 
     eleve = Utils.merge(eleveOptional.get(),eleve);
@@ -66,7 +83,7 @@ public class EleveServices {
     Optional<Eleve> eleveOptional = eleveRepository.findById(id);
 
     if(!eleveOptional.isPresent())
-      return Utils.badRequestResponse(600, "");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
 
     eleveRepository.delete(eleveOptional.get());

@@ -31,12 +31,23 @@ public class ClasseServcies {
     Optional<Classe> classe = classeRepository.findById(id);
 
     if(!classe.isPresent())
-      return Utils.badRequestResponse(601, "");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
     return new ResponseEntity<>(classe,HttpStatus.OK);
   }
 
   public ResponseEntity<?> create(Classe classe) {
+
+
+    if(classe.getClasse() == null)
+      return Utils.badRequestResponse(605, "classe requis");
+
+
+    Optional<Classe> classeOptional = classeRepository.findClasseByClasse(classe.getClasse());
+
+    if(!classeOptional.isPresent())
+      return Utils.badRequestResponse(621 , "Nom du classe deja utilise ");
+
 
     classe = classeRepository.save(classe);
 
@@ -48,7 +59,7 @@ public class ClasseServcies {
     Optional<Classe> classeLocal = classeRepository.findById(id);
 
     if(!classeLocal.isPresent())
-      return Utils.badRequestResponse(601, "");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
     classe = Utils.merge(classeLocal.get(),classe);
 
@@ -61,7 +72,7 @@ public class ClasseServcies {
     Optional<Classe> classeLocal = classeRepository.findById(id);
 
     if(!classeLocal.isPresent())
-      return Utils.badRequestResponse(601, "");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
     classeRepository.delete(classeLocal.get());
 

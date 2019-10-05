@@ -45,51 +45,71 @@ public class FactureServices {
     Optional<Facture> facture = factureRepository.findById(id);
 
     if(!facture.isPresent())
-      return Utils.badRequestResponse(604, "");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
     return new ResponseEntity<>(facture,HttpStatus.OK);
   }
 
   public ResponseEntity<?> create(FactureUpdate factureUpdate) {
 
-    Facture facture = new Facture();
+
+    if(factureUpdate.getInscriptionId() == null)
+      return Utils.badRequestResponse(612, "inscriptionId requis");
+
+    if(factureUpdate.getCode() == null)
+      return Utils.badRequestResponse(606, "code requis");
+
+    if(factureUpdate.getAvecTimbre() == null)
+      return Utils.badRequestResponse(613, "avec timbre requis");
+
+    if(factureUpdate.getArticles().isEmpty())
+      return Utils.badRequestResponse(614, "articles requis");
 
     Optional<Inscription> inscription = inscriptionRepository.findById(factureUpdate.getInscriptionId());
 
     if(!inscription.isPresent())
-      return Utils.badRequestResponse(602, "");
+      return Utils.badRequestResponse(611, "inscription introuvable");
+
+    Facture facture = new Facture();
 
     facture.setInscription(inscription.get());
 
-    Global global = globalRepository.getOne(Long.valueOf(1));
+    Global global = globalRepository.findAll().get(0);
     facture.setTva(global.getTva());
     facture.setTimbreFiscale(global.getTimbreFiscale());
+    facture.setCode(factureUpdate.getCode());
+
 
     Double somme = Double.valueOf(0);
+
     for (Long id : factureUpdate.getArticles()) {
       Optional<Article> article = articleRepository.findById(id);
 
       if (!article.isPresent())
-        return Utils.badRequestResponse(605, "");
+        return Utils.badRequestResponse(615, "idArticle Introuvable");
 
       facture.addArticle(article.get());
+
+      if (article.get().getCode().equals("1")){
+        somme = somme+ ((inscription.get().getClasse().getFrais()/100)*facture.getTva()) + inscription.get().getClasse().getFrais();
+      }
+      else {
       somme = somme+((article.get().getMontantHT()/100)*facture.getTva())+article.get().getMontantHT()  ;
+      }
     }
-
-
-    somme = somme+ ((inscription.get().getClasse().getFrais()/100)*facture.getTva()) + inscription.get().getClasse().getFrais();
 
     if (factureUpdate.getAvecTimbre()){
       somme = somme + global.getTimbreFiscale();
     }
 
-    facture.setCode(factureUpdate.getCode());
     facture.setTotalTTC(somme);
 
     inscription.get().setMontantTotal(somme);
 
     inscriptionRepository.save(inscription.get());
+
     facture = factureRepository.save(facture);
+
     return new ResponseEntity<>(facture,HttpStatus.OK);
 
   }
@@ -98,50 +118,47 @@ public class FactureServices {
 
     Optional<Facture> factureLocal = factureRepository.findById(id);
 
-    Facture facture = new Facture();
     if(!factureLocal.isPresent())
-      return Utils.badRequestResponse(603, "");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
+    Inscription inscription = factureLocal.get().getInscription();
+    Facture facture = new Facture();
+    facture.setCode(factureUpdate.getCode());
 
-    Optional<Inscription> inscription = inscriptionRepository.findById(factureUpdate.getInscriptionId());
-
-    if(!inscription.isPresent())
-      return Utils.badRequestResponse(602, "");
-
-
-    Global global = globalRepository.getOne(Long.valueOf(1));
-    facture.setTva(global.getTva());
-    facture.setTimbreFiscale(global.getTimbreFiscale());
 
     Double somme = Double.valueOf(0);
+
     for (Long idArticle : factureUpdate.getArticles()) {
       Optional<Article> article = articleRepository.findById(idArticle);
 
       if (!article.isPresent())
-        return Utils.badRequestResponse(605, "");
+        return Utils.badRequestResponse(615, "idArticle Introuvable");
 
       facture.addArticle(article.get());
-      somme = somme+((article.get().getMontantHT()/100)*facture.getTva())+article.get().getMontantHT()  ;
+
+      if (article.get().getCode().equals("1")){
+        somme = somme+ ((inscription.getClasse().getFrais()/100)*facture.getTva()) + inscription.getClasse().getFrais();
+      }
+      else {
+        somme = somme+((article.get().getMontantHT()/100)*facture.getTva())+article.get().getMontantHT()  ;
+      }
     }
-
-
-    somme = somme+ ((inscription.get().getClasse().getFrais()/100)*facture.getTva()) + inscription.get().getClasse().getFrais();
 
     if (factureUpdate.getAvecTimbre()){
-      somme = somme + global.getTimbreFiscale();
+      somme = somme + facture.getTimbreFiscale();
     }
 
-    facture.setCode(factureUpdate.getCode());
     facture.setTotalTTC(somme);
 
-    inscription.get().setMontantTotal(somme);
+    inscription.setMontantTotal(inscription.getMontantTotal() - factureLocal.get().getTotalTTC() + somme);
 
-    facture = Utils.merge(factureLocal.get() , facture);
+    inscriptionRepository.save(inscription);
 
-    inscriptionRepository.save(inscription.get());
+    facture = Utils.merge(factureLocal.get(),facture);
+
     facture = factureRepository.save(facture);
 
-    return new ResponseEntity<>(facture , HttpStatus.OK);
+    return new ResponseEntity<>(facture,HttpStatus.OK);
   }
 
   public ResponseEntity<?> delete(Long id) {
@@ -162,15 +179,15 @@ public class FactureServices {
     Optional<Inscription> inscription  = inscriptionRepository.findById(id);
 
     if(!inscription.isPresent())
-      return Utils.badRequestResponse(602, "");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
-    List<Article> articles = new ArrayList<>();
-
-    articles = articleRepository.findAll();
+    List<Article> articles = articleRepository.findAll();
 
     Float montant =inscription.get().getClasse().getFrais();
 
-    articles.get(0).setMontantHT(Double.valueOf(montant));
+    for (int i=0 ; i< articles.size() ; i++)
+      if (articles.get(i).getCode() == "1")
+        articles.get(i).setMontantHT(Double.valueOf(montant));
 
     return new ResponseEntity<>(articles,HttpStatus.OK);
   }
