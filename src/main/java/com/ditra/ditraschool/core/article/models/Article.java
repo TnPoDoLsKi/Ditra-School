@@ -24,7 +24,7 @@ public class Article extends Auditable<String> {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String code;
+  private Long code;
   private String designation;
   private Double montantHT;
 

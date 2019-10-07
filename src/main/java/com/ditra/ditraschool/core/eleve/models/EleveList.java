@@ -12,7 +12,7 @@ import java.util.Date;
 public class EleveList {
   private Long id;
 
-  private String matricule;
+  private Long matricule;
   private String nom;
   private String sexe;
   private Date dateNaissance;

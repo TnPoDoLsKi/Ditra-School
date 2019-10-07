@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class EleveNotInscripted {
 
-  private String matricule;
+  private Long matricule;
   private String nom;
 
 

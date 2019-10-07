@@ -196,7 +196,7 @@ public class FactureServices {
     Float montant =inscription.get().getClasse().getFrais();
 
     for (int i=0 ; i< articles.size() ; i++)
-      if (articles.get(i).getCode() == "1")
+      if (articles.get(i).getCode() == 1)
         articles.get(i).setMontantHT(Double.valueOf(montant));
 
     return new ResponseEntity<>(articles,HttpStatus.OK);

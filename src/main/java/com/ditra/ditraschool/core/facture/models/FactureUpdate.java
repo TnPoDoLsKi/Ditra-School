@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class FactureUpdate {
 
-  private String code;
+  private Long code;
 
   private Boolean avecTimbre;
 

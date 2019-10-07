@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface FactureRepository extends JpaRepository<Facture, Long> {
-  Optional<Facture> findFactureByCode(String code);
+  Optional<Facture> findFactureByCode(Long code);
 }

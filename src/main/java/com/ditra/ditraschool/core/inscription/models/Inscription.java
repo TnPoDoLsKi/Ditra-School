@@ -29,7 +29,7 @@ public class Inscription extends Auditable<String>  {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String code ;
+  private Long code ;
 
   private Boolean deleted = false;
 

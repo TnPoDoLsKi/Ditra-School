@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 public class InscriptionSave {
 
-  private String code;
+  private Long code;
   private Long classeId;
   private Long eleveId;
 }

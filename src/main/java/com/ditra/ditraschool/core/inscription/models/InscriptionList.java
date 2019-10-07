@@ -12,7 +12,7 @@ import java.util.Date;
 public class InscriptionList {
 
   Long id;
-  String code;
+  Long code;
   String matriculeEleve;
   String nomEleve;
   String anneeScolaire;

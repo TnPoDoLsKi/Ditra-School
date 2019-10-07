@@ -26,7 +26,7 @@ public class Eleve extends Auditable<String>  {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String matricule;
+  private Long matricule;
   private String nom;
   private String prenom;
   private String sexe;

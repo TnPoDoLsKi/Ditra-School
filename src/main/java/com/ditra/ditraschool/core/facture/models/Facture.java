@@ -13,8 +13,6 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.Optional;
 
 @Getter
 @Setter
@@ -28,7 +26,7 @@ public class Facture extends Auditable<String>  {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String code;
+  private Long code;
 
   private Double tva;
 

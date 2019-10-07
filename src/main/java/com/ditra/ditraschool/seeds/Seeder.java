@@ -48,7 +48,6 @@ public class Seeder {
     GlobalRepository globalRepository;
 
 
-
     @EventListener
     public void seed(ContextRefreshedEvent event) throws ParseException {
         globalSeed();
@@ -63,12 +62,19 @@ public class Seeder {
 
     public  void globalSeed(){
 
-        Global global = new Global();
-        global.setTimbreFiscale(0.600);
-        global.setTva(19.0);
+        ArrayList<Global> globals = (ArrayList<Global>) globalRepository.findAll();
+        if(globals.size() == 0) {
 
-        globalRepository.save(global);
+            Global global = new Global();
+            global.setTimbreFiscale(0.600);
+            global.setTva(19.0);
+            global.setRaisonSociale("DITRA Ecole");
+            global.setAdresse("Sousse, trocadero");
+            global.setMatriculeFiscale("MT2562145");
+            global.setTelephone("24642979");
 
+            globalRepository.save(global);
+        }
     }
 
     public ArrayList<User> seedUser(){
@@ -105,13 +111,12 @@ public class Seeder {
         return users;
     }
 
-
     public ArrayList<Eleve> eleveSeed(){
         ArrayList<Eleve> eleves = (ArrayList<Eleve>) eleveRepository.findAll();
         if(eleves.size() == 0) {
             Eleve eleve = new Eleve();
             eleve.setNom("ousema");
-            eleve.setMatricule("a1");
+            eleve.setMatricule(Long.valueOf(10001));
             eleve.setAdresse("sfax");
             eleve.setTuteur("pere");
 
@@ -119,7 +124,7 @@ public class Seeder {
 
             eleve = new Eleve();
             eleve.setNom("bassem");
-            eleve.setMatricule("a2");
+            eleve.setMatricule(Long.valueOf(10002));
             eleve.setAdresse("werdenin");
             eleve.setTuteur("pere");
 
@@ -127,7 +132,7 @@ public class Seeder {
 
             eleve = new Eleve();
             eleve.setNom("sofien");
-            eleve.setMatricule("a3");
+            eleve.setMatricule(Long.valueOf(10003));
             eleve.setAdresse("medenin");
             eleve.setTuteur("pere");
 
@@ -135,7 +140,7 @@ public class Seeder {
 
             eleve = new Eleve();
             eleve.setNom("wael");
-            eleve.setMatricule("a4");
+            eleve.setMatricule(Long.valueOf(10004));
             eleve.setAdresse("maloul");
             eleve.setTuteur("pere");
 
@@ -143,16 +148,14 @@ public class Seeder {
 
             eleve = new Eleve();
             eleve.setNom("aziz");
-            eleve.setMatricule("a5");
+            eleve.setMatricule(Long.valueOf(10005));
             eleve.setAdresse("manzel bourgiba");
             eleve.setTuteur("pere");
 
             eleves.add(eleveRepository.save(eleve));
         }
         return eleves;
-
     }
-
 
     public ArrayList<Classe> classeSeed() {
 
@@ -307,32 +310,37 @@ public class Seeder {
 
         if (articles.size() == 0) {
 
+            Article article = new Article();
+            article.setDesignation("scolarité");
+            article.setMontantHT(Double.valueOf(1500));
 
-        Article article = new Article();
-        article.setDesignation("transport");
-        article.setMontantHT(Double.valueOf(200));
+            articles.add(articleRepository.save(article));
 
-        articles.add(articleRepository.save(article));
+            article.setDesignation("transport");
+            article.setMontantHT(Double.valueOf(200));
 
-        article = new Article();
-        article.setDesignation("accomodation");
-        article.setMontantHT(Double.valueOf(500));
+            articles.add(articleRepository.save(article));
 
-        articles.add(articleRepository.save(article));
+            article = new Article();
+            article.setDesignation("accomodation");
+            article.setMontantHT(Double.valueOf(500));
 
-        article = new Article();
-        article.setDesignation("diner");
-        article.setMontantHT(Double.valueOf(100));
+            articles.add(articleRepository.save(article));
 
-        articles.add(articleRepository.save(article));
+            article = new Article();
+            article.setDesignation("diner");
+            article.setMontantHT(Double.valueOf(100));
 
-        article = new Article();
-        article.setDesignation("dejeuner");
-        article.setMontantHT(Double.valueOf(100));
+            articles.add(articleRepository.save(article));
 
-        articles.add(articleRepository.save(article));
+            article = new Article();
+            article.setDesignation("dejeuner");
+            article.setMontantHT(Double.valueOf(100));
 
-    }
+            articles.add(articleRepository.save(article));
+
+        }
+
         return articles;
     }
 
@@ -345,7 +353,7 @@ public class Seeder {
 
             Facture facture = new Facture();
             facture.setTva(Double.valueOf(19));
-            facture.setCode("1");
+            facture.setCode(Long.valueOf(11001));
             facture.setTimbreFiscale(Double.valueOf(6));
             facture.setTotalTTC(articles.get(0).getMontantHT() + inscriptions.get(0).getClasse().getFrais());
             facture.setInscription(inscriptions.get(0));
@@ -355,7 +363,7 @@ public class Seeder {
 
             facture = new Facture();
             facture.setTva(Double.valueOf(19));
-            facture.setCode("1");
+            facture.setCode(Long.valueOf(11002));
             facture.setTimbreFiscale(Double.valueOf(6));
             facture.setTotalTTC(articles.get(1).getMontantHT() + inscriptions.get(1).getClasse().getFrais());
             facture.setInscription(inscriptions.get(1));
@@ -365,7 +373,7 @@ public class Seeder {
 
             facture = new Facture();
             facture.setTva(Double.valueOf(19));
-            facture.setCode("1");
+            facture.setCode(Long.valueOf(11003));
             facture.setTimbreFiscale(Double.valueOf(6));
             facture.setTotalTTC(articles.get(2).getMontantHT() + inscriptions.get(2).getClasse().getFrais());
             facture.setInscription(inscriptions.get(2));
@@ -376,7 +384,7 @@ public class Seeder {
 
             facture = new Facture();
             facture.setTva(Double.valueOf(19));
-            facture.setCode("1");
+            facture.setCode(Long.valueOf(11004));
             facture.setTimbreFiscale(Double.valueOf(6));
             facture.setTotalTTC(articles.get(3).getMontantHT() + inscriptions.get(3).getClasse().getFrais());
             facture.setInscription(inscriptions.get(3));
@@ -387,7 +395,7 @@ public class Seeder {
 
             facture = new Facture();
             facture.setTva(Double.valueOf(19));
-            facture.setCode("1");
+            facture.setCode(Long.valueOf(11005));
             facture.setTimbreFiscale(Double.valueOf(6));
             facture.setTotalTTC(articles.get(2).getMontantHT() + inscriptions.get(4).getClasse().getFrais());
             facture.setInscription(inscriptions.get(4));
@@ -400,7 +408,7 @@ public class Seeder {
       return factures;
     }
 
-    ArrayList<Paiement> paiementSeed(ArrayList<Inscription> inscriptions){
+    public ArrayList<Paiement> paiementSeed(ArrayList<Inscription> inscriptions){
 
         ArrayList<Paiement> paiements = (ArrayList<Paiement>) paiementRepository.findAll();
 
@@ -410,7 +418,7 @@ public class Seeder {
             paiement.setInscription(inscriptions.get(0));
             paiement.setMode("cheque");
             paiement.setEcheance(new Date());
-            paiement.setCode("1");
+            paiement.setCode(Long.valueOf(12001));
 
             paiements.add(paiementRepository.save(paiement));
 
@@ -418,7 +426,7 @@ public class Seeder {
             paiement.setInscription(inscriptions.get(1));
             paiement.setMode("especes");
             paiement.setEcheance(new Date());
-            paiement.setCode("2");
+            paiement.setCode(Long.valueOf(12002));
 
             paiements.add(paiementRepository.save(paiement));
 
@@ -427,7 +435,7 @@ public class Seeder {
             paiement.setInscription(inscriptions.get(2));
             paiement.setMode("cheque");
             paiement.setEcheance(new Date());
-            paiement.setCode("3");
+            paiement.setCode(Long.valueOf(12003));
 
             paiements.add(paiementRepository.save(paiement));
 
@@ -436,14 +444,10 @@ public class Seeder {
             paiement.setInscription(inscriptions.get(3));
             paiement.setMode("especes");
             paiement.setEcheance(new Date());
-            paiement.setCode("4");
+            paiement.setCode(Long.valueOf(12004));
 
             paiements.add(paiementRepository.save(paiement));
         }
         return paiements;
     }
-
-
-
-
 }

@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 public class PaiementUpdate {
 
-  private String code;
+  private Long code;
   private String mode;
   private Double montant;
   private Date echeance;
