@@ -45,7 +45,7 @@ public class ClasseServcies {
 
     Optional<Classe> classeOptional = classeRepository.findClasseByClasse(classe.getClasse());
 
-    if(!classeOptional.isPresent())
+    if(classeOptional.isPresent())
       return Utils.badRequestResponse(621 , "Nom du classe deja utilise ");
 
 
@@ -64,7 +64,7 @@ public class ClasseServcies {
 
     Optional<Classe> classeOptional = classeRepository.findClasseByClasse(classe.getClasse());
 
-    if(!classeOptional.isPresent() && !classeLocal.get().getClasse().equals(classe.getClasse()))
+    if(classeOptional.isPresent() && !classeLocal.get().getClasse().equals(classe.getClasse()))
       return Utils.badRequestResponse(621 , "Nom du classe deja utilise ");
 
 
