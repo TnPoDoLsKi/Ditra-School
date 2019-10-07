@@ -318,29 +318,34 @@ public class Seeder {
             Article article = new Article();
             article.setDesignation("scolarité");
             article.setMontantHT(Double.valueOf(1500));
+            article.setCode(Long.valueOf(1));
 
             articles.add(articleRepository.save(article));
 
             article.setDesignation("transport");
             article.setMontantHT(Double.valueOf(200));
+            article.setCode(Long.valueOf(2));
 
             articles.add(articleRepository.save(article));
 
             article = new Article();
             article.setDesignation("accomodation");
             article.setMontantHT(Double.valueOf(500));
+            article.setCode(Long.valueOf(3));
 
             articles.add(articleRepository.save(article));
 
             article = new Article();
             article.setDesignation("diner");
             article.setMontantHT(Double.valueOf(100));
+            article.setCode(Long.valueOf(4));
 
             articles.add(articleRepository.save(article));
 
             article = new Article();
             article.setDesignation("dejeuner");
             article.setMontantHT(Double.valueOf(100));
+            article.setCode(Long.valueOf(5));
 
             articles.add(articleRepository.save(article));
 
