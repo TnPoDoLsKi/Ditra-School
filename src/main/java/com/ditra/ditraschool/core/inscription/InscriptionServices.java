@@ -60,7 +60,7 @@ public class InscriptionServices {
 
     Optional<Inscription> inscriptionOptional = inscriptionRepository.findInscriptionByCode(inscriptionSave.getCode());
 
-    if(!inscriptionOptional.isPresent())
+    if(!inscriptionOptional.isPresent() )
         return Utils.badRequestResponse(611, "code deja utilise");
 
     if(inscriptionSave.getClasseId() == null)
@@ -120,7 +120,7 @@ public class InscriptionServices {
     if (inscriptionSave.getCode() != null) {
       Optional<Inscription> inscriptionOptional = inscriptionRepository.findInscriptionByCode(inscriptionSave.getCode());
 
-      if (!inscriptionOptional.isPresent())
+      if (!inscriptionOptional.isPresent() && !inscriptionLocal.get().getCode().equals(inscriptionSave.getCode()))
         return Utils.badRequestResponse(611, "code deja utilise");
     }
 

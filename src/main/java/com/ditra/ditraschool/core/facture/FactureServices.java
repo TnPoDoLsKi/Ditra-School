@@ -125,6 +125,12 @@ public class FactureServices {
     if(!factureLocal.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
+    Optional<Facture> factureOptional = factureRepository.findFactureByCode(factureUpdate.getCode());
+
+    if (!factureOptional.isPresent() && !factureLocal.get().getCode().equals(factureUpdate.getCode()))
+      return Utils.badRequestResponse(611, "code deja utilise");
+
+
     Inscription inscription = factureLocal.get().getInscription();
     Facture facture = new Facture();
     facture.setCode(factureUpdate.getCode());

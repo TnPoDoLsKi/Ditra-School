@@ -40,6 +40,33 @@ public class PaiementServices {
 
   public ResponseEntity<?> create(PaiementModel paiementModel) {
 
+    if(paiementModel.getInscriptionId() == null)
+      return Utils.badRequestResponse(612, "inscriptionId requis");
+
+    if(paiementModel.getCode() == null)
+      return Utils.badRequestResponse(606, "code requis");
+
+
+    if(paiementModel.getMontant() == null)
+      return Utils.badRequestResponse(619, "montant requis");
+
+
+    if(paiementModel.getMode() == null)
+      return Utils.badRequestResponse(618, "mode requis");
+
+
+    Optional<Inscription> inscription = inscriptionRepository.findById(paiementModel.getInscriptionId());
+
+    if(!inscription.isPresent())
+      return Utils.badRequestResponse(600, "identifiant introuvable");
+
+
+    Optional<Inscription> inscription1 = inscriptionRepository.findInscriptionByCode(paiementModel.getCode());
+
+    if(!inscription1.isPresent())
+      return Utils.badRequestResponse(611, "code deja utilise");
+
+
     Paiement paiement = new Paiement();
 
     paiement.setCode(paiementModel.getCode());
@@ -47,12 +74,6 @@ public class PaiementServices {
     paiement.setEcheance(paiementModel.getEcheance());
 
     paiement.setMode(paiementModel.getMode());
-
-    Optional<Inscription> inscription = inscriptionRepository.findById(paiementModel.getInscriptionId());
-
-    if(!inscription.isPresent())
-      return Utils.badRequestResponse(602, "");
-
 
     paiement.setInscription(inscription.get());
 

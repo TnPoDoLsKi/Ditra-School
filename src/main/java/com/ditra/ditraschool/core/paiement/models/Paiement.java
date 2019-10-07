@@ -24,7 +24,7 @@ public class Paiement extends Auditable<String>  {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private Long code;
+  private String code;
 
   private String mode;
 

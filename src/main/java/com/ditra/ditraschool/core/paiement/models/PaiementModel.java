@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 public class PaiementModel {
 
-  private Long code;
+  private String code;
 
   private String mode;
 
