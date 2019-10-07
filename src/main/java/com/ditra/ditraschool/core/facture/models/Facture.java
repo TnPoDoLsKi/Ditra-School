@@ -1,6 +1,7 @@
 package com.ditra.ditraschool.core.facture.models;
 
 import com.ditra.ditraschool.core.article.models.Article;
+import com.ditra.ditraschool.core.articleFacture.models.ArticleFacture;
 import com.ditra.ditraschool.core.inscription.models.Inscription;
 import com.ditra.ditraschool.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -44,9 +45,9 @@ public class Facture extends Auditable<String>  {
   @JoinTable(name = "facture_article",
       joinColumns = { @JoinColumn(name = "factureId") },
       inverseJoinColumns = { @JoinColumn(name = "articleId") })
-  private Collection<Article> articles = new ArrayList<>();
+  private Collection<ArticleFacture> articles = new ArrayList<>();
 
-  public void addArticle(Article article) {
+  public void addArticle(ArticleFacture article) {
 
     articles.add(article);
   }
