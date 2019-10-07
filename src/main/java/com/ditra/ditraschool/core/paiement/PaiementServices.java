@@ -123,9 +123,11 @@ public class PaiementServices {
 
     paiement.setMode(paiementUpdate.getMode());
 
+    paiement.setMontant(paiementUpdate.getMontant());
 
-    if (paiementUpdate.getMontant() !=null) {
+    if (paiementUpdate.getMontant() != null) {
       Inscription inscription = paiementLocal.get().getInscription();
+
 
       inscription.setMontantRestant(inscription.getMontantTotal() - paiementUpdate.getMontant());
 
