@@ -10,16 +10,14 @@ import java.util.Optional;
 
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
-
-
 public class AuditableConfig {
 
     @Bean
     public AuditorAware<String> auditorAware() {
 
-        if (SecurityContextHolder.getContext().getAuthentication() == null){
+      /*  if (SecurityContextHolder.getContext().getAuthentication() == null){
             return new AuditorAwareImpl();
-        }
+        }*/
 
         return () -> Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication().getName());
     }
