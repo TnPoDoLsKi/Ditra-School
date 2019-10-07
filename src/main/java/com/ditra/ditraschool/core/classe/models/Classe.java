@@ -29,7 +29,7 @@ public class Classe extends Auditable<String>  {
   private String classe;
   private String anneeScolaire;
   private Float frais;
-  
+
   @Column(columnDefinition = "text")
   private String observation;
 

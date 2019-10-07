@@ -65,11 +65,16 @@ public class EleveServices {
 
   public ResponseEntity<?> update(Long id, Eleve eleve) {
 
+
     Optional<Eleve> eleveOptional = eleveRepository.findById(id);
 
     if(!eleveOptional.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
+    Optional<Eleve> eleveByMatricule = eleveRepository.findEleveByMatricule(eleve.getMatricule());
+
+    if(eleveByMatricule.isPresent())
+      return Utils.badRequestResponse(620, "Matricule deja utilise");
 
     eleve = Utils.merge(eleveOptional.get(),eleve);
 
