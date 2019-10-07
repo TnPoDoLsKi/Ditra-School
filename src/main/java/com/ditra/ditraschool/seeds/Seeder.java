@@ -115,7 +115,8 @@ public class Seeder {
         ArrayList<Eleve> eleves = (ArrayList<Eleve>) eleveRepository.findAll();
         if(eleves.size() == 0) {
             Eleve eleve = new Eleve();
-            eleve.setNom("ousema");
+            eleve.setPrenom("ousema");
+            eleve.setNom("masmoudi");
             eleve.setMatricule(Long.valueOf(10001));
             eleve.setAdresse("sfax");
             eleve.setTuteur("pere");
@@ -123,7 +124,8 @@ public class Seeder {
             eleves.add(eleveRepository.save(eleve));
 
             eleve = new Eleve();
-            eleve.setNom("bassem");
+            eleve.setPrenom("bassem");
+            eleve.setNom("karbia");
             eleve.setMatricule(Long.valueOf(10002));
             eleve.setAdresse("werdenin");
             eleve.setTuteur("pere");
@@ -131,7 +133,8 @@ public class Seeder {
             eleves.add(eleveRepository.save(eleve));
 
             eleve = new Eleve();
-            eleve.setNom("sofien");
+            eleve.setPrenom("sofien");
+            eleve.setNom("msaddak");
             eleve.setMatricule(Long.valueOf(10003));
             eleve.setAdresse("medenin");
             eleve.setTuteur("pere");
@@ -139,7 +142,8 @@ public class Seeder {
             eleves.add(eleveRepository.save(eleve));
 
             eleve = new Eleve();
-            eleve.setNom("wael");
+            eleve.setPrenom("wael");
+            eleve.setNom("ben taleb");
             eleve.setMatricule(Long.valueOf(10004));
             eleve.setAdresse("maloul");
             eleve.setTuteur("pere");
@@ -147,7 +151,8 @@ public class Seeder {
             eleves.add(eleveRepository.save(eleve));
 
             eleve = new Eleve();
-            eleve.setNom("aziz");
+            eleve.setPrenom("aziz");
+            eleve.setNom("bouchrit");
             eleve.setMatricule(Long.valueOf(10005));
             eleve.setAdresse("manzel bourgiba");
             eleve.setTuteur("pere");
