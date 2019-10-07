@@ -129,7 +129,6 @@ public class PaiementServices {
 
     paiement.setMontant(paiementUpdate.getMontant());
 
-    paiement.setCreatedDate(null);
 
     if (paiementUpdate.getMontant() != null) {
       Inscription inscription = paiementLocal.get().getInscription();
