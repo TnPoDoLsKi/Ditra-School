@@ -61,9 +61,9 @@ public class PaiementServices {
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
 
-    Optional<Inscription> inscription1 = inscriptionRepository.findInscriptionByCode(paiementModel.getCode());
+    Optional<Paiement> paiement1 = paiementRepository.findPaiementByCode(paiementModel.getCode());
 
-    if(!inscription1.isPresent())
+    if(!paiement1.isPresent())
       return Utils.badRequestResponse(611, "code deja utilise");
 
 
@@ -95,6 +95,16 @@ public class PaiementServices {
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
 
+    if (paiementUpdate.getCode() != null){
+
+      Optional<Paiement> paiement1 = paiementRepository.findPaiementByCode(paiementUpdate.getCode());
+
+      if(!paiement1.isPresent() && !paiementLocal.get().getCode().equals(paiementUpdate.getCode()))
+        return Utils.badRequestResponse(611, "code deja utilise");
+
+    }
+
+
     Paiement paiement = new Paiement();
 
     paiement.setCode(paiementUpdate.getCode());
@@ -104,11 +114,13 @@ public class PaiementServices {
     paiement.setMode(paiementUpdate.getMode());
 
 
-    Inscription inscription = paiementLocal.get().getInscription();
+    if (paiementUpdate.getMontant() !=null) {
+      Inscription inscription = paiementLocal.get().getInscription();
 
-    inscription.setMontantRestant( inscription.getMontantTotal() - paiementUpdate.getMontant());
+      inscription.setMontantRestant(inscription.getMontantTotal() - paiementUpdate.getMontant());
 
-    inscriptionRepository.save(inscription);
+      inscriptionRepository.save(inscription);
+    }
 
     paiement = Utils.merge(paiementLocal.get() , paiement);
 
