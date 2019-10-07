@@ -26,6 +26,10 @@ public class ArticleServices {
 
   public ResponseEntity<?> getOne(Long id) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
+
     Optional<Article> article = articleRepository.findById(id);
 
     if (!article.isPresent())

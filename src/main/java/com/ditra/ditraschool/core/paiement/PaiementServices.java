@@ -30,6 +30,10 @@ public class PaiementServices {
   }
 
   public ResponseEntity<?> getOne(Long id) {
+
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
     Optional<Paiement> paiement = paiementRepository.findById(id);
 
     if (!paiement.isPresent())

@@ -45,6 +45,10 @@ public class FactureServices {
   }
 
   public ResponseEntity<?> getOne(Long id) {
+
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
     Optional<Facture> facture = factureRepository.findById(id);
 
     if(!facture.isPresent())
