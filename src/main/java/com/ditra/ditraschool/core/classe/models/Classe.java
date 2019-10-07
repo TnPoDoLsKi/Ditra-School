@@ -28,7 +28,7 @@ public class Classe extends Auditable<String>  {
   private Long id;
   private String classe;
   private String anneeScolaire;
-  private Float frais;
+  private Float frais = (float) 0;
 
   @Column(columnDefinition = "text")
   private String observation;
