@@ -104,7 +104,10 @@ public class FactureServices {
 
     facture.setTotalTTC(somme);
 
-    inscription.get().setMontantTotal( inscription.get().getMontantTotal() + somme);
+    if (inscription.get().getMontantTotal() == null)
+      inscription.get().setMontantTotal(somme);
+    else
+      inscription.get().setMontantTotal(inscription.get().getMontantTotal() + somme);
 
     inscriptionRepository.save(inscription.get());
 
