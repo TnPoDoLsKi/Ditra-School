@@ -28,6 +28,9 @@ public class ClasseServcies {
 
   public ResponseEntity<?> getOne(Long id) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
     Optional<Classe> classe = classeRepository.findById(id);
 
     if(!classe.isPresent())
@@ -38,16 +41,13 @@ public class ClasseServcies {
 
   public ResponseEntity<?> create(Classe classe) {
 
-
     if(classe.getClasse() == null)
       return Utils.badRequestResponse(605, "classe requis");
-
 
     Optional<Classe> classeOptional = classeRepository.findClasseByClasse(classe.getClasse());
 
     if(classeOptional.isPresent())
       return Utils.badRequestResponse(621 , "Nom du classe deja utilise ");
-
 
     classe = classeRepository.save(classe);
 
@@ -55,6 +55,9 @@ public class ClasseServcies {
   }
 
   public ResponseEntity<?> update(Long id, Classe classe) {
+
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
 
     Optional<Classe> classeLocal = classeRepository.findById(id);
 
@@ -76,6 +79,9 @@ public class ClasseServcies {
   }
 
   public ResponseEntity<?> delete(Long id) {
+
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
 
     Optional<Classe> classeLocal = classeRepository.findById(id);
 

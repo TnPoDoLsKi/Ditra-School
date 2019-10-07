@@ -30,12 +30,15 @@ public class EleveServices {
 
   public ResponseEntity<?> getOne (Long id) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
     Optional<Eleve> eleveOptional = eleveRepository.findById(id);
 
     if(!eleveOptional.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
-    return new ResponseEntity<>(eleveOptional ,HttpStatus.OK);
+    return new ResponseEntity<>(eleveOptional.get() ,HttpStatus.OK);
   }
 
   public ResponseEntity<?> create (Eleve eleve) {
@@ -66,15 +69,15 @@ public class EleveServices {
 
   public ResponseEntity<?> update(Long id, Eleve eleve) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
 
     Optional<Eleve> eleveOptional = eleveRepository.findById(id);
 
     if(!eleveOptional.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
-
     Optional<Eleve> eleveByMatricule = eleveRepository.findEleveByMatricule(eleve.getMatricule());
-
 
     if(eleveByMatricule.isPresent() && !eleveOptional.get().getMatricule().equals( eleve.getMatricule()))
       return Utils.badRequestResponse(620, "Matricule deja utilise");
@@ -88,11 +91,13 @@ public class EleveServices {
 
   public ResponseEntity<?> delete (Long id) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
     Optional<Eleve> eleveOptional = eleveRepository.findById(id);
 
     if(!eleveOptional.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
-
 
     eleveRepository.delete(eleveOptional.get());
 
@@ -100,6 +105,7 @@ public class EleveServices {
   }
 
   public ResponseEntity<?> getAllNotInscripted() {
+
     ArrayList<Eleve> eleveArrayList = (ArrayList<Eleve>) eleveRepository.findAllByInscriptionsEmpty();
     ArrayList<EleveNotInscripted> eleves = new ArrayList<>();
 
