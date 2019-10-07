@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.w3c.dom.Text;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class Classe extends Auditable<String>  {
   private String classe;
   private String anneeScolaire;
   private Float frais;
+  
+  @Column(columnDefinition = "text")
   private String observation;
 
   private boolean deleted = false;
