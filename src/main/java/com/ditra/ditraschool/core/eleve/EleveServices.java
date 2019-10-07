@@ -76,7 +76,7 @@ public class EleveServices {
     Optional<Eleve> eleveByMatricule = eleveRepository.findEleveByMatricule(eleve.getMatricule());
 
 
-    if(eleveByMatricule.isPresent() && !eleveByMatricule.get().getMatricule().equals( eleve.getMatricule()))
+    if(eleveByMatricule.isPresent() && !eleveOptional.get().getMatricule().equals( eleve.getMatricule()))
       return Utils.badRequestResponse(620, "Matricule deja utilise");
 
     eleve = Utils.merge(eleveOptional.get(),eleve);
