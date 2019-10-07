@@ -28,7 +28,7 @@ public class EleveServices {
     return new ResponseEntity<>(eleves, HttpStatus.OK);
   }
 
-  public ResponseEntity<?> getOne (Long id) {
+  public ResponseEntity<?> getOne (Long id)   {
 
     if(id == null)
       return Utils.badRequestResponse(650, "identifiant requis");
@@ -41,7 +41,7 @@ public class EleveServices {
     return new ResponseEntity<>(eleveOptional.get() ,HttpStatus.OK);
   }
 
-  public ResponseEntity<?> create (Eleve eleve) {
+  public ResponseEntity<?> create (Eleve eleve)     {
 
     if(eleve.getMatricule() == null)
       return Utils.badRequestResponse(601, "matricule requis");
@@ -59,7 +59,7 @@ public class EleveServices {
 
 
     if(eleve.getTuteur() == null)
-      return Utils.badRequestResponse(601, "tuteur requis");
+      return Utils.badRequestResponse(604, "tuteur requis");
 
 
     eleve = eleveRepository.save(eleve);

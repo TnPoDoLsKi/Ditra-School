@@ -83,6 +83,8 @@ public class PaiementServices {
 
     Double montantRestant =  inscription.get().getMontantTotal() - paiementModel.getMontant();
 
+    paiement.setMontant(paiementModel.getMontant());
+
     if (montantRestant == 0)
       inscription.get().setReglement("R");
     else
