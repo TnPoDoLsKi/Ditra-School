@@ -3,8 +3,7 @@ package com.ditra.ditraschool.core.facture;
 import com.ditra.ditraschool.core.article.ArticleRepository;
 import com.ditra.ditraschool.core.article.models.Article;
 import com.ditra.ditraschool.core.articleFacture.models.ArticleFacture;
-import com.ditra.ditraschool.core.articleFacture.models.ArticleFactureRepository;
-import com.ditra.ditraschool.core.classe.models.Classe;
+import com.ditra.ditraschool.core.articleFacture.ArticleFactureRepository;
 import com.ditra.ditraschool.core.facture.models.Facture;
 import com.ditra.ditraschool.core.facture.models.FactureUpdate;
 import com.ditra.ditraschool.core.global.GlobalRepository;
@@ -17,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,42 +77,41 @@ public class FactureServices {
 
     if (factureOptional.isPresent())
       return Utils.badRequestResponse(611, "code deja utilise");
+
     Facture facture = new Facture();
 
     facture.setInscription(inscription.get());
 
     Global global = globalRepository.findAll().get(0);
     facture.setTva(global.getTva());
-    facture.setTimbreFiscale(global.getTimbreFiscale());
     facture.setCode(factureUpdate.getCode());
-
 
     Double somme = 0.0;
 
     for (ArticleFacture article : factureUpdate.getArticles()) {
-
       if (article.getMontantHT() == null)
         return Utils.badRequestResponse(618, "monatant requis");
 
 
       if (article.getDesignation() == null)
-      return Utils.badRequestResponse(617, "designation requis");
+        return Utils.badRequestResponse(617, "designation requis");
+    }
 
+    for (ArticleFacture article : factureUpdate.getArticles()) {
       article = articleFactureRepository.save(article);
 
       facture.addArticle(article);
-
-      somme = somme+((article.getMontantHT()/100)*facture.getTva())+article.getMontantHT()  ;
-
+      somme = somme + ((article.getMontantHT()/100)*facture.getTva()) + article.getMontantHT()  ;
     }
 
     if (factureUpdate.getAvecTimbre()){
+      facture.setTimbreFiscale(global.getTimbreFiscale());
       somme = somme + global.getTimbreFiscale();
     }
 
     facture.setTotalTTC(somme);
 
-    inscription.get().setMontantTotal(somme);
+    inscription.get().setMontantTotal( inscription.get().getMontantTotal() + somme);
 
     inscriptionRepository.save(inscription.get());
 
@@ -142,26 +139,23 @@ public class FactureServices {
     facture.setCode(factureUpdate.getCode());
 
 
-    Double somme = Double.valueOf(0);
-
+    Double somme =0.0;
 
     for (ArticleFacture article : factureUpdate.getArticles()) {
-
       if (article.getMontantHT() == null)
         return Utils.badRequestResponse(618, "monatant requis");
 
 
       if (article.getDesignation() == null)
         return Utils.badRequestResponse(617, "designation requis");
+    }
 
+    for (ArticleFacture article : factureUpdate.getArticles()) {
       article = articleFactureRepository.save(article);
 
       facture.addArticle(article);
-
-      somme = somme+((article.getMontantHT()/100)*facture.getTva())+article.getMontantHT()  ;
-
+      somme = somme + ((article.getMontantHT()/100)*facture.getTva()) + article.getMontantHT()  ;
     }
-
 
     if (factureUpdate.getAvecTimbre()){
       somme = somme + facture.getTimbreFiscale();

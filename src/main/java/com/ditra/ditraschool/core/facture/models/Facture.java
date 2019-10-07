@@ -1,6 +1,5 @@
 package com.ditra.ditraschool.core.facture.models;
 
-import com.ditra.ditraschool.core.article.models.Article;
 import com.ditra.ditraschool.core.articleFacture.models.ArticleFacture;
 import com.ditra.ditraschool.core.inscription.models.Inscription;
 import com.ditra.ditraschool.utils.Auditable;

@@ -1,6 +1,5 @@
 package com.ditra.ditraschool.core.facture.models;
 
-import com.ditra.ditraschool.core.article.models.Article;
 import com.ditra.ditraschool.core.articleFacture.models.ArticleFacture;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
