@@ -123,7 +123,7 @@ public class PaiementServices {
 
     paiement.setCode(paiementUpdate.getCode());
 
-    paiement.setEcheance(paiement.getEcheance());
+    paiement.setEcheance(paiementUpdate.getEcheance());
 
     paiement.setMode(paiementUpdate.getMode());
 
