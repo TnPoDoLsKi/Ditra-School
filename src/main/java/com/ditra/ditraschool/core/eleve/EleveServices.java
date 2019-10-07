@@ -2,6 +2,7 @@ package com.ditra.ditraschool.core.eleve;
 
 import com.ditra.ditraschool.core.eleve.models.Eleve;
 import com.ditra.ditraschool.core.eleve.models.EleveList;
+import com.ditra.ditraschool.core.eleve.models.EleveNotInscripted;
 import com.ditra.ditraschool.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -100,10 +101,10 @@ public class EleveServices {
 
   public ResponseEntity<?> getAllNotInscripted() {
     ArrayList<Eleve> eleveArrayList = (ArrayList<Eleve>) eleveRepository.findAllByInscriptionsEmpty();
-    ArrayList<EleveList> eleves = new ArrayList<>();
+    ArrayList<EleveNotInscripted> eleves = new ArrayList<>();
 
     for (Eleve eleve : eleveArrayList)
-      eleves.add(new EleveList(eleve));
+      eleves.add(new EleveNotInscripted(eleve));
 
     return new ResponseEntity<>(eleves, HttpStatus.OK);
   }

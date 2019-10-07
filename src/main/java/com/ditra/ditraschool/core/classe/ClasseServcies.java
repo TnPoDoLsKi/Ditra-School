@@ -61,6 +61,14 @@ public class ClasseServcies {
     if(!classeLocal.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
+
+    Optional<Classe> classeOptional = classeRepository.findClasseByClasse(classe.getClasse());
+
+    if(!classeOptional.isPresent() && !classeLocal.get().getClasse().equals(classe.getClasse()))
+      return Utils.badRequestResponse(621 , "Nom du classe deja utilise ");
+
+
+
     classe = Utils.merge(classeLocal.get(),classe);
 
     classe = classeRepository.save(classe);
