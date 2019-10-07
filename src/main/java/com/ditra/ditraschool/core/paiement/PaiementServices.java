@@ -103,9 +103,9 @@ public class PaiementServices {
     if(id == null)
       return Utils.badRequestResponse(650, "identifiant requis");
 
-    Optional<Paiement> paiementLocal = paiementRepository.findById(id);
+    Optional<Paiement> paiement = paiementRepository.findById(id);
 
-    if (!paiementLocal.isPresent())
+    if (!paiement.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
 
@@ -113,25 +113,29 @@ public class PaiementServices {
 
       Optional<Paiement> paiement1 = paiementRepository.findPaiementByCode(paiementUpdate.getCode());
 
-      if(paiement1.isPresent() && !paiementLocal.get().getCode().equals(paiementUpdate.getCode()))
+      if(paiement1.isPresent() && !paiement.get().getCode().equals(paiementUpdate.getCode()))
         return Utils.badRequestResponse(611, "code deja utilise");
 
     }
 
 
-    Paiement paiement = new Paiement();
 
-    paiement.setCode(paiementUpdate.getCode());
+    if (paiementUpdate.getMontant() != null)
+      paiement.get().setMontant(paiementUpdate.getMontant());
 
-    paiement.setEcheance(paiementUpdate.getEcheance());
+    if (paiementUpdate.getCode() != null)
+    paiement.get().setCode(paiementUpdate.getCode());
 
-    paiement.setMode(paiementUpdate.getMode());
+    if (paiementUpdate.getEcheance() != null)
+    paiement.get().setEcheance(paiementUpdate.getEcheance());
 
-    paiement.setMontant(paiementUpdate.getMontant());
+    if (paiementUpdate.getMode() != null)
+    paiement.get().setMode(paiementUpdate.getMode());
+
 
 
     if (paiementUpdate.getMontant() != null) {
-      Inscription inscription = paiementLocal.get().getInscription();
+      Inscription inscription = paiement.get().getInscription();
 
 
       inscription.setMontantRestant(inscription.getMontantTotal() - paiementUpdate.getMontant());
@@ -139,9 +143,9 @@ public class PaiementServices {
       inscriptionRepository.save(inscription);
     }
 
-    paiement = Utils.merge(paiementLocal.get() , paiement);
+  //  paiement = Utils.merge(paiementLocal.get() , paiement);
 
-    paiementRepository.save(paiement);
+    paiementRepository.save(paiement.get());
 
     return new ResponseEntity<>(paiement , HttpStatus.OK);
 
