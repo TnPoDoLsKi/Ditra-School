@@ -72,7 +72,7 @@ public class FactureServices {
 
     Optional<Facture> factureOptional = factureRepository.findFactureByCode(factureUpdate.getCode());
 
-    if (!factureOptional.isPresent())
+    if (factureOptional.isPresent())
       return Utils.badRequestResponse(611, "code deja utilise");
     Facture facture = new Facture();
 
@@ -127,7 +127,7 @@ public class FactureServices {
 
     Optional<Facture> factureOptional = factureRepository.findFactureByCode(factureUpdate.getCode());
 
-    if (!factureOptional.isPresent() && !factureLocal.get().getCode().equals(factureUpdate.getCode()))
+    if (factureOptional.isPresent() && !factureLocal.get().getCode().equals(factureUpdate.getCode()))
       return Utils.badRequestResponse(611, "code deja utilise");
 
 

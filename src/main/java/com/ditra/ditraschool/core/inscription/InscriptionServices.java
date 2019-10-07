@@ -60,18 +60,18 @@ public class InscriptionServices {
 
     Optional<Inscription> inscriptionOptional = inscriptionRepository.findInscriptionByCode(inscriptionSave.getCode());
 
-    if(!inscriptionOptional.isPresent() )
+    if(inscriptionOptional.isPresent() )
         return Utils.badRequestResponse(611, "code deja utilise");
 
     if(inscriptionSave.getClasseId() == null)
       return Utils.badRequestResponse(607, "classeId requis");
 
-    if(inscriptionSave.getEleveId() == null)
-      return Utils.badRequestResponse(609, "eleveId requis");
+    if(inscriptionSave.getMatricule() == null)
+      return Utils.badRequestResponse(609, "matricule requis");
 
 
 
-    Optional<Eleve> eleveOptional = eleveRepository.findById(inscriptionSave.getEleveId());
+    Optional<Eleve> eleveOptional = eleveRepository.findEleveByMatricule(inscriptionSave.getMatricule());
 
     if(!eleveOptional.isPresent())
       return Utils.badRequestResponse(610, "eleve introuvable");
@@ -120,13 +120,13 @@ public class InscriptionServices {
     if (inscriptionSave.getCode() != null) {
       Optional<Inscription> inscriptionOptional = inscriptionRepository.findInscriptionByCode(inscriptionSave.getCode());
 
-      if (!inscriptionOptional.isPresent() && !inscriptionLocal.get().getCode().equals(inscriptionSave.getCode()))
+      if (inscriptionOptional.isPresent() && !inscriptionLocal.get().getCode().equals(inscriptionSave.getCode()))
         return Utils.badRequestResponse(611, "code deja utilise");
     }
 
     Inscription inscription = new Inscription();
 
-    Optional<Eleve> eleveOptional = eleveRepository.findById(inscriptionSave.getEleveId());
+    Optional<Eleve> eleveOptional = eleveRepository.findEleveByMatricule(inscriptionSave.getMatricule());
 
     if(!eleveOptional.isPresent())
       inscription.setEleve(null);
