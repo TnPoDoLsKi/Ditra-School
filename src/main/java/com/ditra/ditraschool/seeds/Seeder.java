@@ -3,6 +3,8 @@ package com.ditra.ditraschool.seeds;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.ditra.ditraschool.core.article.ArticleRepository;
 import com.ditra.ditraschool.core.article.models.Article;
+import com.ditra.ditraschool.core.articleFacture.ArticleFactureRepository;
+import com.ditra.ditraschool.core.articleFacture.models.ArticleFacture;
 import com.ditra.ditraschool.core.classe.ClasseRepository;
 import com.ditra.ditraschool.core.classe.models.Classe;
 import com.ditra.ditraschool.core.eleve.EleveRepository;
@@ -46,6 +48,8 @@ public class Seeder {
     PaiementRepository paiementRepository;
     @Autowired
     GlobalRepository globalRepository;
+    @Autowired
+    ArticleFactureRepository articleFactureRepository;
 
 
     @EventListener
@@ -56,7 +60,8 @@ public class Seeder {
         ArrayList<Eleve> eleves = eleveSeed();
         ArrayList<Inscription> inscriptions= inscriptionSeed(classes,eleves);
         ArrayList<Article> articles = articleSeed();
-        ArrayList<Facture> factures= factureSeed(articles,inscriptions);
+        ArrayList<ArticleFacture> articleFactures = articleFactureSeed();
+        ArrayList<Facture> factures= factureSeed(articleFactures,inscriptions);
         ArrayList<Paiement> paiements = paiementSeed(inscriptions);
     }
 
@@ -354,7 +359,7 @@ public class Seeder {
         return articles;
     }
 
-    public ArrayList<Facture> factureSeed(ArrayList<Article> articles, ArrayList<Inscription> inscriptions ){
+    public ArrayList<Facture> factureSeed(ArrayList<ArticleFacture> articles, ArrayList<Inscription> inscriptions ){
 
         ArrayList<Facture> factures = (ArrayList<Facture>) factureRepository.findAll();
 
@@ -459,5 +464,46 @@ public class Seeder {
             paiements.add(paiementRepository.save(paiement));
         }
         return paiements;
+    }
+
+    public ArrayList<ArticleFacture> articleFactureSeed() {
+
+        ArrayList<ArticleFacture> articles = (ArrayList<ArticleFacture>) articleFactureRepository.findAll();
+
+        if (articles.size() == 0) {
+
+            ArticleFacture article = new ArticleFacture();
+            article.setDesignation("scolarité");
+            article.setMontantHT(Double.valueOf(1500));
+
+            articles.add(articleFactureRepository.save(article));
+
+            article = new ArticleFacture();
+            article.setDesignation("transport");
+            article.setMontantHT(Double.valueOf(200));
+
+            articles.add(articleFactureRepository.save(article));
+
+            article = new ArticleFacture();
+            article.setDesignation("accomodation");
+            article.setMontantHT(Double.valueOf(500));
+
+            articles.add(articleFactureRepository.save(article));
+
+            article = new ArticleFacture();
+            article.setDesignation("diner");
+            article.setMontantHT(Double.valueOf(100));
+
+            articles.add(articleFactureRepository.save(article));
+
+            article = new ArticleFacture();
+            article.setDesignation("dejeuner");
+            article.setMontantHT(Double.valueOf(100));
+
+            articles.add(articleFactureRepository.save(article));
+
+        }
+
+        return articles;
     }
 }
