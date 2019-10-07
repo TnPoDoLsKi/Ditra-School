@@ -2,6 +2,7 @@ package com.ditra.ditraschool.core.facture.models;
 
 import com.ditra.ditraschool.core.articleFacture.models.ArticleFacture;
 import com.ditra.ditraschool.core.inscription.models.Inscription;
+import com.ditra.ditraschool.core.paiement.models.Paiement;
 import com.ditra.ditraschool.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -40,14 +41,6 @@ public class Facture extends Auditable<String>  {
   @JsonIgnore
   private Inscription inscription;
 
-  @ManyToMany
-  @JoinTable(name = "facture_article",
-      joinColumns = { @JoinColumn(name = "factureId") },
-      inverseJoinColumns = { @JoinColumn(name = "articleId") })
-  private Collection<ArticleFacture> articles = new ArrayList<>();
-
-  public void addArticle(ArticleFacture article) {
-
-    articles.add(article);
-  }
+  @OneToMany (mappedBy = "facture" , cascade = CascadeType.ALL , orphanRemoval = true)
+  private Collection<ArticleFacture> articleFactures  = new ArrayList<>();
 }

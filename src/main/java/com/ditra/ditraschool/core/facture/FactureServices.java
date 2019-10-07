@@ -150,7 +150,7 @@ public class FactureServices {
     for (ArticleFacture article : factureUpdate.getArticles()) {
       article = articleFactureRepository.save(article);
 
-      facture.addArticle(article);
+//      facture.addArticle(article);
       somme = somme + ((article.getMontantHT()/100)*facture.getTva()) + article.getMontantHT()  ;
     }
 

@@ -29,7 +29,4 @@ public class Article extends Auditable<String> {
   private Double montantHT;
 
   private boolean deleted = false;
-
-
-
 }

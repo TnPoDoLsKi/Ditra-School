@@ -60,8 +60,9 @@ public class Seeder {
         ArrayList<Eleve> eleves = eleveSeed();
         ArrayList<Inscription> inscriptions= inscriptionSeed(classes,eleves);
         ArrayList<Article> articles = articleSeed();
-        ArrayList<ArticleFacture> articleFactures = articleFactureSeed();
-        ArrayList<Facture> factures= factureSeed(articleFactures,inscriptions);
+        ArrayList<Facture> factures= factureSeed(inscriptions);
+        ArrayList<ArticleFacture> articleFactures = articleFactureSeed(factures);
+
         ArrayList<Paiement> paiements = paiementSeed(inscriptions);
     }
 
@@ -359,7 +360,7 @@ public class Seeder {
         return articles;
     }
 
-    public ArrayList<Facture> factureSeed(ArrayList<ArticleFacture> articles, ArrayList<Inscription> inscriptions ){
+    public ArrayList<Facture> factureSeed(ArrayList<Inscription> inscriptions ){
 
         ArrayList<Facture> factures = (ArrayList<Facture>) factureRepository.findAll();
 
@@ -370,9 +371,8 @@ public class Seeder {
             facture.setTva(Double.valueOf(19));
             facture.setCode(Long.valueOf(11001));
             facture.setTimbreFiscale(Double.valueOf(6));
-            facture.setTotalTTC(articles.get(0).getMontantHT() + inscriptions.get(0).getClasse().getFrais());
+            facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(0));
-            facture.addArticle(articles.get(0));
 
             factures.add(factureRepository.save(facture));
 
@@ -380,9 +380,8 @@ public class Seeder {
             facture.setTva(Double.valueOf(19));
             facture.setCode(Long.valueOf(11002));
             facture.setTimbreFiscale(Double.valueOf(6));
-            facture.setTotalTTC(articles.get(1).getMontantHT() + inscriptions.get(1).getClasse().getFrais());
+            facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(1));
-            facture.addArticle(articles.get(1));
 
             factures.add(factureRepository.save(facture));
 
@@ -390,9 +389,8 @@ public class Seeder {
             facture.setTva(Double.valueOf(19));
             facture.setCode(Long.valueOf(11003));
             facture.setTimbreFiscale(Double.valueOf(6));
-            facture.setTotalTTC(articles.get(2).getMontantHT() + inscriptions.get(2).getClasse().getFrais());
+            facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(2));
-            facture.addArticle(articles.get(2));
 
             factures.add(factureRepository.save(facture));
 
@@ -401,9 +399,8 @@ public class Seeder {
             facture.setTva(Double.valueOf(19));
             facture.setCode(Long.valueOf(11004));
             facture.setTimbreFiscale(Double.valueOf(6));
-            facture.setTotalTTC(articles.get(3).getMontantHT() + inscriptions.get(3).getClasse().getFrais());
+            facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(3));
-            facture.addArticle(articles.get(3));
 
             factures.add(factureRepository.save(facture));
 
@@ -412,9 +409,8 @@ public class Seeder {
             facture.setTva(Double.valueOf(19));
             facture.setCode(Long.valueOf(11005));
             facture.setTimbreFiscale(Double.valueOf(6));
-            facture.setTotalTTC(articles.get(2).getMontantHT() + inscriptions.get(4).getClasse().getFrais());
+            facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(4));
-            facture.addArticle(articles.get(2));
 
             factures.add(factureRepository.save(facture));
 
@@ -466,7 +462,7 @@ public class Seeder {
         return paiements;
     }
 
-    public ArrayList<ArticleFacture> articleFactureSeed() {
+    public ArrayList<ArticleFacture> articleFactureSeed(ArrayList<Facture> factures) {
 
         ArrayList<ArticleFacture> articles = (ArrayList<ArticleFacture>) articleFactureRepository.findAll();
 
@@ -475,30 +471,35 @@ public class Seeder {
             ArticleFacture article = new ArticleFacture();
             article.setDesignation("scolarité");
             article.setMontantHT(Double.valueOf(1500));
+            article.setFacture(factures.get(0));
 
             articles.add(articleFactureRepository.save(article));
 
             article = new ArticleFacture();
             article.setDesignation("transport");
             article.setMontantHT(Double.valueOf(200));
+            article.setFacture(factures.get(0));
 
             articles.add(articleFactureRepository.save(article));
 
             article = new ArticleFacture();
             article.setDesignation("accomodation");
             article.setMontantHT(Double.valueOf(500));
+            article.setFacture(factures.get(0));
 
             articles.add(articleFactureRepository.save(article));
 
             article = new ArticleFacture();
             article.setDesignation("diner");
             article.setMontantHT(Double.valueOf(100));
+            article.setFacture(factures.get(1));
 
             articles.add(articleFactureRepository.save(article));
 
             article = new ArticleFacture();
             article.setDesignation("dejeuner");
             article.setMontantHT(Double.valueOf(100));
+            article.setFacture(factures.get(1));
 
             articles.add(articleFactureRepository.save(article));
 
