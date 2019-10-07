@@ -21,6 +21,7 @@ public class EleveList {
 
   public EleveList (Eleve eleve) {
     this.id = eleve.getId();
+    this.matricule = eleve.getMatricule();
     this.nom = eleve.getNom()+" "+eleve.getPrenom();
     this.sexe = eleve.getSexe();
     this.dateNaissance = eleve.getDateNaissance();

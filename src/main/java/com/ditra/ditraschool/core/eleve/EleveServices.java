@@ -71,7 +71,7 @@ public class EleveServices {
     if(!eleveOptional.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
-    
+
     Optional<Eleve> eleveByMatricule = eleveRepository.findEleveByMatricule(eleve.getMatricule());
 
 
