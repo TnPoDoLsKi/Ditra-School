@@ -107,57 +107,60 @@ public class Seeder {
 
 
     public ArrayList<Eleve> eleveSeed(){
-        ArrayList<Eleve> eleves = new ArrayList<>();
+        ArrayList<Eleve> eleves = (ArrayList<Eleve>) eleveRepository.findAll();
+        if(eleves.size() == 0) {
+            Eleve eleve = new Eleve();
+            eleve.setNom("ousema");
+            eleve.setMatricule("a1");
+            eleve.setAdresse("sfax");
+            eleve.setTuteur("pere");
 
-        Eleve eleve = new Eleve();
-        eleve.setNom("ousema");
-        eleve.setMatricule("a1");
-        eleve.setAdresse("sfax");
-        eleve.setTuteur("pere");
+            eleves.add(eleveRepository.save(eleve));
 
-        eleves.add(eleveRepository.save(eleve));
+            eleve = new Eleve();
+            eleve.setNom("bassem");
+            eleve.setMatricule("a2");
+            eleve.setAdresse("werdenin");
+            eleve.setTuteur("pere");
 
-        eleve = new Eleve();
-        eleve.setNom("bassem");
-        eleve.setMatricule("a2");
-        eleve.setAdresse("werdenin");
-        eleve.setTuteur("pere");
+            eleves.add(eleveRepository.save(eleve));
 
-        eleves.add(eleveRepository.save(eleve));
+            eleve = new Eleve();
+            eleve.setNom("sofien");
+            eleve.setMatricule("a3");
+            eleve.setAdresse("medenin");
+            eleve.setTuteur("pere");
 
-        eleve = new Eleve();
-        eleve.setNom("sofien");
-        eleve.setMatricule("a3");
-        eleve.setAdresse("medenin");
-        eleve.setTuteur("pere");
+            eleves.add(eleveRepository.save(eleve));
 
-        eleves.add(eleveRepository.save(eleve));
+            eleve = new Eleve();
+            eleve.setNom("wael");
+            eleve.setMatricule("a4");
+            eleve.setAdresse("maloul");
+            eleve.setTuteur("pere");
 
-        eleve = new Eleve();
-        eleve.setNom("wael");
-        eleve.setMatricule("a4");
-        eleve.setAdresse("maloul");
-        eleve.setTuteur("pere");
+            eleves.add(eleveRepository.save(eleve));
 
-        eleves.add(eleveRepository.save(eleve));
+            eleve = new Eleve();
+            eleve.setNom("aziz");
+            eleve.setMatricule("a5");
+            eleve.setAdresse("manzel bourgiba");
+            eleve.setTuteur("pere");
 
-        eleve = new Eleve();
-        eleve.setNom("aziz");
-        eleve.setMatricule("a5");
-        eleve.setAdresse("manzel bourgiba");
-        eleve.setTuteur("pere");
-
-        eleves.add(eleveRepository.save(eleve));
-
+            eleves.add(eleveRepository.save(eleve));
+        }
         return eleves;
 
     }
 
 
-    public ArrayList<Classe> classeSeed(){
+    public ArrayList<Classe> classeSeed() {
 
-        ArrayList<Classe> classes = new ArrayList<>();
+        ArrayList<Classe> classes = (ArrayList<Classe>) classeRepository.findAll();
         Classe classe = new Classe();
+
+        if (classes.size() == 0) {
+
 
         classe.setAnneeScolaire("2019-2020");
         classe.setClasse("al farachet");
@@ -186,7 +189,6 @@ public class Seeder {
         classes.add(classeRepository.save(classe));
 
 
-
         classe = new Classe();
 
         classe.setAnneeScolaire("2019-2020");
@@ -195,121 +197,116 @@ public class Seeder {
         classe.setObservation("classe mouselmin w mouthebrin");
 
         classes.add(classeRepository.save(classe));
-
+    }
         return classes;
     }
 
     public ArrayList<Inscription> inscriptionSeed(ArrayList<Classe> classes , ArrayList<Eleve> eleves){
 
-        ArrayList<Inscription> inscriptions = new ArrayList<>();
+        ArrayList<Inscription> inscriptions = (ArrayList<Inscription>) inscriptionRepository.findAll();
 
-        Inscription inscription =  new Inscription();
-
-        inscription.setEleve(eleves.get(0));
-        inscription.setClasse(classes.get(0));
-        inscription.setReglement("R");
-
-        inscriptions.add(inscriptionRepository.save(inscription));
-
-        inscription =  new Inscription();
-
-        inscription.setEleve(eleves.get(0));
-        inscription.setClasse(classes.get(1));
-        inscription.setReglement("R");
-
-        inscriptions.add(inscriptionRepository.save(inscription));
+        if(inscriptions.size() == 0) {
 
 
-        inscription =  new Inscription();
+            Inscription inscription = new Inscription();
 
-        inscription.setEleve(eleves.get(1));
-        inscription.setClasse(classes.get(0));
-        inscription.setReglement("RN");
+            inscription.setEleve(eleves.get(0));
+            inscription.setClasse(classes.get(0));
+            inscription.setReglement("PR");
 
-        inscriptions.add(inscriptionRepository.save(inscription));
+            inscriptions.add(inscriptionRepository.save(inscription));
 
+            inscription = new Inscription();
 
-        inscription =  new Inscription();
+            inscription.setEleve(eleves.get(0));
+            inscription.setClasse(classes.get(1));
+            inscription.setReglement("R");
 
-        inscription.setEleve(eleves.get(1));
-        inscription.setClasse(classes.get(2));
-        inscription.setReglement("RN");
-
-        inscriptions.add(inscriptionRepository.save(inscription));
-
+            inscriptions.add(inscriptionRepository.save(inscription));
 
 
+            inscription = new Inscription();
 
-        inscription =  new Inscription();
+            inscription.setEleve(eleves.get(1));
+            inscription.setClasse(classes.get(0));
+            inscription.setReglement("NR");
 
-        inscription.setEleve(eleves.get(2));
-        inscription.setClasse(classes.get(1));
-        inscription.setReglement("R");
-
-        inscriptions.add(inscriptionRepository.save(inscription));
-
+            inscriptions.add(inscriptionRepository.save(inscription));
 
 
+            inscription = new Inscription();
 
-        inscription =  new Inscription();
+            inscription.setEleve(eleves.get(1));
+            inscription.setClasse(classes.get(2));
+            inscription.setReglement("PR");
 
-        inscription.setEleve(eleves.get(2));
-        inscription.setClasse(classes.get(3));
-        inscription.setReglement("R");
-
-        inscriptions.add(inscriptionRepository.save(inscription));
-
+            inscriptions.add(inscriptionRepository.save(inscription));
 
 
+            inscription = new Inscription();
+
+            inscription.setEleve(eleves.get(2));
+            inscription.setClasse(classes.get(1));
+            inscription.setReglement("R");
+
+            inscriptions.add(inscriptionRepository.save(inscription));
 
 
-        inscription =  new Inscription();
+            inscription = new Inscription();
 
-        inscription.setEleve(eleves.get(3));
-        inscription.setClasse(classes.get(2));
-        inscription.setReglement("R");
+            inscription.setEleve(eleves.get(2));
+            inscription.setClasse(classes.get(3));
+            inscription.setReglement("R");
 
-        inscriptions.add(inscriptionRepository.save(inscription));
-
-
+            inscriptions.add(inscriptionRepository.save(inscription));
 
 
-        inscription =  new Inscription();
+            inscription = new Inscription();
 
-        inscription.setEleve(eleves.get(3));
-        inscription.setClasse(classes.get(2));
-        inscription.setReglement("R");
+            inscription.setEleve(eleves.get(3));
+            inscription.setClasse(classes.get(2));
+            inscription.setReglement("R");
 
-        inscriptions.add(inscriptionRepository.save(inscription));
-
-
+            inscriptions.add(inscriptionRepository.save(inscription));
 
 
-        inscription =  new Inscription();
+            inscription = new Inscription();
 
-        inscription.setEleve(eleves.get(4));
-        inscription.setClasse(classes.get(3));
-        inscription.setReglement("R");
+            inscription.setEleve(eleves.get(3));
+            inscription.setClasse(classes.get(2));
+            inscription.setReglement("R");
 
-        inscriptions.add(inscriptionRepository.save(inscription));
+            inscriptions.add(inscriptionRepository.save(inscription));
 
 
+            inscription = new Inscription();
 
-        inscription =  new Inscription();
+            inscription.setEleve(eleves.get(4));
+            inscription.setClasse(classes.get(3));
+            inscription.setReglement("R");
 
-        inscription.setEleve(eleves.get(1));
-        inscription.setClasse(classes.get(3));
-        inscription.setReglement("RN");
+            inscriptions.add(inscriptionRepository.save(inscription));
 
-        inscriptions.add(inscriptionRepository.save(inscription));
 
+            inscription = new Inscription();
+
+            inscription.setEleve(eleves.get(1));
+            inscription.setClasse(classes.get(3));
+            inscription.setReglement("NR");
+
+            inscriptions.add(inscriptionRepository.save(inscription));
+
+        }
         return inscriptions;
 
     }
 
-    public ArrayList<Article> articleSeed(){
+    public ArrayList<Article> articleSeed() {
 
-        ArrayList<Article> articles =new ArrayList<>();
+        ArrayList<Article> articles = (ArrayList<Article>) articleRepository.findAll();
+
+        if (articles.size() == 0) {
+
 
         Article article = new Article();
         article.setDesignation("transport");
@@ -335,110 +332,114 @@ public class Seeder {
 
         articles.add(articleRepository.save(article));
 
+    }
         return articles;
     }
 
     public ArrayList<Facture> factureSeed(ArrayList<Article> articles, ArrayList<Inscription> inscriptions ){
 
-        ArrayList<Facture> factures = new ArrayList<>();
+        ArrayList<Facture> factures = (ArrayList<Facture>) factureRepository.findAll();
 
-        Facture facture = new Facture();
-        facture.setTva(Double.valueOf(19));
-        facture.setCode("1");
-        facture.setTimbreFiscale(Double.valueOf(6));
-        facture.setTotalTTC(articles.get(0).getMontantHT()+inscriptions.get(0).getClasse().getFrais());
-        facture.setInscription(inscriptions.get(0));
-        facture.addArticle(articles.get(0));
-
-        factures.add(factureRepository.save(facture));
-
-        facture = new Facture();
-        facture.setTva(Double.valueOf(19));
-        facture.setCode("1");
-        facture.setTimbreFiscale(Double.valueOf(6));
-        facture.setTotalTTC(articles.get(1).getMontantHT()+inscriptions.get(1).getClasse().getFrais());
-        facture.setInscription(inscriptions.get(1));
-        facture.addArticle(articles.get(1));
-
-        factures.add(factureRepository.save(facture));
-
-        facture = new Facture();
-        facture.setTva(Double.valueOf(19));
-        facture.setCode("1");
-        facture.setTimbreFiscale(Double.valueOf(6));
-        facture.setTotalTTC(articles.get(2).getMontantHT()+inscriptions.get(2).getClasse().getFrais());
-        facture.setInscription(inscriptions.get(2));
-        facture.addArticle(articles.get(2));
-
-        factures.add(factureRepository.save(facture));
+        if(factures.size() == 0) {
 
 
-        facture = new Facture();
-        facture.setTva(Double.valueOf(19));
-        facture.setCode("1");
-        facture.setTimbreFiscale(Double.valueOf(6));
-        facture.setTotalTTC(articles.get(3).getMontantHT()+inscriptions.get(3).getClasse().getFrais());
-        facture.setInscription(inscriptions.get(3));
-        facture.addArticle(articles.get(3));
+            Facture facture = new Facture();
+            facture.setTva(Double.valueOf(19));
+            facture.setCode("1");
+            facture.setTimbreFiscale(Double.valueOf(6));
+            facture.setTotalTTC(articles.get(0).getMontantHT() + inscriptions.get(0).getClasse().getFrais());
+            facture.setInscription(inscriptions.get(0));
+            facture.addArticle(articles.get(0));
 
-        factures.add(factureRepository.save(facture));
+            factures.add(factureRepository.save(facture));
+
+            facture = new Facture();
+            facture.setTva(Double.valueOf(19));
+            facture.setCode("1");
+            facture.setTimbreFiscale(Double.valueOf(6));
+            facture.setTotalTTC(articles.get(1).getMontantHT() + inscriptions.get(1).getClasse().getFrais());
+            facture.setInscription(inscriptions.get(1));
+            facture.addArticle(articles.get(1));
+
+            factures.add(factureRepository.save(facture));
+
+            facture = new Facture();
+            facture.setTva(Double.valueOf(19));
+            facture.setCode("1");
+            facture.setTimbreFiscale(Double.valueOf(6));
+            facture.setTotalTTC(articles.get(2).getMontantHT() + inscriptions.get(2).getClasse().getFrais());
+            facture.setInscription(inscriptions.get(2));
+            facture.addArticle(articles.get(2));
+
+            factures.add(factureRepository.save(facture));
 
 
+            facture = new Facture();
+            facture.setTva(Double.valueOf(19));
+            facture.setCode("1");
+            facture.setTimbreFiscale(Double.valueOf(6));
+            facture.setTotalTTC(articles.get(3).getMontantHT() + inscriptions.get(3).getClasse().getFrais());
+            facture.setInscription(inscriptions.get(3));
+            facture.addArticle(articles.get(3));
 
-        facture = new Facture();
-        facture.setTva(Double.valueOf(19));
-        facture.setCode("1");
-        facture.setTimbreFiscale(Double.valueOf(6));
-        facture.setTotalTTC(articles.get(2).getMontantHT()+inscriptions.get(4).getClasse().getFrais());
-        facture.setInscription(inscriptions.get(4));
-        facture.addArticle(articles.get(2));
-
-        factures.add(factureRepository.save(facture));
-
+            factures.add(factureRepository.save(facture));
 
 
+            facture = new Facture();
+            facture.setTva(Double.valueOf(19));
+            facture.setCode("1");
+            facture.setTimbreFiscale(Double.valueOf(6));
+            facture.setTotalTTC(articles.get(2).getMontantHT() + inscriptions.get(4).getClasse().getFrais());
+            facture.setInscription(inscriptions.get(4));
+            facture.addArticle(articles.get(2));
 
+            factures.add(factureRepository.save(facture));
+
+
+        }
       return factures;
     }
 
     ArrayList<Paiement> paiementSeed(ArrayList<Inscription> inscriptions){
 
-        ArrayList<Paiement> paiements = new ArrayList<>();
+        ArrayList<Paiement> paiements = (ArrayList<Paiement>) paiementRepository.findAll();
 
-        Paiement paiement = new Paiement();
-        paiement.setInscription(inscriptions.get(0));
-        paiement.setMode("cheque");
-        paiement.setEcheance(new Date());
-        paiement.setCode(Long.valueOf(1));
+        if(paiements.size() == 0) {
 
-        paiements.add(paiementRepository.save(paiement));
+            Paiement paiement = new Paiement();
+            paiement.setInscription(inscriptions.get(0));
+            paiement.setMode("cheque");
+            paiement.setEcheance(new Date());
+            paiement.setCode(Long.valueOf(1));
 
-        paiement = new Paiement();
-        paiement.setInscription(inscriptions.get(1));
-        paiement.setMode("especes");
-        paiement.setEcheance(new Date());
-        paiement.setCode(Long.valueOf(2));
+            paiements.add(paiementRepository.save(paiement));
 
-        paiements.add(paiementRepository.save(paiement));
+            paiement = new Paiement();
+            paiement.setInscription(inscriptions.get(1));
+            paiement.setMode("especes");
+            paiement.setEcheance(new Date());
+            paiement.setCode(Long.valueOf(2));
 
-
-        paiement = new Paiement();
-        paiement.setInscription(inscriptions.get(2));
-        paiement.setMode("cheque");
-        paiement.setEcheance(new Date());
-        paiement.setCode(Long.valueOf(3));
-
-        paiements.add(paiementRepository.save(paiement));
+            paiements.add(paiementRepository.save(paiement));
 
 
-        paiement = new Paiement();
-        paiement.setInscription(inscriptions.get(3));
-        paiement.setMode("especes");
-        paiement.setEcheance(new Date());
-        paiement.setCode(Long.valueOf(4));
+            paiement = new Paiement();
+            paiement.setInscription(inscriptions.get(2));
+            paiement.setMode("cheque");
+            paiement.setEcheance(new Date());
+            paiement.setCode(Long.valueOf(3));
 
-        paiements.add(paiementRepository.save(paiement));
+            paiements.add(paiementRepository.save(paiement));
 
+
+            paiement = new Paiement();
+            paiement.setInscription(inscriptions.get(3));
+            paiement.setMode("especes");
+            paiement.setEcheance(new Date());
+            paiement.setCode(Long.valueOf(4));
+
+            paiements.add(paiementRepository.save(paiement));
+        }
         return paiements;
     }
 

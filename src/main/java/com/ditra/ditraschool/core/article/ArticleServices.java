@@ -43,7 +43,7 @@ public class ArticleServices {
     if(article.getDesignation() == null)
       return Utils.badRequestResponse(617, "designation requis");
 
-    if(article.getCode() == null)
+    if(article.getMontantHT() == null)
       return Utils.badRequestResponse(618, "monatant requis");
 
 
@@ -69,7 +69,7 @@ public class ArticleServices {
     if (article.getCode() != null) {
       Optional<Article> article1 = articleRepository.findArticleByCode(article.getCode());
 
-      if (!article1.isPresent())
+      if (!article1.isPresent() && !articleLocal.get().getCode().equals(article.getCode()))
         return Utils.badRequestResponse(611, "code deja utilise");
     }
 
