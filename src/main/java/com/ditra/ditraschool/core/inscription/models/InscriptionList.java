@@ -13,7 +13,7 @@ public class InscriptionList {
 
   Long id;
   Long code;
-  String matriculeEleve;
+  Long matriculeEleve;
   String nomEleve;
   String anneeScolaire;
   String nomClasse;
@@ -22,6 +22,7 @@ public class InscriptionList {
 
   public  InscriptionList(Inscription inscription){
     id = inscription.getId();
+    matriculeEleve = inscription.getEleve().getMatricule();
     code = inscription.getCode();
     date = inscription.getCreatedDate();
     nomEleve = inscription.getEleve().getNom();
