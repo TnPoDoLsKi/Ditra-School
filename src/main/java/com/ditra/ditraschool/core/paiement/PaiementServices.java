@@ -4,6 +4,7 @@ import com.ditra.ditraschool.core.inscription.InscriptionRepository;
 import com.ditra.ditraschool.core.inscription.models.Inscription;
 import com.ditra.ditraschool.core.paiement.models.Paiement;
 import com.ditra.ditraschool.core.paiement.models.PaiementModel;
+import com.ditra.ditraschool.core.paiement.models.PaiementUpdate;
 import com.ditra.ditraschool.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class PaiementServices {
     Optional<Paiement> paiement = paiementRepository.findById(id);
 
     if (!paiement.isPresent())
-      return Utils.badRequestResponse(604,"");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
     return new ResponseEntity<>(paiement , HttpStatus.OK);
 
@@ -45,7 +46,6 @@ public class PaiementServices {
 
     if(paiementModel.getCode() == null)
       return Utils.badRequestResponse(606, "code requis");
-
 
     if(paiementModel.getMontant() == null)
       return Utils.badRequestResponse(619, "montant requis");
@@ -87,31 +87,30 @@ public class PaiementServices {
     return new ResponseEntity<>(paiement , HttpStatus.OK);
   }
 
-  public ResponseEntity<?> update(Long id, PaiementModel paiementModel) {
+  public ResponseEntity<?> update(Long id, PaiementUpdate paiementUpdate) {
 
     Optional<Paiement> paiementLocal = paiementRepository.findById(id);
 
     if (!paiementLocal.isPresent())
-      return Utils.badRequestResponse(604,"");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
+
 
     Paiement paiement = new Paiement();
 
-    paiement.setCode(paiementModel.getCode());
+    paiement.setCode(paiementUpdate.getCode());
 
-    paiement.setEcheance(paiementModel.getEcheance());
+    paiement.setEcheance(paiement.getEcheance());
 
-    paiement.setMode(paiementModel.getMode());
-
-    Optional<Inscription> inscription = inscriptionRepository.findById(paiementModel.getInscriptionId());
-
-    if(!inscription.isPresent())
-      return Utils.badRequestResponse(602, "");
+    paiement.setMode(paiementUpdate.getMode());
 
 
-    inscription.get().setMontantRestant(inscription.get().getMontantTotal() - paiementModel.getMontant());
+    Inscription inscription = paiementLocal.get().getInscription();
+
+    inscription.setMontantRestant( inscription.getMontantTotal() - paiementUpdate.getMontant());
+
+    inscriptionRepository.save(inscription);
+
     paiement = Utils.merge(paiementLocal.get() , paiement);
-
-    inscriptionRepository.save(inscription.get());
 
     paiementRepository.save(paiement);
 
