@@ -1,8 +1,6 @@
 package com.ditra.ditraschool.core.article.models;
 
-import com.ditra.ditraschool.core.facture.models.Facture;
 import com.ditra.ditraschool.utils.Auditable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +8,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Getter
 @Setter

@@ -44,6 +44,15 @@ public class FactureServices {
     return new ResponseEntity<>(factures, HttpStatus.OK);
   }
 
+  public ResponseEntity<?> getByInscriptionId(Long inscriptionId) {
+
+    if(inscriptionId == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
+    List<Facture> factures = factureRepository.findByInscriptionId(inscriptionId);
+    return new ResponseEntity<>(factures, HttpStatus.OK);
+  }
+
   public ResponseEntity<?> getOne(Long id) {
 
     if(id == null)

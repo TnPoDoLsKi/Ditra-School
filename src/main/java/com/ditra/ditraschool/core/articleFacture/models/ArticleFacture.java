@@ -20,12 +20,11 @@ public class ArticleFacture {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
+  private Long code;
   private Double montantHT;
-
   private String designation;
 
-  @JsonIgnore
   @ManyToOne
+  @JsonIgnore
   private Facture facture;
 }

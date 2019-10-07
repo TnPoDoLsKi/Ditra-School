@@ -20,6 +20,9 @@ public class FactureController {
   @GetMapping("/facture/{id}")
   public ResponseEntity<?> getOne(@PathVariable Long id) { return factureServices.getOne(id); }
 
+  @GetMapping("/factures/byInscriptionId/{id}")
+  public ResponseEntity<?> getByInscriptionId(@PathVariable Long id) { return factureServices.getByInscriptionId(id); }
+
   @GetMapping("/facture/getArticles/{id}")
   public ResponseEntity<?> getArticles(@PathVariable Long id){
     return factureServices.getArticles(id);
