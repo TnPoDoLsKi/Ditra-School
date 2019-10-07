@@ -31,7 +31,5 @@ public class Article extends Auditable<String> {
   private boolean deleted = false;
 
 
-  @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "articles")
-  @JsonIgnore
-  private Collection<Facture> factures = new ArrayList<>();
+
 }
