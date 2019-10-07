@@ -1,6 +1,7 @@
 package com.ditra.ditraschool.core.articleFacture.models;
 
 import com.ditra.ditraschool.core.facture.models.Facture;
+import com.ditra.ditraschool.core.inscription.models.Inscription;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @Entity
 public class ArticleFacture {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -23,8 +25,6 @@ public class ArticleFacture {
 
   private String designation;
 
-
-  @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "articles")
-  @JsonIgnore
-  private Collection<Facture> factures = new ArrayList<>();
+  @ManyToOne
+  private Facture facture;
 }

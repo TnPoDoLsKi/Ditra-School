@@ -55,7 +55,6 @@ public class FactureServices {
 
   public ResponseEntity<?> create(FactureUpdate factureUpdate) {
 
-
     if(factureUpdate.getInscriptionId() == null)
       return Utils.badRequestResponse(612, "inscriptionId requis");
 
@@ -91,7 +90,6 @@ public class FactureServices {
     for (ArticleFacture article : factureUpdate.getArticles()) {
       if (article.getMontantHT() == null)
         return Utils.badRequestResponse(618, "monatant requis");
-
 
       if (article.getDesignation() == null)
         return Utils.badRequestResponse(617, "designation requis");

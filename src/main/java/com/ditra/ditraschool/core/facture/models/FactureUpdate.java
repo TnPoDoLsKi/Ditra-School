@@ -19,5 +19,4 @@ public class FactureUpdate {
   private Long inscriptionId;
 
   private List<ArticleFacture> articles;
-
 }
