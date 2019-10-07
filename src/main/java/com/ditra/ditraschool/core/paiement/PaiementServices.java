@@ -81,7 +81,7 @@ public class PaiementServices {
 
     paiement.setInscription(inscription.get());
 
-    Double montantRestant =  inscription.get().getMontantTotal() - paiement.getMontant();
+    Double montantRestant =  inscription.get().getMontantTotal() - paiementModel.getMontant();
 
     if (montantRestant == 0)
       inscription.get().setReglement("R");
@@ -93,7 +93,7 @@ public class PaiementServices {
     inscriptionRepository.save(inscription.get());
     paiementRepository.save(paiement);
 
-    return new ResponseEntity<>(paiement , HttpStatus.OK);
+    return new ResponseEntity<>( paiement, HttpStatus.OK);
   }
 
   public ResponseEntity<?> update(Long id, PaiementUpdate paiementUpdate) {
@@ -125,9 +125,11 @@ public class PaiementServices {
 
     paiement.setMode(paiementUpdate.getMode());
 
+    paiement.setMontant(paiementUpdate.getMontant());
 
-    if (paiementUpdate.getMontant() !=null) {
+    if (paiementUpdate.getMontant() != null) {
       Inscription inscription = paiementLocal.get().getInscription();
+
 
       inscription.setMontantRestant(inscription.getMontantTotal() - paiementUpdate.getMontant());
 

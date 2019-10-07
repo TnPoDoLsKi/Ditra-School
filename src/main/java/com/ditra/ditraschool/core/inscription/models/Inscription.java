@@ -46,8 +46,10 @@ public class Inscription extends Auditable<String>  {
   private Eleve eleve;
 
   @OneToMany (mappedBy = "inscription" , cascade = CascadeType.ALL , orphanRemoval = true)
+  @JsonIgnore
   private Collection<Facture> factures = new ArrayList<>();
 
   @OneToMany (mappedBy = "inscription" , cascade = CascadeType.ALL , orphanRemoval = true)
+  @JsonIgnore
   private Collection<Paiement> paiements = new ArrayList<>();
 }
