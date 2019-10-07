@@ -35,9 +35,9 @@ public class Inscription extends Auditable<String>  {
 
   private String reglement;
 
-  private Double montantTotal;
+  private Double montantTotal = 0.0;
 
-  private Double montantRestant;
+  private Double montantRestant = 0.0;
 
   @ManyToOne
   private Classe classe;
