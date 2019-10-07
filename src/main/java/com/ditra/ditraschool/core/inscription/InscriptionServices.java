@@ -66,12 +66,12 @@ public class InscriptionServices {
     if(inscriptionSave.getClasseId() == null)
       return Utils.badRequestResponse(607, "classeId requis");
 
-    if(inscriptionSave.getEleveId() == null)
-      return Utils.badRequestResponse(609, "eleveId requis");
+    if(inscriptionSave.getMatricule() == null)
+      return Utils.badRequestResponse(609, "matricule requis");
 
 
 
-    Optional<Eleve> eleveOptional = eleveRepository.findById(inscriptionSave.getEleveId());
+    Optional<Eleve> eleveOptional = eleveRepository.findEleveByMatricule(inscriptionSave.getMatricule());
 
     if(!eleveOptional.isPresent())
       return Utils.badRequestResponse(610, "eleve introuvable");
@@ -126,7 +126,7 @@ public class InscriptionServices {
 
     Inscription inscription = new Inscription();
 
-    Optional<Eleve> eleveOptional = eleveRepository.findById(inscriptionSave.getEleveId());
+    Optional<Eleve> eleveOptional = eleveRepository.findEleveByMatricule(inscriptionSave.getMatricule());
 
     if(!eleveOptional.isPresent())
       inscription.setEleve(null);

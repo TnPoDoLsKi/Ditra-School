@@ -11,5 +11,5 @@ public class InscriptionSave {
 
   private String code;
   private Long classeId;
-  private Long eleveId;
+  private Long matricule;
 }

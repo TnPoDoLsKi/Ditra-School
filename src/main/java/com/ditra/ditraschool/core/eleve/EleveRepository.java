@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface EleveRepository extends JpaRepository<Eleve, Long> {
   List<Eleve> findAllByInscriptionsEmpty();
-  Optional<Eleve> findEleveByMatricule(String matricule);
+  Optional<Eleve> findEleveByMatricule(Long matricule);
 }
