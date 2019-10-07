@@ -23,6 +23,7 @@ public class InscriptionList {
   public  InscriptionList(Inscription inscription){
     id = inscription.getId();
     code = inscription.getCode();
+    date = inscription.getCreatedDate();
     nomEleve = inscription.getEleve().getNom();
     anneeScolaire = inscription.getClasse().getAnneeScolaire();
     nomClasse = inscription.getClasse().getClasse();
