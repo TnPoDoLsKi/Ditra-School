@@ -35,7 +35,6 @@ public class ArticleServices {
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
     return new ResponseEntity<>(article , HttpStatus.OK);
-
   }
 
   public ResponseEntity<?> create(Article article) {

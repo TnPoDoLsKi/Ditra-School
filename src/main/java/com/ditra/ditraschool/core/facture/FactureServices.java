@@ -37,8 +37,6 @@ public class FactureServices {
   @Autowired
   ArticleRepository articleRepository;
 
-
-
   public ResponseEntity<?> getAll() {
     List<Facture> factures = factureRepository.findAll();
     return new ResponseEntity<>(factures, HttpStatus.OK);
@@ -48,6 +46,11 @@ public class FactureServices {
 
     if(inscriptionId == null)
       return Utils.badRequestResponse(650, "identifiant requis");
+
+    Optional<Inscription> inscription  = inscriptionRepository.findById(inscriptionId);
+
+    if(!inscription.isPresent())
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
     List<Facture> factures = factureRepository.findByInscriptionId(inscriptionId);
     return new ResponseEntity<>(factures, HttpStatus.OK);
@@ -83,7 +86,7 @@ public class FactureServices {
     Optional<Inscription> inscription = inscriptionRepository.findById(factureUpdate.getInscriptionId());
 
     if(!inscription.isPresent())
-      return Utils.badRequestResponse(611, "inscription introuvable");
+      return Utils.badRequestResponse(652, "inscription introuvable");
 
     Optional<Facture> factureOptional = factureRepository.findFactureByCode(factureUpdate.getCode());
 
@@ -190,7 +193,7 @@ public class FactureServices {
     Optional<Facture> facture = factureRepository.findById(id);
 
     if(!facture.isPresent())
-      return Utils.badRequestResponse(604, "");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
     factureRepository.delete(facture.get());
 
@@ -215,6 +218,6 @@ public class FactureServices {
       if (articles.get(i).getCode() == 1)
         articles.get(i).setMontantHT(Double.valueOf(montant));
 
-    return new ResponseEntity<>(articles,HttpStatus.OK);
+    return new ResponseEntity<>(articles, HttpStatus.OK);
   }
 }

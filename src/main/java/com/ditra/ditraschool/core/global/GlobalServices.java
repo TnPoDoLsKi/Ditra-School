@@ -27,8 +27,5 @@ public class GlobalServices {
     globalRepository.save(global);
 
     return new ResponseEntity<>( global , HttpStatus.OK);
-
   }
-
-
 }
