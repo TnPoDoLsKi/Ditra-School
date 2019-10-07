@@ -98,6 +98,9 @@ public class PaiementServices {
 
   public ResponseEntity<?> update(Long id, PaiementUpdate paiementUpdate) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
     Optional<Paiement> paiementLocal = paiementRepository.findById(id);
 
     if (!paiementLocal.isPresent())
@@ -140,6 +143,9 @@ public class PaiementServices {
   }
 
   public ResponseEntity<?> delete(Long id) {
+
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
 
     Optional<Paiement> paiement = paiementRepository.findById(id);
 

@@ -29,7 +29,6 @@ public class ArticleServices {
     if(id == null)
       return Utils.badRequestResponse(650, "identifiant requis");
 
-
     Optional<Article> article = articleRepository.findById(id);
 
     if (!article.isPresent())
@@ -64,6 +63,9 @@ public class ArticleServices {
 
   public ResponseEntity<?> update(Long id, Article article) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
     Optional<Article> articleLocal = articleRepository.findById(id);
 
     if (!articleLocal.isPresent())
@@ -85,13 +87,16 @@ public class ArticleServices {
 
   public ResponseEntity<?> delete(Long id) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
     if (id.equals(Long.valueOf(1)))
-      return Utils.badRequestResponse(606,"");
+      return Utils.badRequestResponse(606,"tu ne peux pas supprimer cet article");
 
     Optional<Article> articleLocal = articleRepository.findById(id);
 
     if (!articleLocal.isPresent())
-      return Utils.badRequestResponse(605,"");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
     articleRepository.delete(articleLocal.get());
 

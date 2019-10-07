@@ -133,6 +133,9 @@ public class FactureServices {
 
   public ResponseEntity<?> update(Long id, FactureUpdate factureUpdate) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
     Optional<Facture> factureLocal = factureRepository.findById(id);
 
     if(!factureLocal.isPresent())
@@ -143,11 +146,9 @@ public class FactureServices {
     if (factureOptional.isPresent() && !factureLocal.get().getCode().equals(factureUpdate.getCode()))
       return Utils.badRequestResponse(611, "code deja utilise");
 
-
     Inscription inscription = factureLocal.get().getInscription();
     Facture facture = new Facture();
     facture.setCode(factureUpdate.getCode());
-
 
     Double somme = 0.0;
 
@@ -183,6 +184,9 @@ public class FactureServices {
 
   public ResponseEntity<?> delete(Long id) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
     Optional<Facture> facture = factureRepository.findById(id);
 
     if(!facture.isPresent())
@@ -195,6 +199,8 @@ public class FactureServices {
 
   public ResponseEntity<?> getArticles(Long id) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
 
     Optional<Inscription> inscription  = inscriptionRepository.findById(id);
 

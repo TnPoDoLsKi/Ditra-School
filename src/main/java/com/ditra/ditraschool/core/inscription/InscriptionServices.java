@@ -101,6 +101,9 @@ public class InscriptionServices {
 
   public ResponseEntity<?> delete(Long id) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
     Optional<Inscription> inscription = inscriptionRepository.findById(id);
 
     if(!inscription.isPresent())
@@ -109,11 +112,12 @@ public class InscriptionServices {
     inscriptionRepository.delete(inscription.get());
 
     return new ResponseEntity<>(HttpStatus.OK);
-
   }
 
-
   public ResponseEntity<?> update(Long id, InscriptionSave inscriptionSave) {
+
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
 
     Optional<Inscription> inscriptionLocal = inscriptionRepository.findById(id);
 
