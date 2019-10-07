@@ -41,7 +41,6 @@ public class Facture extends Auditable<String>  {
   @JsonIgnore
   private Inscription inscription;
 
-  @JsonIgnore
   @OneToMany (mappedBy = "facture" , cascade = CascadeType.ALL , orphanRemoval = true)
   private Collection<ArticleFacture> articleFactures  = new ArrayList<>();
 }
