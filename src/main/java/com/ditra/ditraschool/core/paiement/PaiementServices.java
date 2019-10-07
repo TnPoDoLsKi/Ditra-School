@@ -154,7 +154,7 @@ public class PaiementServices {
     Optional<Paiement> paiement = paiementRepository.findById(id);
 
     if (!paiement.isPresent())
-      return Utils.badRequestResponse(604,"");
+      return Utils.badRequestResponse(600, "identifiant introuvable");
 
     paiementRepository.delete(paiement.get());
 
