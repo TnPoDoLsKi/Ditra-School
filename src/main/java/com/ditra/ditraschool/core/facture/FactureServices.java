@@ -93,18 +93,13 @@ public class FactureServices {
 
       if (article.getDesignation() == null)
         return Utils.badRequestResponse(617, "designation requis");
-    }
 
-    for (ArticleFacture article : factureUpdate.getArticles()) {
-      article = articleFactureRepository.save(article);
-
-      facture.addArticle(article);
-      somme = somme + ((article.getMontantHT()/100)*facture.getTva()) + article.getMontantHT()  ;
+      somme += ((article.getMontantHT()/100)*facture.getTva()) + article.getMontantHT()  ;
     }
 
     if (factureUpdate.getAvecTimbre()){
       facture.setTimbreFiscale(global.getTimbreFiscale());
-      somme = somme + global.getTimbreFiscale();
+      somme += global.getTimbreFiscale();
     }
 
     facture.setTotalTTC(somme);
@@ -115,8 +110,12 @@ public class FactureServices {
 
     facture = factureRepository.save(facture);
 
-    return new ResponseEntity<>(facture,HttpStatus.OK);
+    for (ArticleFacture article : factureUpdate.getArticles()) {
+      article = articleFactureRepository.save(article);
+      article.setFacture(facture);
+    }
 
+    return new ResponseEntity<>(facture, HttpStatus.OK);
   }
 
   public ResponseEntity<?> update(Long id, FactureUpdate factureUpdate) {
