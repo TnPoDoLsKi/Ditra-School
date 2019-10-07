@@ -71,9 +71,11 @@ public class EleveServices {
     if(!eleveOptional.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
+    
     Optional<Eleve> eleveByMatricule = eleveRepository.findEleveByMatricule(eleve.getMatricule());
 
-    if(eleveByMatricule.isPresent())
+
+    if(eleveByMatricule.isPresent() && !eleveByMatricule.get().getMatricule().equals( eleve.getMatricule()))
       return Utils.badRequestResponse(620, "Matricule deja utilise");
 
     eleve = Utils.merge(eleveOptional.get(),eleve);
