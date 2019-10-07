@@ -35,7 +35,7 @@ public class Classe extends Auditable<String>  {
 
   private boolean deleted = false;
 
-  @OneToMany(mappedBy = "classe" , cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "classe" , cascade = CascadeType.ALL , orphanRemoval = true)
   @JsonIgnore
   private Collection<Inscription> inscriptions = new ArrayList<>();
 }
