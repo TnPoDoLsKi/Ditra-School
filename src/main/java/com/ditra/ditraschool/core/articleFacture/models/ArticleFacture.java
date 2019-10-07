@@ -25,6 +25,7 @@ public class ArticleFacture {
 
   private String designation;
 
+  @JsonIgnore
   @ManyToOne
   private Facture facture;
 }

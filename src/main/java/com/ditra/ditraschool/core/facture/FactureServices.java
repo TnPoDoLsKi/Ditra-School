@@ -108,7 +108,7 @@ public class FactureServices {
 
     facture.setTotalTTC(somme);
 
-    inscription.get().setMontantTotal( inscription.get().getMontantTotal() + somme);
+    inscription.get().setMontantTotal(inscription.get().getMontantTotal() + somme);
 
     inscriptionRepository.save(inscription.get());
 
@@ -140,27 +140,24 @@ public class FactureServices {
     facture.setCode(factureUpdate.getCode());
 
 
-    Double somme =0.0;
+    Double somme = 0.0;
 
     for (ArticleFacture article : factureUpdate.getArticles()) {
       if (article.getMontantHT() == null)
         return Utils.badRequestResponse(618, "monatant requis");
-
 
       if (article.getDesignation() == null)
         return Utils.badRequestResponse(617, "designation requis");
     }
 
     for (ArticleFacture article : factureUpdate.getArticles()) {
+      article.setFacture(factureLocal.get());
       article = articleFactureRepository.save(article);
-
-//      facture.addArticle(article);
-      somme = somme + ((article.getMontantHT()/100)*facture.getTva()) + article.getMontantHT()  ;
+      somme += ((article.getMontantHT()/100)*facture.getTva()) + article.getMontantHT()  ;
     }
 
-    if (factureUpdate.getAvecTimbre()){
+    if (factureUpdate.getAvecTimbre())
       somme = somme + facture.getTimbreFiscale();
-    }
 
     facture.setTotalTTC(somme);
 
@@ -168,7 +165,7 @@ public class FactureServices {
 
     inscriptionRepository.save(inscription);
 
-    facture = Utils.merge(factureLocal.get(),facture);
+    facture = Utils.merge(factureLocal.get(), facture);
 
     facture = factureRepository.save(facture);
 
