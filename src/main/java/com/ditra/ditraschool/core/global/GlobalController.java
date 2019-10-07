@@ -13,7 +13,7 @@ public class GlobalController {
   GlobalServices globalServices;
 
   @GetMapping("/global")
-  public ResponseEntity<?> getOne(@PathVariable Long id) { return globalServices.getOne(id); }
+  public ResponseEntity<?> getOne() { return globalServices.getOne(); }
 
   @PutMapping("/global")
   public ResponseEntity<?> update( @RequestBody Global global) { return globalServices.update(global); }

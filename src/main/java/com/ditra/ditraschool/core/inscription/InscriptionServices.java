@@ -41,6 +41,9 @@ public class InscriptionServices {
 
   public ResponseEntity<?> getOne(Long id) {
 
+    if(id == null)
+      return Utils.badRequestResponse(650, "identifiant requis");
+
 
     Optional<Inscription> inscription = inscriptionRepository.findById(id);
 

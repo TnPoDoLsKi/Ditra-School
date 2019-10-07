@@ -13,7 +13,7 @@ public class GlobalServices {
   @Autowired
   GlobalRepository globalRepository;
 
-  public ResponseEntity<?> getOne(Long id) {
+  public ResponseEntity<?> getOne() {
     return new ResponseEntity<>(globalRepository.findAll().get(0),HttpStatus.OK);
   }
 
