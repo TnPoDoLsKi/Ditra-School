@@ -63,7 +63,7 @@ public class PaiementServices {
 
     Optional<Paiement> paiement1 = paiementRepository.findPaiementByCode(paiementModel.getCode());
 
-    if(!paiement1.isPresent())
+    if(paiement1.isPresent())
       return Utils.badRequestResponse(611, "code deja utilise");
 
 
@@ -99,7 +99,7 @@ public class PaiementServices {
 
       Optional<Paiement> paiement1 = paiementRepository.findPaiementByCode(paiementUpdate.getCode());
 
-      if(!paiement1.isPresent() && !paiementLocal.get().getCode().equals(paiementUpdate.getCode()))
+      if(paiement1.isPresent() && !paiementLocal.get().getCode().equals(paiementUpdate.getCode()))
         return Utils.badRequestResponse(611, "code deja utilise");
 
     }
