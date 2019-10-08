@@ -39,7 +39,7 @@ public class FactureServices {
 
 
 
-  public ResponseEntity<?> getAll() {
+  public ResponseEntity<?> getCode() {
     List<Facture> factures = factureRepository.findAll();
 
     if (factures.size() == 0) {
