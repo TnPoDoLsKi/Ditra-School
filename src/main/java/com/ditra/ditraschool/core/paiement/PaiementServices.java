@@ -91,7 +91,7 @@ public class PaiementServices {
 
     paiement.setMontant(paiementModel.getMontant());
 
-    if (montantRestant == 0)
+    if (montantRestant <= 0)
       inscription.get().setReglement("R");
     else
       inscription.get().setReglement("PR");
