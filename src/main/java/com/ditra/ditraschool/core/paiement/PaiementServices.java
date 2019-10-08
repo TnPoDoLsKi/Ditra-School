@@ -9,6 +9,7 @@ import com.ditra.ditraschool.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -109,44 +110,39 @@ public class PaiementServices {
     if(id == null)
       return Utils.badRequestResponse(650, "identifiant requis");
 
-    Optional<Paiement> paiement = paiementRepository.findById(id);
+    Optional<Paiement> paiementLocal = paiementRepository.findById(id);
 
-    if (!paiement.isPresent())
+    if (!paiementLocal.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
 
     if (paiementUpdate.getCode() != null){
 
-      Optional<Paiement> paiement1 = paiementRepository.findPaiementByCode(paiementUpdate.getCode());
+      Optional<Paiement> paiementByCode = paiementRepository.findPaiementByCode(paiementUpdate.getCode());
 
-      if(paiement1.isPresent() && !paiement.get().getCode().equals(paiementUpdate.getCode()))
+      if(paiementByCode.isPresent() && !paiementLocal.get().getCode().equals(paiementUpdate.getCode()))
         return Utils.badRequestResponse(611, "code deja utilise");
     }
 
-    if (paiementUpdate.getMontant() != null)
-      paiement.get().setMontant(paiementUpdate.getMontant());
+    Paiement paiement = new Paiement();
 
-    if (paiementUpdate.getCode() != null)
-    paiement.get().setCode(paiementUpdate.getCode());
+      paiement.setMontant(paiementUpdate.getMontant());
 
-    if (paiementUpdate.getEcheance() != null)
-    paiement.get().setEcheance(paiementUpdate.getEcheance());
+    paiement.setCode(paiementUpdate.getCode());
 
-    if (paiementUpdate.getMode() != null)
-    paiement.get().setMode(paiementUpdate.getMode());
+    paiement.setEcheance(paiementUpdate.getEcheance());
+
+    paiement.setMode(paiementUpdate.getMode());
 
     if (paiementUpdate.getMontant() != null) {
-      Inscription inscription = paiement.get().getInscription();
-
-
+      Inscription inscription = paiement.getInscription();
       inscription.setMontantRestant(inscription.getMontantTotal() - paiementUpdate.getMontant());
-
       inscriptionRepository.save(inscription);
     }
 
-  //  paiement = Utils.merge(paiementLocal.get() , paiement);
+     paiement = Utils.merge(paiementLocal.get() , paiement);
 
-    paiementRepository.save(paiement.get());
+    paiementRepository.save(paiement);
 
     return new ResponseEntity<>(paiement , HttpStatus.OK);
 
