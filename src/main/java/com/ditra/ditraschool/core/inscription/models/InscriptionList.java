@@ -25,7 +25,7 @@ public class InscriptionList {
     matriculeEleve = inscription.getEleve().getMatricule();
     code = inscription.getCode();
     date = inscription.getCreatedDate();
-    nomEleve = inscription.getEleve().getNom();
+    nomEleve = inscription.getEleve().getPrenom()+" "+inscription.getEleve().getNom();
     anneeScolaire = inscription.getClasse().getAnneeScolaire();
     nomClasse = inscription.getClasse().getClasse();
     reglement = inscription.getReglement();
