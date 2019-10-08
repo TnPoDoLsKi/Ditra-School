@@ -135,7 +135,7 @@ public class PaiementServices {
     paiement.setMode(paiementUpdate.getMode());
 
     if (paiementUpdate.getMontant() != null) {
-      Inscription inscription = paiement.getInscription();
+      Inscription inscription = paiementLocal.get().getInscription();
       inscription.setMontantRestant(inscription.getMontantTotal() - paiementUpdate.getMontant());
       inscriptionRepository.save(inscription);
     }
