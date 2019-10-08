@@ -139,8 +139,8 @@ public class FactureServices {
     facture = factureRepository.save(facture);
 
     for (ArticleFacture article : factureUpdate.getArticles()) {
-      article = articleFactureRepository.save(article);
       article.setFacture(facture);
+      articleFactureRepository.save(article);
     }
 
     return new ResponseEntity<>(facture, HttpStatus.OK);

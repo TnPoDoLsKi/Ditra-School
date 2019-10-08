@@ -95,7 +95,7 @@ public class PaiementServices {
     paiement.setMontant(paiementModel.getMontant());
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    paiement.setMontantEnMot(converter.asWords(new BigDecimal(paiementModel.getMontant())));
+    paiement.setMontantEnMot(converter.asWords(new BigDecimal(paiementModel.getMontant().intValue())));
 
     if (montantRestant <= 0)
       inscription.get().setReglement("R");
@@ -144,7 +144,7 @@ public class PaiementServices {
     if (paiementUpdate.getMontant() != null) {
 
       MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-      paiement.setMontantEnMot(converter.asWords(new BigDecimal(paiementUpdate.getMontant())));
+      paiement.setMontantEnMot(converter.asWords(new BigDecimal(paiementUpdate.getMontant().intValue())));
 
       Inscription inscription = paiementLocal.get().getInscription();
       inscription.setMontantRestant(inscription.getMontantTotal() - paiementUpdate.getMontant());
