@@ -14,7 +14,6 @@ public class AuditableConfig {
 
     @Bean
     public AuditorAware<String> auditorAware() {
-
        if (SecurityContextHolder.getContext().getAuthentication() == null){
             return new AuditorAwareImpl();
        }

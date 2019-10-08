@@ -53,7 +53,7 @@ public class Eleve extends Auditable<String>  {
   private String lienDeRelation;
   private boolean deleted = false;
 
-  @OneToMany (mappedBy = "eleve" , cascade = CascadeType.ALL , orphanRemoval = true)
   @JsonIgnore
+  @OneToMany (mappedBy = "eleve" , cascade = CascadeType.ALL , orphanRemoval = true)
   private Collection<Inscription> inscriptions = new ArrayList<>();
 }

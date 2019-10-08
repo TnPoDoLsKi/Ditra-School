@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 @Entity
+@Where(clause = "deleted = false")
+@SQLDelete(sql=" UPDATE article_facture SET deleted = true WHERE id = ?")
 public class ArticleFacture {
 
   @Id
@@ -23,6 +27,7 @@ public class ArticleFacture {
   private Long code;
   private Double montantHT;
   private String designation;
+  private boolean deleted = false;
 
   @ManyToOne
   @JsonIgnore

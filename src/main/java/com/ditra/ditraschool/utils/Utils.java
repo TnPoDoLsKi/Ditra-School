@@ -15,20 +15,16 @@ public class Utils {
             Object mergedInstance = myClass.newInstance();
 
             Field[] classFields = myClass.getDeclaredFields();
-            Field[] both = classFields;
 
             Class<?> superClass = myClass.getSuperclass();
 
-            String superClassName = superClass.getName();
+            if(superClass.getName().equals("com.ditra.ditraschool.utils.Auditable"))
+                classFields = ArrayUtils.addAll(classFields, superClass.getDeclaredFields());
 
-            if(superClass.getName().equals("com.ditra.ditraschool.utils.Auditable")) {
-                Field[] superClassFields = superClass.getDeclaredFields();
-                both = ArrayUtils.addAll(classFields, superClassFields);
-            }
+            for (Field field : classFields) {
 
-            System.out.println(both.length);
-
-            for (Field field : both) {
+                if(field.getName().startsWith("lastModified"))
+                    continue;
 
                 field.setAccessible(true);
 
@@ -41,6 +37,8 @@ public class Utils {
 
                 if(remoteValue != null && fieldClassName.startsWith("com.ditra"))
                     mergedValue = Utils.merge(localValue, remoteValue);
+                else if (field.getType().getName().equals("java.util.Collection"))
+                    mergedValue = localValue;
                 else
                     mergedValue = remoteValue != null ? remoteValue : localValue;
 
