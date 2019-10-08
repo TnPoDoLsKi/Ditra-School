@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import pl.allegro.finance.tradukisto.MoneyConverters;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,6 +94,9 @@ public class PaiementServices {
 
     paiement.setMontant(paiementModel.getMontant());
 
+    MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
+    paiement.setMontantEnMot(converter.asWords(new BigDecimal(paiementModel.getMontant())));
+
     if (montantRestant <= 0)
       inscription.get().setReglement("R");
     else
@@ -128,6 +133,8 @@ public class PaiementServices {
 
       paiement.setMontant(paiementUpdate.getMontant());
 
+
+
     paiement.setCode(paiementUpdate.getCode());
 
     paiement.setEcheance(paiementUpdate.getEcheance());
@@ -135,6 +142,10 @@ public class PaiementServices {
     paiement.setMode(paiementUpdate.getMode());
 
     if (paiementUpdate.getMontant() != null) {
+
+      MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
+      paiement.setMontantEnMot(converter.asWords(new BigDecimal(paiementUpdate.getMontant())));
+
       Inscription inscription = paiementLocal.get().getInscription();
       inscription.setMontantRestant(inscription.getMontantTotal() - paiementUpdate.getMontant());
       inscriptionRepository.save(inscription);

@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pl.allegro.finance.tradukisto.MoneyConverters;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -126,6 +128,9 @@ public class FactureServices {
 
     facture.setTotalTTC(somme);
 
+    MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
+    facture.setAmount(converter.asWords(new BigDecimal(somme)));
+
     inscription.get().setMontantTotal(inscription.get().getMontantTotal() + somme);
 
     inscriptionRepository.save(inscription.get());
@@ -181,6 +186,9 @@ public class FactureServices {
       somme = somme + factureLocal.get().getTimbreFiscale();
 
     facture.setTotalTTC(somme);
+
+    MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
+    facture.setAmount(converter.asWords(new BigDecimal(somme)));
 
     inscription.setMontantTotal(inscription.getMontantTotal() - factureLocal.get().getTotalTTC() + somme);
 

@@ -30,6 +30,8 @@ public class Paiement extends Auditable<String>  {
 
   private Double montant;
 
+  private String montantEnMot;
+
   private Date echeance;
 
   private boolean deleted = false;
