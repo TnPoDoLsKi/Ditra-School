@@ -89,13 +89,18 @@ public class ArticleServices {
     if(id == null)
       return Utils.badRequestResponse(650, "identifiant requis");
 
-    if (id.equals(Long.valueOf(1)))
-      return Utils.badRequestResponse(606,"tu ne peux pas supprimer cet article");
+
 
     Optional<Article> articleLocal = articleRepository.findById(id);
 
     if (!articleLocal.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
+
+
+    if (articleLocal.get().getCode().equals(Long.valueOf(1)))
+      return Utils.badRequestResponse(606,"tu ne peux pas supprimer cet article");
+
+
 
     articleRepository.delete(articleLocal.get());
 
