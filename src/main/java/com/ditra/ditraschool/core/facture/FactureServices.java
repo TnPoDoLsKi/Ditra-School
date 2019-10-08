@@ -130,7 +130,7 @@ public class FactureServices {
     facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(Double.valueOf(new DecimalFormat("#.##").format(somme)))));
+    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(somme.intValue())));
 
     inscription.get().setMontantTotal(inscription.get().getMontantTotal() + somme);
 
@@ -189,7 +189,7 @@ public class FactureServices {
     facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(Double.valueOf(new DecimalFormat("#.##").format(somme)))));
+    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(somme.intValue())));
 
     inscription.setMontantTotal(inscription.getMontantTotal() - factureLocal.get().getTotalTTC() + somme);
 
