@@ -99,7 +99,8 @@ public class ArticleServices {
 
     if (articleLocal.get().getCode().equals(Long.valueOf(1)))
       return Utils.badRequestResponse(606,"tu ne peux pas supprimer cet article");
-    
+
+
 
     articleRepository.delete(articleLocal.get());
 
