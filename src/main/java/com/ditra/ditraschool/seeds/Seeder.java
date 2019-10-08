@@ -227,6 +227,7 @@ public class Seeder {
             inscription.setEleve(eleves.get(0));
             inscription.setClasse(classes.get(0));
             inscription.setReglement("PR");
+            inscription.setCode((long) 11101);
 
             inscriptions.add(inscriptionRepository.save(inscription));
 
@@ -235,6 +236,7 @@ public class Seeder {
             inscription.setEleve(eleves.get(0));
             inscription.setClasse(classes.get(1));
             inscription.setReglement("R");
+            inscription.setCode((long) 11102);
 
             inscriptions.add(inscriptionRepository.save(inscription));
 
@@ -244,6 +246,7 @@ public class Seeder {
             inscription.setEleve(eleves.get(1));
             inscription.setClasse(classes.get(0));
             inscription.setReglement("NR");
+            inscription.setCode((long) 11103);
 
             inscriptions.add(inscriptionRepository.save(inscription));
 
@@ -253,6 +256,7 @@ public class Seeder {
             inscription.setEleve(eleves.get(1));
             inscription.setClasse(classes.get(2));
             inscription.setReglement("PR");
+            inscription.setCode((long) 11104);
 
             inscriptions.add(inscriptionRepository.save(inscription));
 
@@ -262,6 +266,7 @@ public class Seeder {
             inscription.setEleve(eleves.get(2));
             inscription.setClasse(classes.get(1));
             inscription.setReglement("R");
+            inscription.setCode((long) 11105);
 
             inscriptions.add(inscriptionRepository.save(inscription));
 
@@ -271,6 +276,7 @@ public class Seeder {
             inscription.setEleve(eleves.get(2));
             inscription.setClasse(classes.get(3));
             inscription.setReglement("R");
+            inscription.setCode((long) 11106);
 
             inscriptions.add(inscriptionRepository.save(inscription));
 
@@ -280,6 +286,7 @@ public class Seeder {
             inscription.setEleve(eleves.get(3));
             inscription.setClasse(classes.get(2));
             inscription.setReglement("R");
+            inscription.setCode((long) 11107);
 
             inscriptions.add(inscriptionRepository.save(inscription));
 
@@ -289,6 +296,7 @@ public class Seeder {
             inscription.setEleve(eleves.get(3));
             inscription.setClasse(classes.get(2));
             inscription.setReglement("R");
+            inscription.setCode((long) 11108);
 
             inscriptions.add(inscriptionRepository.save(inscription));
 
@@ -298,6 +306,7 @@ public class Seeder {
             inscription.setEleve(eleves.get(4));
             inscription.setClasse(classes.get(3));
             inscription.setReglement("R");
+            inscription.setCode((long) 11109);
 
             inscriptions.add(inscriptionRepository.save(inscription));
 
@@ -307,6 +316,7 @@ public class Seeder {
             inscription.setEleve(eleves.get(1));
             inscription.setClasse(classes.get(3));
             inscription.setReglement("NR");
+            inscription.setCode((long) 11110);
 
             inscriptions.add(inscriptionRepository.save(inscription));
 
