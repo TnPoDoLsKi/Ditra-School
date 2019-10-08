@@ -129,7 +129,7 @@ public class FactureServices {
     facture.setTotalTTC(somme);
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    facture.setAmount(converter.asWords(new BigDecimal(somme)));
+    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(somme)));
 
     inscription.get().setMontantTotal(inscription.get().getMontantTotal() + somme);
 
@@ -188,7 +188,7 @@ public class FactureServices {
     facture.setTotalTTC(somme);
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    facture.setAmount(converter.asWords(new BigDecimal(somme)));
+    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(somme)));
 
     inscription.setMontantTotal(inscription.getMontantTotal() - factureLocal.get().getTotalTTC() + somme);
 
