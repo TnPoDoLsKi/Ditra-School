@@ -123,7 +123,7 @@ public class FactureServices {
     }
 
     if (factureUpdate.getAvecTimbre()){
-      facture.setTimbreFiscale(global.getTimbreFiscale());
+      facture.setAvecTimbre(factureUpdate.getAvecTimbre());
       somme += global.getTimbreFiscale();
     }
 
@@ -165,6 +165,8 @@ public class FactureServices {
     Facture facture = new Facture();
     facture.setCode(factureUpdate.getCode());
 
+    Global global = globalRepository.findAll().get(0);
+
     Double somme = 0.0;
 
     for (ArticleFacture article : factureUpdate.getArticles()) {
@@ -183,9 +185,10 @@ public class FactureServices {
       somme += ((article.getMontantHT()/100)*factureLocal.get().getTva()) + article.getMontantHT()  ;
     }
 
-    if (factureUpdate.getAvecTimbre())
-      somme = somme + factureLocal.get().getTimbreFiscale();
-
+    if (factureUpdate.getAvecTimbre()) {
+      facture.setAvecTimbre(true);
+      somme = somme + global.getTimbreFiscale();
+    }
     facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;

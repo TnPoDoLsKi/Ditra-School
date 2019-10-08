@@ -59,6 +59,7 @@ public class PaiementServices {
     printModel.setAnneeScolaire(global.getAnneeScolaire());
     printModel.setGerant(global.getGerant());
     printModel.setNomEcole(global.getRaisonSociale());
+    printModel.setVille(global.getVille());
 
 
     return new ResponseEntity<>(printModel, HttpStatus.OK);

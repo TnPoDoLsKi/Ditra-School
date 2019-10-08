@@ -12,5 +12,6 @@ public class PrintModel {
   private String nomEcole;
   private String tuteur;
   private String anneeScolaire;
+  private String ville;
 
 }
