@@ -171,12 +171,14 @@ public class FactureServices {
 
     for (ArticleFacture article : factureUpdate.getArticles()) {
       article.setFacture(factureLocal.get());
+
       article = articleFactureRepository.save(article);
-      somme += ((article.getMontantHT()/100)*facture.getTva()) + article.getMontantHT()  ;
+
+      somme += ((article.getMontantHT()/100)*factureLocal.get().getTva()) + article.getMontantHT()  ;
     }
 
     if (factureUpdate.getAvecTimbre())
-      somme = somme + facture.getTimbreFiscale();
+      somme = somme + factureLocal.get().getTimbreFiscale();
 
     facture.setTotalTTC(somme);
 
