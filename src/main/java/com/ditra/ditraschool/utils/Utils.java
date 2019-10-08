@@ -57,4 +57,5 @@ public class Utils {
         ErrorResponseModel errorResponseModel = new ErrorResponseModel(HttpStatus.BAD_REQUEST.value(),code,message);
         return new ResponseEntity<>(errorResponseModel, HttpStatus.BAD_REQUEST);
     }
+
 }

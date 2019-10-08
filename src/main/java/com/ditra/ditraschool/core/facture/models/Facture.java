@@ -35,6 +35,8 @@ public class Facture extends Auditable<String>  {
 
   private Double totalTTC;
 
+  private String totalTTcEnMot;
+
   private boolean deleted = false;
 
   @ManyToOne

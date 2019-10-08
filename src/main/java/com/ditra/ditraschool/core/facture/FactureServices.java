@@ -15,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pl.allegro.finance.tradukisto.MoneyConverters;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -124,7 +127,10 @@ public class FactureServices {
       somme += global.getTimbreFiscale();
     }
 
-    facture.setTotalTTC(somme);
+    facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
+
+    MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
+    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(somme.intValue())));
 
     inscription.get().setMontantTotal(inscription.get().getMontantTotal() + somme);
 
@@ -133,8 +139,8 @@ public class FactureServices {
     facture = factureRepository.save(facture);
 
     for (ArticleFacture article : factureUpdate.getArticles()) {
-      article = articleFactureRepository.save(article);
       article.setFacture(facture);
+      articleFactureRepository.save(article);
     }
 
     return new ResponseEntity<>(facture, HttpStatus.OK);
@@ -171,14 +177,19 @@ public class FactureServices {
 
     for (ArticleFacture article : factureUpdate.getArticles()) {
       article.setFacture(factureLocal.get());
+
       article = articleFactureRepository.save(article);
-      somme += ((article.getMontantHT()/100)*facture.getTva()) + article.getMontantHT()  ;
+
+      somme += ((article.getMontantHT()/100)*factureLocal.get().getTva()) + article.getMontantHT()  ;
     }
 
     if (factureUpdate.getAvecTimbre())
-      somme = somme + facture.getTimbreFiscale();
+      somme = somme + factureLocal.get().getTimbreFiscale();
 
-    facture.setTotalTTC(somme);
+    facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
+
+    MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
+    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(somme.intValue())));
 
     inscription.setMontantTotal(inscription.getMontantTotal() - factureLocal.get().getTotalTTC() + somme);
 
