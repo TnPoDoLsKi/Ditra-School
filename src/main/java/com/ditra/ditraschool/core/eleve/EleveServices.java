@@ -62,6 +62,45 @@ public class EleveServices {
       return Utils.badRequestResponse(604, "tuteur requis");
 
 
+    if (eleve.getTuteur() == "pere"){
+
+      if(eleve.getNomPere() == null)
+        return Utils.badRequestResponse(641, "Nom tuteur requis");
+
+      if(eleve.getTelephonePere() == null)
+        return Utils.badRequestResponse(642, "telephone tuteur requis");
+
+      if(eleve.getNumCinPere() == null)
+        return Utils.badRequestResponse(643, "Cin tuteur requis");
+    }
+
+
+    if (eleve.getTuteur() == "mere"){
+
+      if(eleve.getNomMere() == null)
+        return Utils.badRequestResponse(641, "Nom tuteur requis");
+
+      if(eleve.getTelephoneMere() == null)
+        return Utils.badRequestResponse(642, "telephone tuteur requis");
+
+      if(eleve.getNumCinMere() == null)
+        return Utils.badRequestResponse(643, "Cin tuteur requis");
+    }
+
+
+    if (eleve.getTuteur() == "autre"){
+
+      if(eleve.getNomAutre() == null)
+        return Utils.badRequestResponse(641, "Nom tuteur requis");
+
+      if(eleve.getTelephoneAutre() == null)
+        return Utils.badRequestResponse(642, "telephone tuteur requis");
+
+      if(eleve.getNumCinAutre() == null)
+        return Utils.badRequestResponse(643, "Cin tuteur requis");
+    }
+
+
     eleve = eleveRepository.save(eleve);
 
     return new ResponseEntity<>(eleve ,HttpStatus.OK);
