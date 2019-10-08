@@ -15,7 +15,6 @@ public class Utils {
             Object mergedInstance = myClass.newInstance();
 
             Field[] classFields = myClass.getDeclaredFields();
-
             Class<?> superClass = myClass.getSuperclass();
 
             if(superClass.getName().equals("com.ditra.ditraschool.utils.Auditable"))
