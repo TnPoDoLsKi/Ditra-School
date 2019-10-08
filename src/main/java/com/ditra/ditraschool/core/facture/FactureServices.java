@@ -37,6 +37,8 @@ public class FactureServices {
   @Autowired
   ArticleRepository articleRepository;
 
+
+
   public ResponseEntity<?> getAll() {
     List<Facture> factures = factureRepository.findAll();
 
@@ -222,6 +224,6 @@ public class FactureServices {
       if (articles.get(i).getCode() == 1)
         articles.get(i).setMontantHT(Double.valueOf(montant));
 
-    return new ResponseEntity<>(articles, HttpStatus.OK);
+    return new ResponseEntity<>(articles,HttpStatus.OK);
   }
 }
