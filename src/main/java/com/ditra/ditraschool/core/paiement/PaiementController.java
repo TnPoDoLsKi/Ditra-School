@@ -16,11 +16,11 @@ public class PaiementController {
   PaiementServices paiementServices;
 
 
-  @GetMapping("/paiements")
-  public ResponseEntity<?> getAll() { return paiementServices.getAll();  }
+  @GetMapping("/paiement/code")
+  public ResponseEntity<?> getLastCode() { return paiementServices.getLastCode();  }
 
-  @GetMapping("/paiement/{id}")
-  public ResponseEntity<?> getOne(@PathVariable Long id) { return paiementServices.getOne(id); }
+  @GetMapping("/paiement/byInscription/{id}")
+  public ResponseEntity<?> getByInscription(@PathVariable Long id) { return paiementServices.getByInscription(id); }
 
   @PostMapping("/paiement")
   public ResponseEntity<?> create(@RequestBody PaiementModel paiementModel) { return paiementServices.create(paiementModel); }

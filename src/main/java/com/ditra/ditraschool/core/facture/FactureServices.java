@@ -39,7 +39,11 @@ public class FactureServices {
 
   public ResponseEntity<?> getAll() {
     List<Facture> factures = factureRepository.findAll();
-    return new ResponseEntity<>(factures, HttpStatus.OK);
+
+    if (factures.size() == 0) {
+      return new ResponseEntity<>(0, HttpStatus.OK);
+    }
+    return new ResponseEntity<>(factures.get(factures.size()-1).getCode()+1, HttpStatus.OK);
   }
 
   public ResponseEntity<?> getByInscriptionId(Long inscriptionId) {

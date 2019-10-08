@@ -24,22 +24,28 @@ public class PaiementServices {
   InscriptionRepository inscriptionRepository;
 
 
-  public ResponseEntity<?> getAll() {
+  public ResponseEntity<?> getLastCode() {
     List<Paiement> paiements = paiementRepository.findAll();
-    return new ResponseEntity<>(paiements, HttpStatus.OK);
+
+    if (paiements.size() == 0){
+      return new ResponseEntity<>(0, HttpStatus.OK);
+
+    }
+
+    return new ResponseEntity<>(paiements.get(paiements.size()-1).getCode()+1, HttpStatus.OK);
   }
 
-  public ResponseEntity<?> getOne(Long id) {
+  public ResponseEntity<?> getByInscription(Long id) {
 
     if(id == null)
       return Utils.badRequestResponse(650, "identifiant requis");
 
-    Optional<Paiement> paiement = paiementRepository.findById(id);
+    Optional<Inscription> inscription  = inscriptionRepository.findById(id);
 
-    if (!paiement.isPresent())
+    if (!inscription.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
-    return new ResponseEntity<>(paiement , HttpStatus.OK);
+    return new ResponseEntity<>(inscription.get().getPaiements() , HttpStatus.OK);
 
   }
 
@@ -68,7 +74,7 @@ public class PaiementServices {
     Optional<Paiement> paiement1 = paiementRepository.findPaiementByCode(paiementModel.getCode());
 
     if(paiement1.isPresent())
-      return Utils.badRequestResponse(611, "code deja utilise");
+        return Utils.badRequestResponse(611, "code deja utilise");
 
 
     Paiement paiement = new Paiement();
