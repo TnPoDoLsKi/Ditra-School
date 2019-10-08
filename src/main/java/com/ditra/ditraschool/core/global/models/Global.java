@@ -18,7 +18,8 @@ public class Global {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
+  private String gerant;
+  private String anneeScolaire;
   private String raisonSociale;
   private String adresse;
   private String ville;
