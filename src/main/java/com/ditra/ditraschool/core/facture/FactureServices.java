@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import pl.allegro.finance.tradukisto.MoneyConverters;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -126,10 +127,10 @@ public class FactureServices {
       somme += global.getTimbreFiscale();
     }
 
-    facture.setTotalTTC(somme);
+    facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(somme)));
+    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(Double.valueOf(new DecimalFormat("#.##").format(somme)))));
 
     inscription.get().setMontantTotal(inscription.get().getMontantTotal() + somme);
 
@@ -185,10 +186,10 @@ public class FactureServices {
     if (factureUpdate.getAvecTimbre())
       somme = somme + factureLocal.get().getTimbreFiscale();
 
-    facture.setTotalTTC(somme);
+    facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(somme)));
+    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(Double.valueOf(new DecimalFormat("#.##").format(somme)))));
 
     inscription.setMontantTotal(inscription.getMontantTotal() - factureLocal.get().getTotalTTC() + somme);
 
