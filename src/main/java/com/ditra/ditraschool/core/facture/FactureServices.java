@@ -218,10 +218,17 @@ public class FactureServices {
 
     List<Article> articles = articleRepository.findAll();
 
-    Float montant =inscription.get().getClasse().getFrais();
+    Float montant ;
+    if (inscription.get().getClasse().getFrais() != null) {
+       montant = inscription.get().getClasse().getFrais();
+    }
+    else {
+      montant = Float.valueOf(0) ;
+    }
+
 
     for (int i=0 ; i< articles.size() ; i++)
-      if (articles.get(i).getCode() == 1)
+      if (articles.get(i).getCode() == 0)
         articles.get(i).setMontantHT(Double.valueOf(montant));
 
     return new ResponseEntity<>(articles,HttpStatus.OK);
