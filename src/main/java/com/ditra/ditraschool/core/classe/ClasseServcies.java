@@ -44,6 +44,9 @@ public class ClasseServcies {
     if(classe.getClasse() == null)
       return Utils.badRequestResponse(605, "classe requis");
 
+    if(classe.getFrais() == null)
+      return Utils.badRequestResponse(640, "frais requis");
+
     Optional<Classe> classeOptional = classeRepository.findClasseByClasse(classe.getClasse());
 
     if(classeOptional.isPresent())
