@@ -430,6 +430,7 @@ public class Seeder {
             paiement.setMode("cheque");
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12001));
+            paiement.setMontant((double) 1500);
 
             paiements.add(paiementRepository.save(paiement));
 
@@ -438,6 +439,7 @@ public class Seeder {
             paiement.setMode("especes");
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12002));
+            paiement.setMontant((double) 1800);
 
             paiements.add(paiementRepository.save(paiement));
 
@@ -447,6 +449,7 @@ public class Seeder {
             paiement.setMode("cheque");
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12003));
+            paiement.setMontant((double) 2500);
 
             paiements.add(paiementRepository.save(paiement));
 
@@ -456,6 +459,8 @@ public class Seeder {
             paiement.setMode("especes");
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12004));
+            paiement.setMontant((double) 5555);
+
 
             paiements.add(paiementRepository.save(paiement));
         }
@@ -472,37 +477,41 @@ public class Seeder {
             article.setDesignation("scolarité");
             article.setMontantHT(Double.valueOf(1500));
             article.setFacture(factures.get(0));
+            article.setCode((long) 1);
 
             articles.add(articleFactureRepository.save(article));
 
             article = new ArticleFacture();
             article.setDesignation("transport");
-            article.setMontantHT(Double.valueOf(200));
-            article.setFacture(factures.get(0));
-
-            articles.add(articleFactureRepository.save(article));
-
-            article = new ArticleFacture();
-            article.setDesignation("accomodation");
             article.setMontantHT(Double.valueOf(500));
             article.setFacture(factures.get(0));
+            article.setCode((long) 2);
 
             articles.add(articleFactureRepository.save(article));
 
             article = new ArticleFacture();
-            article.setDesignation("diner");
-            article.setMontantHT(Double.valueOf(100));
-            article.setFacture(factures.get(1));
+            article.setDesignation("New test article");
+            article.setMontantHT(Double.valueOf(144));
+            article.setFacture(factures.get(0));
+            article.setCode((long) 101);
 
             articles.add(articleFactureRepository.save(article));
 
             article = new ArticleFacture();
             article.setDesignation("dejeuner");
-            article.setMontantHT(Double.valueOf(100));
+            article.setMontantHT(Double.valueOf(400));
             article.setFacture(factures.get(1));
+            article.setCode((long) 5);
 
             articles.add(articleFactureRepository.save(article));
 
+            article = new ArticleFacture();
+            article.setDesignation("other article for test");
+            article.setMontantHT(Double.valueOf(100));
+            article.setFacture(factures.get(1));
+            article.setCode((long) 102);
+
+            articles.add(articleFactureRepository.save(article));
         }
 
         return articles;

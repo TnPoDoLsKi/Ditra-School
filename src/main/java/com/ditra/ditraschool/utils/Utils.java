@@ -1,9 +1,11 @@
 package com.ditra.ditraschool.utils;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 public class Utils {
 
@@ -12,7 +14,21 @@ public class Utils {
             Class<?> myClass = local.getClass();
             Object mergedInstance = myClass.newInstance();
 
-            for (Field field : myClass.getDeclaredFields()) {
+            Field[] classFields = myClass.getDeclaredFields();
+            Field[] both = classFields;
+
+            Class<?> superClass = myClass.getSuperclass();
+
+            String superClassName = superClass.getName();
+
+            if(superClass.getName().equals("com.ditra.ditraschool.utils.Auditable")) {
+                Field[] superClassFields = superClass.getDeclaredFields();
+                both = ArrayUtils.addAll(classFields, superClassFields);
+            }
+
+            System.out.println(both.length);
+
+            for (Field field : both) {
 
                 field.setAccessible(true);
 

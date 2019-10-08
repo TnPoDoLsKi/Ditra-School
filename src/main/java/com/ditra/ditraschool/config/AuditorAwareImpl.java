@@ -8,9 +8,7 @@ import java.util.Optional;
 public class AuditorAwareImpl implements AuditorAware<String> {
     @Override
     public Optional<String> getCurrentAuditor() {
-        Optional<String> opt = Optional.of("seedUser");
-
-        return opt;
+        return Optional.of("seedUser");
     }
 
 }

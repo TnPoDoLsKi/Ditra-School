@@ -19,8 +19,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Auditable<U>
-{
+public class Auditable<U> {
 
     @CreatedBy
     @JsonIgnore

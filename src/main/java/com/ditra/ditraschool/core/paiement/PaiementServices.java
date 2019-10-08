@@ -115,10 +115,7 @@ public class PaiementServices {
 
       if(paiement1.isPresent() && !paiement.get().getCode().equals(paiementUpdate.getCode()))
         return Utils.badRequestResponse(611, "code deja utilise");
-
     }
-
-
 
     if (paiementUpdate.getMontant() != null)
       paiement.get().setMontant(paiementUpdate.getMontant());
@@ -131,8 +128,6 @@ public class PaiementServices {
 
     if (paiementUpdate.getMode() != null)
     paiement.get().setMode(paiementUpdate.getMode());
-
-
 
     if (paiementUpdate.getMontant() != null) {
       Inscription inscription = paiement.get().getInscription();

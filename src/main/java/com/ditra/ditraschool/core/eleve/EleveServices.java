@@ -82,7 +82,7 @@ public class EleveServices {
     if(eleveByMatricule.isPresent() && !eleveOptional.get().getMatricule().equals( eleve.getMatricule()))
       return Utils.badRequestResponse(620, "Matricule deja utilise");
 
-    eleve = Utils.merge(eleveOptional.get(),eleve);
+    eleve = Utils.merge(eleveOptional.get(), eleve);
 
     eleveRepository.save(eleve);
 
