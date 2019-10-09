@@ -21,8 +21,6 @@ public class PaiementController {
   @GetMapping("/paiement/code")
   public ResponseEntity<?> getLastCode() { return paiementServices.getLastCode();  }
 
-  @GetMapping("paiement/printInfo")
-  public ResponseEntity<?> getPrintInfo() { return paiementServices.getPrintInfo();  }
 
 
   @GetMapping("/paiement/byInscription/{id}")

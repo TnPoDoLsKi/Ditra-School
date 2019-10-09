@@ -15,6 +15,9 @@ public class GlobalController {
   @GetMapping("/global")
   public ResponseEntity<?> getOne() { return globalServices.getOne(); }
 
+  @GetMapping("/global/printInfo")
+  public ResponseEntity<?> getPrintInfo() { return globalServices.getPrintInfo();  }
+
   @PutMapping("/global")
   public ResponseEntity<?> update( @RequestBody Global global) { return globalServices.update(global); }
 

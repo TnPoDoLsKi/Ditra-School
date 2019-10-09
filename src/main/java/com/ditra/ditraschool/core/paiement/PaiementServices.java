@@ -46,19 +46,6 @@ public class PaiementServices {
     return new ResponseEntity<>(paiements.get(paiements.size()-1).getCode()+1, HttpStatus.OK);
   }
 
-  public ResponseEntity<?> getPrintInfo() {
-
-
-    PrintModel printModel = new PrintModel();
-    Global global = globalRepository.findAll().get(0);
-    printModel.setAnneeScolaire(global.getAnneeScolaire());
-    printModel.setGerant(global.getGerant());
-    printModel.setNomEcole(global.getRaisonSociale());
-    printModel.setVille(global.getVille());
-
-
-    return new ResponseEntity<>(printModel, HttpStatus.OK);
-  }
 
   public ResponseEntity<?> getByInscription(Long id) {
 
