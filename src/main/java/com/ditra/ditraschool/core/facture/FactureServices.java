@@ -126,8 +126,9 @@ public class FactureServices {
       somme += ((article.getMontantHT()/100)*facture.getTva()) + article.getMontantHT()  ;
     }
 
+    facture.setAvecTimbre(factureUpdate.getAvecTimbre());
+
     if (factureUpdate.getAvecTimbre()){
-      facture.setAvecTimbre(factureUpdate.getAvecTimbre());
       somme += global.getTimbreFiscale();
     }
 
@@ -189,8 +190,10 @@ public class FactureServices {
       somme += ((article.getMontantHT()/100)*factureLocal.get().getTva()) + article.getMontantHT()  ;
     }
 
+
+    facture.setAvecTimbre(factureUpdate.getAvecTimbre());
+
     if (factureUpdate.getAvecTimbre()) {
-      facture.setAvecTimbre(true);
       somme = somme + global.getTimbreFiscale();
     }
     facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
