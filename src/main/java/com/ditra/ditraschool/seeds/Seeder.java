@@ -376,7 +376,7 @@ public class Seeder {
             Facture facture = new Facture();
             facture.setTva(Double.valueOf(19));
             facture.setCode(Long.valueOf(11001));
-            facture.setTimbreFiscale(Double.valueOf(6));
+            facture.setAvecTimbre(true);
             facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(0));
 
@@ -385,7 +385,7 @@ public class Seeder {
             facture = new Facture();
             facture.setTva(Double.valueOf(19));
             facture.setCode(Long.valueOf(11002));
-            facture.setTimbreFiscale(Double.valueOf(6));
+            facture.setAvecTimbre(true);
             facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(1));
 
@@ -394,7 +394,7 @@ public class Seeder {
             facture = new Facture();
             facture.setTva(Double.valueOf(19));
             facture.setCode(Long.valueOf(11003));
-            facture.setTimbreFiscale(Double.valueOf(6));
+            facture.setAvecTimbre(true);
             facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(2));
 
@@ -404,7 +404,7 @@ public class Seeder {
             facture = new Facture();
             facture.setTva(Double.valueOf(19));
             facture.setCode(Long.valueOf(11004));
-            facture.setTimbreFiscale(Double.valueOf(6));
+            facture.setAvecTimbre(false);
             facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(3));
 
@@ -414,7 +414,7 @@ public class Seeder {
             facture = new Facture();
             facture.setTva(Double.valueOf(19));
             facture.setCode(Long.valueOf(11005));
-            facture.setTimbreFiscale(Double.valueOf(6));
+            facture.setAvecTimbre(false);
             facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(4));
 
