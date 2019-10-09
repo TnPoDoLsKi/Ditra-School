@@ -182,20 +182,20 @@ public class FactureServices {
         return Utils.badRequestResponse(617, "designation requis");
     }
 
+    articleFactureRepository.deleteAllByFactureId(id);
+
     for (ArticleFacture article : factureUpdate.getArticles()) {
       article.setFacture(factureLocal.get());
-
       article = articleFactureRepository.save(article);
-
       somme += ((article.getMontantHT()/100)*factureLocal.get().getTva()) + article.getMontantHT()  ;
     }
 
-
     facture.setAvecTimbre(factureUpdate.getAvecTimbre());
 
-    if (factureUpdate.getAvecTimbre()) {
+    if (factureUpdate.getAvecTimbre())
       somme = somme + global.getTimbreFiscale();
-    }
+
+
     facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;

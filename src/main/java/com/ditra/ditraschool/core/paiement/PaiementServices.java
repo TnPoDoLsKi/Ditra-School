@@ -35,6 +35,7 @@ public class PaiementServices {
   public ResponseEntity<?> getAll(){
     return new ResponseEntity<>(paiementRepository.findAll(),HttpStatus.OK);
   }
+
   public ResponseEntity<?> getLastCode() {
     List<Paiement> paiements = paiementRepository.findAll();
 
@@ -45,7 +46,6 @@ public class PaiementServices {
 
     return new ResponseEntity<>(paiements.get(paiements.size()-1).getCode()+1, HttpStatus.OK);
   }
-
 
   public ResponseEntity<?> getByInscription(Long id) {
 
@@ -88,7 +88,6 @@ public class PaiementServices {
     if(paiement1.isPresent())
         return Utils.badRequestResponse(611, "code deja utilise");
 
-
     Paiement paiement = new Paiement();
 
     paiement.setCode(paiementModel.getCode());
@@ -106,7 +105,8 @@ public class PaiementServices {
     paiement.setMontant(paiementModel.getMontant());
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    paiement.setMontantEnMot(converter.asWords(new BigDecimal(paiementModel.getMontant().intValue())));
+    String montantEnLettre = converter.asWords(new BigDecimal(paiementModel.getMontant().intValue())).split("€")[0] + " Dinars";
+    paiement.setMontantEnMot(montantEnLettre);
 
     if (montantRestant <= 0)
       inscription.get().setReglement("R");
