@@ -105,7 +105,7 @@ public class PaiementServices {
     paiement.setMontant(paiementModel.getMontant());
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    String montantEnLettre = converter.asWords(new BigDecimal(paiementModel.getMontant().intValue())).split("€")[0] + " Dinars";
+    String montantEnLettre = converter.asWords(new BigDecimal(paiementModel.getMontant().intValue())).split("€")[0] + "dinars";
     paiement.setMontantEnMot(montantEnLettre);
 
     if (montantRestant <= 0)

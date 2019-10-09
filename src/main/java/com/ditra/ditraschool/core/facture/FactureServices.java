@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.allegro.finance.tradukisto.MoneyConverters;
 
 import java.math.BigDecimal;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class FactureServices {
 
   @Autowired
@@ -195,11 +197,11 @@ public class FactureServices {
     if (factureUpdate.getAvecTimbre())
       somme = somme + global.getTimbreFiscale();
 
-
     facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(somme.intValue())));
+    String montantEnLettre = converter.asWords(new BigDecimal(somme.intValue())).split("€")[0] + "dinars";
+    facture.setTotalTTcEnMot(montantEnLettre);
 
     inscription.setMontantTotal(inscription.getMontantTotal() - factureLocal.get().getTotalTTC() + somme);
 

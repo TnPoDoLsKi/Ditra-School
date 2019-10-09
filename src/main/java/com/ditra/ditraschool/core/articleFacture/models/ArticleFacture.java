@@ -18,8 +18,6 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 @Entity
-@Where(clause = "deleted = false")
-@SQLDelete(sql=" UPDATE article_facture SET deleted = true WHERE id = ?")
 public class ArticleFacture extends Auditable<String> {
 
   @Id
@@ -28,7 +26,6 @@ public class ArticleFacture extends Auditable<String> {
   private Long code;
   private Double montantHT;
   private String designation;
-  private boolean deleted = false;
 
   @ManyToOne
   @JsonIgnore
