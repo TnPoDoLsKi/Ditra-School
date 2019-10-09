@@ -31,7 +31,7 @@ public class Facture extends Auditable<String>  {
 
   private Double tva;
 
-  private Boolean avecTimbre;
+  private Boolean avecTimbre = false;
 
   private Double totalTTC;
 
