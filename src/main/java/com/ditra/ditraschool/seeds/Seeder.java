@@ -433,6 +433,8 @@ public class Seeder {
 
             Paiement paiement = new Paiement();
             paiement.setInscription(inscriptions.get(0));
+            paiement.setTuteur(inscriptions.get(0).getEleve().getTuteur());
+
             paiement.setMode("cheque");
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12001));
@@ -442,6 +444,8 @@ public class Seeder {
 
             paiement = new Paiement();
             paiement.setInscription(inscriptions.get(1));
+            paiement.setTuteur(inscriptions.get(1).getEleve().getTuteur());
+
             paiement.setMode("especes");
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12002));
@@ -452,6 +456,7 @@ public class Seeder {
 
             paiement = new Paiement();
             paiement.setInscription(inscriptions.get(2));
+            paiement.setTuteur(inscriptions.get(2).getEleve().getTuteur());
             paiement.setMode("cheque");
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12003));
@@ -462,6 +467,7 @@ public class Seeder {
 
             paiement = new Paiement();
             paiement.setInscription(inscriptions.get(3));
+            paiement.setTuteur(inscriptions.get(3).getEleve().getTuteur());
             paiement.setMode("especes");
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12004));
