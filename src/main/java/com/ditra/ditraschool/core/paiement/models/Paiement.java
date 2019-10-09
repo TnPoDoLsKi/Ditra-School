@@ -34,6 +34,8 @@ public class Paiement extends Auditable<String>  {
 
   private Date echeance;
 
+  private String tuteur;
+
   private boolean deleted = false;
 
 

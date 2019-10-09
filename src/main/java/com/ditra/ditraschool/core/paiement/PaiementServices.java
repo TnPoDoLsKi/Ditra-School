@@ -46,19 +46,11 @@ public class PaiementServices {
     return new ResponseEntity<>(paiements.get(paiements.size()-1).getCode()+1, HttpStatus.OK);
   }
 
-  public ResponseEntity<?> getPrintInfo(Long id) {
-
-    Optional<Paiement> paiement = paiementRepository.findById(id);
-
-    if (!paiement.isPresent())
-      return Utils.badRequestResponse(600, "identifiant introuvable");
+  public ResponseEntity<?> getPrintInfo() {
 
 
     PrintModel printModel = new PrintModel();
-    printModel.setTuteur(paiement.get().getInscription().getEleve().getTuteur());
-
     Global global = globalRepository.findAll().get(0);
-
     printModel.setAnneeScolaire(global.getAnneeScolaire());
     printModel.setGerant(global.getGerant());
     printModel.setNomEcole(global.getRaisonSociale());
@@ -119,6 +111,8 @@ public class PaiementServices {
     paiement.setMode(paiementModel.getMode());
 
     paiement.setInscription(inscription.get());
+
+    paiement.setTuteur(inscription.get().getEleve().getTuteur());
 
     Double montantRestant =  inscription.get().getMontantTotal() - paiementModel.getMontant();
 

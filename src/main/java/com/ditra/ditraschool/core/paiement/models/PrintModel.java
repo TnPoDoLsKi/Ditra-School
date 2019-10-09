@@ -10,7 +10,6 @@ import lombok.Setter;
 public class PrintModel {
   private String gerant;
   private String nomEcole;
-  private String tuteur;
   private String anneeScolaire;
   private String ville;
 
