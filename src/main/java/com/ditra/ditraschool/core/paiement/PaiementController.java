@@ -15,6 +15,8 @@ public class PaiementController {
   @Autowired
   PaiementServices paiementServices;
 
+  @GetMapping("/paiements")
+  public ResponseEntity<?> getAll() { return paiementServices.getAll();  }
 
   @GetMapping("/paiement/code")
   public ResponseEntity<?> getLastCode() { return paiementServices.getLastCode();  }

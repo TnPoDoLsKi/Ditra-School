@@ -14,6 +14,9 @@ public class FactureController {
   FactureServices factureServices;
 
 
+  @GetMapping("/factures")
+  public ResponseEntity<?> getAll() { return factureServices.getAll();  }
+
   @GetMapping("/facture/code")
   public ResponseEntity<?> getCode() { return factureServices.getCode();  }
 

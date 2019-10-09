@@ -42,6 +42,10 @@ public class FactureServices {
 
 
 
+  public ResponseEntity<?> getAll(){
+    return new ResponseEntity<>(factureRepository.findAll(),HttpStatus.OK);
+  }
+
   public ResponseEntity<?> getCode() {
     List<Facture> factures = factureRepository.findAll();
 

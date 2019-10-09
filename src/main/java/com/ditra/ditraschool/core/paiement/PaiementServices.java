@@ -32,6 +32,9 @@ public class PaiementServices {
   GlobalRepository globalRepository;
 
 
+  public ResponseEntity<?> getAll(){
+    return new ResponseEntity<>(paiementRepository.findAll(),HttpStatus.OK);
+  }
   public ResponseEntity<?> getLastCode() {
     List<Paiement> paiements = paiementRepository.findAll();
 
