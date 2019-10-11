@@ -189,6 +189,11 @@ public class PaiementServices {
     if (!paiement.isPresent())
       return Utils.badRequestResponse(600, "identifiant introuvable");
 
+    Inscription inscription =  paiement.get().getInscription();
+    Double montantRestant = inscription.getMontantRestant();
+    inscription.setMontantRestant(montantRestant + paiement.get().getMontant());
+
+    inscriptionRepository.save(inscription);
     paiementRepository.delete(paiement.get());
 
     return new ResponseEntity<>(HttpStatus.OK);
