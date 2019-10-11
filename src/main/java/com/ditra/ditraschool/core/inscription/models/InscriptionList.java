@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 @Getter
@@ -19,6 +20,7 @@ public class InscriptionList {
   String nomClasse;
   Date date;
   String reglement;
+  Double montantRestant;
 
   public  InscriptionList(Inscription inscription){
     id = inscription.getId();
@@ -29,6 +31,6 @@ public class InscriptionList {
     anneeScolaire = inscription.getClasse().getAnneeScolaire();
     nomClasse = inscription.getClasse().getClasse();
     reglement = inscription.getReglement();
+    montantRestant = Double.valueOf(new DecimalFormat("#.###").format(inscription.getMontantRestant()));
   }
-
 }

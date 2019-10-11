@@ -116,14 +116,13 @@ public class PaiementServices {
     String montantEnLettre = converter.asWords(new BigDecimal(paiementModel.getMontant().intValue())).split("€")[0] + "dinars";
     paiement.setMontantEnMot(montantEnLettre.toUpperCase());
 
-    Double montantRestant =  inscription.get().getMontantTotal() - paiementModel.getMontant();
+    Double montantRestant =  inscription.get().getMontantRestant() - paiementModel.getMontant();
+    inscription.get().setMontantRestant(montantRestant);
 
     if (montantRestant <= 0)
       inscription.get().setReglement("R");
     else
       inscription.get().setReglement("PR");
-
-    inscription.get().setMontantRestant(montantRestant);
 
     inscriptionRepository.save(inscription.get());
     paiementRepository.save(paiement);

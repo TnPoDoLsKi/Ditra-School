@@ -142,6 +142,7 @@ public class FactureServices {
     facture.setTotalTTcEnMot(montantEnLettre.toUpperCase());
 
     inscription.get().setMontantTotal(inscription.get().getMontantTotal() + somme);
+    inscription.get().setMontantRestant(inscription.get().getMontantRestant() + somme);
 
     switch (inscription.get().getEleve().getTuteur()) {
       case "pere":
