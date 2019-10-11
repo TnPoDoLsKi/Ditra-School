@@ -76,7 +76,6 @@ public class PaiementServices {
     if(paiementModel.getMode() == null)
       return Utils.badRequestResponse(618, "mode requis");
 
-
     Optional<Inscription> inscription = inscriptionRepository.findById(paiementModel.getInscriptionId());
 
     if(!inscription.isPresent())

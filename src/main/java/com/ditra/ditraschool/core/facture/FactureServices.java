@@ -98,9 +98,9 @@ public class FactureServices {
     if(factureUpdate.getArticles().isEmpty())
       return Utils.badRequestResponse(614, "articles requis");
 
-    Optional<Inscription> inscription = inscriptionRepository.findById(factureUpdate.getInscriptionId());
+    Optional<Inscription> inscriptionOptional = inscriptionRepository.findById(factureUpdate.getInscriptionId());
 
-    if(!inscription.isPresent())
+    if(!inscriptionOptional.isPresent())
       return Utils.badRequestResponse(652, "inscription introuvable");
 
     Optional<Facture> factureOptional = factureRepository.findFactureByCode(factureUpdate.getCode());
@@ -108,13 +108,32 @@ public class FactureServices {
     if (factureOptional.isPresent())
       return Utils.badRequestResponse(611, "code deja utilise");
 
+
+    // initialisation de la facture
+
+    Inscription inscription = inscriptionOptional.get();
     Facture facture = new Facture();
 
-    facture.setInscription(inscription.get());
+    facture.setInscription(inscription);
+    facture.setCode(factureUpdate.getCode());
 
     Global global = globalRepository.findAll().get(0);
     facture.setTva(global.getTva());
-    facture.setCode(factureUpdate.getCode());
+
+    switch (inscription.getEleve().getTuteur()) {
+      case "pere":
+        facture.setTuteur(inscription.getEleve().getNomPere());
+        break;
+      case "mere":
+        facture.setTuteur(inscription.getEleve().getNomMere());
+        break;
+      case "autre":
+        facture.setTuteur(inscription.getEleve().getNomAutre());
+        break;
+    }
+
+
+    // calcule du montant
 
     Double somme = 0.0;
 
@@ -125,7 +144,7 @@ public class FactureServices {
       if (article.getDesignation() == null)
         return Utils.badRequestResponse(617, "designation requis");
 
-      somme += ((article.getMontantHT()/100)*facture.getTva()) + article.getMontantHT()  ;
+      somme += ((article.getMontantHT() / 100) * facture.getTva()) + article.getMontantHT() ;
     }
 
     facture.setAvecTimbre(factureUpdate.getAvecTimbre());
@@ -135,29 +154,31 @@ public class FactureServices {
       facture.setTimbreFiscale(global.getTimbreFiscale());
     }
 
-    facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
+    inscription.setMontantTotal(inscription.getMontantTotal() + somme);
+    inscription.setMontantRestant(inscription.getMontantRestant() + somme);
+
+
+
+    // montant en toute lettres
+
+    String formatedTotalTTC = new DecimalFormat("#.###").format(somme);
+    int fractionalValue = Integer.parseInt(formatedTotalTTC.split("\\.")[1]);
+
+    while(fractionalValue <= 99)
+      fractionalValue *= 10;
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    String montantEnLettre = converter.asWords(new BigDecimal(somme.intValue())).split("€")[0] + "dinars";
+
+    String montantEnLettre = converter.asWords(new BigDecimal(somme.intValue())).split("€")[0] + "dinars ";
+    montantEnLettre += converter.asWords(new BigDecimal(fractionalValue)).split("€")[0] + "millimes";
+
     facture.setTotalTTcEnMot(montantEnLettre.toUpperCase());
+    facture.setTotalTTC(Double.valueOf(formatedTotalTTC));
 
-    inscription.get().setMontantTotal(inscription.get().getMontantTotal() + somme);
-    inscription.get().setMontantRestant(inscription.get().getMontantRestant() + somme);
 
-    switch (inscription.get().getEleve().getTuteur()) {
-      case "pere":
-        facture.setTuteur(inscription.get().getEleve().getNomPere());
-        break;
-      case "mere":
-        facture.setTuteur(inscription.get().getEleve().getNomMere());
-        break;
-      case "autre":
-        facture.setTuteur(inscription.get().getEleve().getNomAutre());
-        break;
-    }
+    // sauvegarde des données
 
-    inscriptionRepository.save(inscription.get());
-
+    inscriptionRepository.save(inscription);
     facture = factureRepository.save(facture);
 
     for (ArticleFacture article : factureUpdate.getArticles()) {
@@ -183,11 +204,18 @@ public class FactureServices {
     if (factureOptional.isPresent() && !factureLocal.get().getCode().equals(factureUpdate.getCode()))
       return Utils.badRequestResponse(611, "code deja utilise");
 
+
+
+    // initialisation de la facture
+
     Inscription inscription = factureLocal.get().getInscription();
     Facture facture = new Facture();
+
     facture.setCode(factureUpdate.getCode());
 
-    Global global = globalRepository.findAll().get(0);
+
+
+    // calcule du montant
 
     Double somme = 0.0;
 
@@ -204,29 +232,52 @@ public class FactureServices {
     for (ArticleFacture article : factureUpdate.getArticles()) {
       article.setFacture(factureLocal.get());
       article = articleFactureRepository.save(article);
-      somme += ((article.getMontantHT()/100)*factureLocal.get().getTva()) + article.getMontantHT()  ;
+      somme += ((article.getMontantHT() / 100) * factureLocal.get().getTva()) + article.getMontantHT()  ;
     }
 
     facture.setAvecTimbre(factureUpdate.getAvecTimbre());
 
-    if (factureUpdate.getAvecTimbre())
-      somme = somme + global.getTimbreFiscale();
+    if (factureUpdate.getAvecTimbre()) {
 
-    facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
+      Global global = globalRepository.findAll().get(0);
+      somme += global.getTimbreFiscale();
+      facture.setTimbreFiscale(global.getTimbreFiscale());
 
-    MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    String montantEnLettre = converter.asWords(new BigDecimal(somme.intValue())).split("€")[0] + "dinars";
-    facture.setTotalTTcEnMot(montantEnLettre);
+    } else {
+      facture.setTimbreFiscale(0.0);
+    }
 
     inscription.setMontantTotal(inscription.getMontantTotal() - factureLocal.get().getTotalTTC() + somme);
+    inscription.setMontantRestant(inscription.getMontantRestant() - factureLocal.get().getTotalTTC() + somme);
 
-    inscriptionRepository.save(inscription);
+
+
+    // montant en toute lettres
+
+    String formatedTotalTTC = new DecimalFormat("#.###").format(somme);
+    int fractionalValue = Integer.parseInt(formatedTotalTTC.split("\\.")[1]);
+
+    while(fractionalValue <= 99)
+      fractionalValue *= 10;
+
+    MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
+
+    String montantEnLettre = converter.asWords(new BigDecimal(somme.intValue())).split("€")[0] + "dinars ";
+    montantEnLettre += converter.asWords(new BigDecimal(fractionalValue)).split("€")[0] + "millimes";
+
+    facture.setTotalTTcEnMot(montantEnLettre.toUpperCase());
+    facture.setTotalTTC(Double.valueOf(formatedTotalTTC));
+
+
+
+    // sauvegarde des données
 
     facture = Utils.merge(factureLocal.get(), facture);
 
+    inscriptionRepository.save(inscription);
     facture = factureRepository.save(facture);
 
-    return new ResponseEntity<>(facture,HttpStatus.OK);
+    return new ResponseEntity<>(facture, HttpStatus.OK);
   }
 
   public ResponseEntity<?> delete(Long id) {
@@ -271,4 +322,5 @@ public class FactureServices {
 
     return new ResponseEntity<>(articles,HttpStatus.OK);
   }
+
 }
