@@ -35,7 +35,11 @@ public class Facture extends Auditable<String>  {
 
   private Double totalTTC;
 
+  private Double timbreFiscale = 0.0;
+
   private String totalTTcEnMot;
+
+  private String tuteur;
 
   private boolean deleted = false;
 

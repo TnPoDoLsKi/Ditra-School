@@ -21,8 +21,6 @@ public class PaiementController {
   @GetMapping("/paiement/code")
   public ResponseEntity<?> getLastCode() { return paiementServices.getLastCode();  }
 
-
-
   @GetMapping("/paiement/byInscription/{id}")
   public ResponseEntity<?> getByInscription(@PathVariable Long id) { return paiementServices.getByInscription(id); }
 
@@ -34,6 +32,4 @@ public class PaiementController {
 
   @DeleteMapping("/paiement/{id}")
   public ResponseEntity<?> delete(@PathVariable Long id) { return paiementServices.delete(id); }
-
-
 }

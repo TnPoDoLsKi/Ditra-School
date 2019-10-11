@@ -98,15 +98,25 @@ public class PaiementServices {
 
     paiement.setInscription(inscription.get());
 
-    paiement.setTuteur(inscription.get().getEleve().getTuteur());
-
-    Double montantRestant =  inscription.get().getMontantTotal() - paiementModel.getMontant();
+    switch (inscription.get().getEleve().getTuteur()) {
+      case "pere":
+        paiement.setTuteur(inscription.get().getEleve().getNomPere());
+        break;
+      case "mere":
+        paiement.setTuteur(inscription.get().getEleve().getNomMere());
+        break;
+      case "autre":
+        paiement.setTuteur(inscription.get().getEleve().getNomAutre());
+        break;
+    }
 
     paiement.setMontant(paiementModel.getMontant());
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
     String montantEnLettre = converter.asWords(new BigDecimal(paiementModel.getMontant().intValue())).split("€")[0] + "dinars";
-    paiement.setMontantEnMot(montantEnLettre);
+    paiement.setMontantEnMot(montantEnLettre.toUpperCase());
+
+    Double montantRestant =  inscription.get().getMontantTotal() - paiementModel.getMontant();
 
     if (montantRestant <= 0)
       inscription.get().setReglement("R");

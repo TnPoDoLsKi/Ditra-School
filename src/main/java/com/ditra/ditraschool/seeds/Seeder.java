@@ -22,7 +22,6 @@ import com.ditra.ditraschool.core.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
@@ -78,6 +77,8 @@ public class Seeder {
             global.setAdresse("Sousse, trocadero");
             global.setMatriculeFiscale("MT2562145");
             global.setTelephone("24642979");
+            global.setAnneeScolaire("2019/2020");
+            global.setVille("Sousse");
 
             globalRepository.save(global);
         }
@@ -372,13 +373,15 @@ public class Seeder {
 
         if(factures.size() == 0) {
 
-
             Facture facture = new Facture();
             facture.setTva(Double.valueOf(19));
             facture.setCode(Long.valueOf(11001));
             facture.setAvecTimbre(true);
             facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(0));
+            facture.setTimbreFiscale(0.600);
+            facture.setTotalTTcEnMot("DEUX CENT VINGT SIX DINARS SIX CENT MILLIMES");
+            facture.setTuteur("Wael Ben Taleb");
 
             factures.add(factureRepository.save(facture));
 
@@ -388,6 +391,9 @@ public class Seeder {
             facture.setAvecTimbre(true);
             facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(1));
+            facture.setTimbreFiscale(0.600);
+            facture.setTotalTTcEnMot("DEUX CENT VINGT SIX DINARS SIX CENT MILLIMES");
+            facture.setTuteur("Wael Ben Taleb");
 
             factures.add(factureRepository.save(facture));
 
@@ -397,6 +403,9 @@ public class Seeder {
             facture.setAvecTimbre(true);
             facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(2));
+            facture.setTimbreFiscale(0.600);
+            facture.setTotalTTcEnMot("DEUX CENT VINGT SIX DINARS SIX CENT MILLIMES");
+            facture.setTuteur("Wael Ben Taleb");
 
             factures.add(factureRepository.save(facture));
 
@@ -407,6 +416,8 @@ public class Seeder {
             facture.setAvecTimbre(false);
             facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(3));
+            facture.setTotalTTcEnMot("DEUX CENT VINGT SIX DINARS");
+            facture.setTuteur("Wael Ben Taleb");
 
             factures.add(factureRepository.save(facture));
 
@@ -417,11 +428,12 @@ public class Seeder {
             facture.setAvecTimbre(false);
             facture.setTotalTTC((double) 250);
             facture.setInscription(inscriptions.get(4));
+            facture.setTotalTTcEnMot("DEUX CENT VINGT SIX DINARS");
+            facture.setTuteur("Wael Ben Taleb");
 
             factures.add(factureRepository.save(facture));
-
-
         }
+
       return factures;
     }
 
@@ -434,22 +446,22 @@ public class Seeder {
             Paiement paiement = new Paiement();
             paiement.setInscription(inscriptions.get(0));
             paiement.setTuteur(inscriptions.get(0).getEleve().getTuteur());
-
             paiement.setMode("cheque");
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12001));
             paiement.setMontant((double) 1500);
+            paiement.setMontantEnMot("DEUX CENT VINGT SIX DINARS");
 
             paiements.add(paiementRepository.save(paiement));
 
             paiement = new Paiement();
             paiement.setInscription(inscriptions.get(1));
             paiement.setTuteur(inscriptions.get(1).getEleve().getTuteur());
-
             paiement.setMode("especes");
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12002));
             paiement.setMontant((double) 1800);
+            paiement.setMontantEnMot("DEUX CENT VINGT SIX DINARS");
 
             paiements.add(paiementRepository.save(paiement));
 
@@ -461,6 +473,7 @@ public class Seeder {
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12003));
             paiement.setMontant((double) 2500);
+            paiement.setMontantEnMot("DEUX CENT VINGT SIX DINARS");
 
             paiements.add(paiementRepository.save(paiement));
 
@@ -472,7 +485,7 @@ public class Seeder {
             paiement.setEcheance(new Date());
             paiement.setCode(Long.valueOf(12004));
             paiement.setMontant((double) 5555);
-
+            paiement.setMontantEnMot("DEUX CENT VINGT SIX DINARS");
 
             paiements.add(paiementRepository.save(paiement));
         }

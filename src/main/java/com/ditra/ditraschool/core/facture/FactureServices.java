@@ -132,14 +132,28 @@ public class FactureServices {
 
     if (factureUpdate.getAvecTimbre()){
       somme += global.getTimbreFiscale();
+      facture.setTimbreFiscale(global.getTimbreFiscale());
     }
 
     facture.setTotalTTC(Double.valueOf(new DecimalFormat("#.###").format(somme)));
 
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    facture.setTotalTTcEnMot(converter.asWords(new BigDecimal(somme.intValue())));
+    String montantEnLettre = converter.asWords(new BigDecimal(somme.intValue())).split("€")[0] + "dinars";
+    facture.setTotalTTcEnMot(montantEnLettre.toUpperCase());
 
     inscription.get().setMontantTotal(inscription.get().getMontantTotal() + somme);
+
+    switch (inscription.get().getEleve().getTuteur()) {
+      case "pere":
+        facture.setTuteur(inscription.get().getEleve().getNomPere());
+        break;
+      case "mere":
+        facture.setTuteur(inscription.get().getEleve().getNomMere());
+        break;
+      case "autre":
+        facture.setTuteur(inscription.get().getEleve().getNomAutre());
+        break;
+    }
 
     inscriptionRepository.save(inscription.get());
 
