@@ -51,19 +51,19 @@ public class Seeder {
     ArticleFactureRepository articleFactureRepository;
 
 
-    @EventListener
-    public void seed(ContextRefreshedEvent event) throws ParseException {
-        globalSeed();
-        seedUser();
-        ArrayList<Classe> classes = classeSeed();
-        ArrayList<Eleve> eleves = eleveSeed();
-        ArrayList<Inscription> inscriptions= inscriptionSeed(classes,eleves);
-        ArrayList<Article> articles = articleSeed();
-        ArrayList<Facture> factures= factureSeed(inscriptions);
-        ArrayList<ArticleFacture> articleFactures = articleFactureSeed(factures);
-
-        ArrayList<Paiement> paiements = paiementSeed(inscriptions);
-    }
+//    @EventListener
+//    public void seed(ContextRefreshedEvent event) throws ParseException {
+//        globalSeed();
+//        seedUser();
+//        ArrayList<Classe> classes = classeSeed();
+//        ArrayList<Eleve> eleves = eleveSeed();
+//        ArrayList<Inscription> inscriptions= inscriptionSeed(classes,eleves);
+//        ArrayList<Article> articles = articleSeed();
+//        ArrayList<Facture> factures= factureSeed(inscriptions);
+//        ArrayList<ArticleFacture> articleFactures = articleFactureSeed(factures);
+//
+//        ArrayList<Paiement> paiements = paiementSeed(inscriptions);
+//    }
 
     public  void globalSeed(){
 

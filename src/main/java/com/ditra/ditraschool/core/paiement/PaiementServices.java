@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import pl.allegro.finance.tradukisto.MoneyConverters;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,8 +112,16 @@ public class PaiementServices {
 
     paiement.setMontant(paiementModel.getMontant());
 
+    String formatedTotalTTC = new DecimalFormat("#.###").format(paiementModel.getMontant());
+    int fractionalValue = Integer.parseInt(formatedTotalTTC.split("\\.")[1]);
+
+    while(fractionalValue <= 99)
+      fractionalValue *= 10;
+
     MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-    String montantEnLettre = converter.asWords(new BigDecimal(paiementModel.getMontant().intValue())).split("€")[0] + "dinars";
+    String montantEnLettre = converter.asWords(new BigDecimal(paiementModel.getMontant().intValue())).split("€")[0] + "dinars ";
+    montantEnLettre += converter.asWords(new BigDecimal(fractionalValue)).split("€")[0] + "millimes";
+
     paiement.setMontantEnMot(montantEnLettre.toUpperCase());
 
     Double montantRestant =  inscription.get().getMontantRestant() - paiementModel.getMontant();
@@ -162,11 +171,21 @@ public class PaiementServices {
 
     if (paiementUpdate.getMontant() != null) {
 
+      String formatedTotalTTC = new DecimalFormat("#.###").format(paiementUpdate.getMontant());
+      int fractionalValue = Integer.parseInt(formatedTotalTTC.split("\\.")[1]);
+
+      while(fractionalValue <= 99)
+        fractionalValue *= 10;
+
       MoneyConverters converter = MoneyConverters.FRENCH_BANKING_MONEY_VALUE;
-      paiement.setMontantEnMot(converter.asWords(new BigDecimal(paiementUpdate.getMontant().intValue())));
+      String montantEnLettre = converter.asWords(new BigDecimal(paiementUpdate.getMontant().intValue())).split("€")[0] + "dinars ";
+      montantEnLettre += converter.asWords(new BigDecimal(fractionalValue)).split("€")[0] + "millimes";
+
+      paiement.setMontantEnMot(montantEnLettre.toUpperCase());
 
       Inscription inscription = paiementLocal.get().getInscription();
-      inscription.setMontantRestant(inscription.getMontantTotal() - paiementUpdate.getMontant());
+      inscription.setMontantRestant(inscription.getMontantRestant() + paiementLocal.get().getMontant() - paiementUpdate.getMontant());
+
       inscriptionRepository.save(inscription);
     }
 
