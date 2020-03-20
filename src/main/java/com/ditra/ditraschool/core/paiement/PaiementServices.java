@@ -113,7 +113,7 @@ public class PaiementServices {
     paiement.setMontant(paiementModel.getMontant());
 
     String formatedTotalTTC = new DecimalFormat("#.###").format(paiementModel.getMontant());
-    int fractionalValue = Integer.parseInt(formatedTotalTTC.split("\\.")[1]);
+    int fractionalValue = Integer.parseInt(formatedTotalTTC.split("\\.")[0]);
 
     while(fractionalValue <= 99)
       fractionalValue *= 10;
@@ -172,7 +172,7 @@ public class PaiementServices {
     if (paiementUpdate.getMontant() != null) {
 
       String formatedTotalTTC = new DecimalFormat("#.###").format(paiementUpdate.getMontant());
-      int fractionalValue = Integer.parseInt(formatedTotalTTC.split("\\.")[1]);
+      int fractionalValue = Integer.parseInt(formatedTotalTTC.split("\\.")[0]);
 
       while(fractionalValue <= 99)
         fractionalValue *= 10;

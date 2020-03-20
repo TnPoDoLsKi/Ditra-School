@@ -43,10 +43,10 @@ public class UserService  {
       return new ResponseEntity<>(errorResponseModel, HttpStatus.BAD_REQUEST);
     }
 
-    if (!validators.usernameValidator(registerModel.getFullName())){
+   /* if (!validators.usernameValidator(registerModel.getFullName())){
       ErrorResponseModel errorResponseModel =new ErrorResponseModel(HttpStatus.BAD_REQUEST.value(),604,"fullName non valid \nA regexp for general username entry. Which doesn't allow special characters other than underscore. Username must be of length ranging(3-30). starting letter should be a number or a character.\n");
       return new ResponseEntity<>(errorResponseModel, HttpStatus.BAD_REQUEST);
-    }
+    }*/
 
     String bcryptHashPassword = BCrypt.withDefaults().hashToString(10, registerModel.getPassword().toCharArray());
     User user = new User(registerModel.getFullName(), bcryptHashPassword, registerModel.getEmail());
